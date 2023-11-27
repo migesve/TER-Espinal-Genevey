@@ -1,5 +1,5 @@
 # TER-Espinal-Genevey
-[Lien drive] (https://drive.google.com/drive/folders/1WBoV2sq9R3NPCGMnZGBQgJNF1m6RCuil?usp=drive_link)
+[Lien drive](https://drive.google.com/drive/folders/1WBoV2sq9R3NPCGMnZGBQgJNF1m6RCuil?usp=drive_link)
 
 ## RDV avec Lucile Vadcard 15/11/2023
 xxxxxxxxxxxx
