@@ -2,7 +2,12 @@
 [Lien drive](https://drive.google.com/drive/folders/1WBoV2sq9R3NPCGMnZGBQgJNF1m6RCuil?usp=drive_link)
 
 ## RDV avec Lucile Vadcard 15/11/2023
-xxxxxxxxxxxx
+Demande d’un logiciel mettant en lien plusieurs représentations possibles de la position d’un bébé durant l’accouchement.
+
+Représentation en sigles, en toute lettre, au moins 2 schéma simplifiés et 2 ou 3 schéma réalistes.
+
+La modification d’une représentation doit entraîner dynamiquement la modification des autre représentations pour les faire correspondre.
+
 ## RDV avec Lucile Vadcard 22/11/2023
 Logiciel educatif pour la maïeutique
 
@@ -21,7 +26,45 @@ Pour dans 15 jours présenter un peu nos transparences pour la présentation de 
 
 Créer le plan de développement et cahier de charges. 
 
-RDV Lucile Vadcard 29/11/2023
+## RDV Lucile Vadcard 29/11/2023
 Demander avec plus de détails comment se fait cette partie dans l'actualité. 
 
 Demander d'autres applis pour l'apprentissage soit en maïeutique, soit en anatomie, soit en médecine. 
+
+## RDV Lucile Vadcard 8/12/2023
+
+## RDV Damien Pellier 11/12/2023
+Choix de techno et pourquoi
+Base de donne
+Framework? Vue react angular -> animations libraries 
+
+Des sessions et se logger?
+
+Suivi des sessions?
+
+Cahier de recette: Scénario et ce qui fait l'appli 
+
+Plan de développement 
+Contraintes 
+
+20 min + questions 
+
+Questions pour Lucile:
+
+Besoin de session ?
+Contrôle d'accès ?
+Réception des résultats des étudiants ?
+Interface pour création d'exercice ou base de données d'exercice ?
+Interface spécial enseignants ?
+Rotation continue ou discret ?
+Récupérer au moins un set de données ou 2 ?
+
+## RDV Lucile Vadcard 19/12/2023
+
+## Un peu de biblio
+
+Liens article sur frameworks
+https://www.crio.do/blog/angular-vs-react/#:
+https://www.imaginarycloud.com/blog/vue-js-vs-react-an-app-on-both-frameworks/#:
+https://www.solidjs.com/
+https://www.tiny.cloud/blog/10-things-to-look-for-in-the-best-wysiwyg-html-editors/
