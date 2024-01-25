@@ -1,5 +1,6 @@
 # TER-Espinal-Genevey
 [Lien drive](https://drive.google.com/drive/folders/1WBoV2sq9R3NPCGMnZGBQgJNF1m6RCuil?usp=drive_link)
+[Lien presentation soutenance](https://docs.google.com/presentation/d/1Hq4VdY6Ov4F-rGT--wfHXsGbhINMy2bYHV5ulaMvo2I/edit?usp=sharing)
 
 ## RDV avec Lucile Vadcard 15/11/2023
 Demande d’un logiciel mettant en lien plusieurs représentations possibles de la position d’un bébé durant l’accouchement.
