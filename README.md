@@ -12,7 +12,9 @@ Ils ont reçu notre demande et ils vont travailler sur la question
 
 ## RDV Lucile Vadcard 14/02/2024
 Structure de la base des donnees et systeme provisoirte pour remplir , de type tableau/excel
+
 Syntaxes des noms des images 
+
 Hébergement
 
 ## RDV Lucile Vadcard 07/02/2024
