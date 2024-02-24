@@ -12,6 +12,12 @@ Université Grenoble Alpes
 
 Ils ont reçu notre demande et ils vont travailler sur la question
 
+## RDV Lucile Vadcard 22/02/2024
+ajouter dans la BD l'inclinaison de la tête dans les positions
+passer la donnée dans la table sets plutôt que angle
+Mme. Vadcard souhaiterait afficher des message spéciaux pour certaines erreurs (ex: représentation complétement inversé), il faudra donc préparer des testes pour identifier ces erreurs
+Lucile a peut être trouvé un moyen d'obtenir des illustrations, en attente de vérification 
+
 ## RDV Lucile Vadcard 14/02/2024
 Structure de la base des donnees et systeme provisoirte pour remplir , de type tableau/excel
 
