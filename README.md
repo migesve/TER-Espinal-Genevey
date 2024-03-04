@@ -7,6 +7,17 @@
 - Creer la base de donnees et formulaire en ligne
 - Ameliorer l'interface figma
 - Programmer l'interface en code code
+- BD valide pour RDV 18 mars
+- Maquette "backend" RDV 18 mars
+- Lire les documents pour la soutenance RDV 18 mars
+
+## RDV Damien Pellier 25/01/2024
+- Site web avec l'UGA, OHV, Hostinger, etc.
+- PostgreSQL
+- Historique des images?
+- Temps de realiser une question, un questionaire.
+- Suivi de clicks?
+- Reponses en JSON?
 
 ## Questions
 - Hebergement?
