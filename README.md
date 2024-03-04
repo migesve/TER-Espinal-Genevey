@@ -3,14 +3,13 @@
 [Lien presentation soutenance](https://docs.google.com/presentation/d/1Hq4VdY6Ov4F-rGT--wfHXsGbhINMy2bYHV5ulaMvo2I/edit?usp=sharing)
 [Lien BD](https://dbdiagram.io/d/BD-Maieutique-65d33717ac844320ae779687)
 
+## TO DO
+- Creer la base de donnees et formulaire en ligne
+- Ameliorer l'interface figma
+- Programmer l'interface en code code
 
-## Email 16/02/2014
-Thomas EDARD de LAPLANTE
-Intégrateur d'applications
-DSIM - Direction des Systèmes d'Information Mutualisés
-Université Grenoble Alpes
-
-Ils ont reçu notre demande et ils vont travailler sur la question
+## Questions
+- Hebergement?
 
 ## RDV Lucile Vadcard 22/02/2024
 ajouter dans la BD l'inclinaison de la tête dans les positions
@@ -20,6 +19,14 @@ passer la donnée dans la table sets plutôt que angle
 Mme. Vadcard souhaiterait afficher des message spéciaux pour certaines erreurs (ex: représentation complétement inversé), il faudra donc préparer des testes pour identifier ces erreurs
 
 Lucile a peut être trouvé un moyen d'obtenir des illustrations, en attente de vérification 
+
+## Email 16/02/2014
+Thomas EDARD de LAPLANTE
+Intégrateur d'applications
+DSIM - Direction des Systèmes d'Information Mutualisés
+Université Grenoble Alpes
+
+Ils ont reçu notre demande et ils vont travailler sur la question
 
 ## RDV Lucile Vadcard 14/02/2024
 Structure de la base des donnees et systeme provisoirte pour remplir , de type tableau/excel
