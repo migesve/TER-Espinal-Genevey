@@ -1,0 +1,17 @@
+{
+    "date" : ,
+    "cohoarte": ,
+    "heure" : ,
+    "Exercice id" : ,
+    "Question id" : {
+        "id": ,
+         "validation" : , 
+        "representation1" : { "text" : , "correct" : , "message" :},
+        "representation2" : { "text" : , "correct" : , "message" :},
+        "representation3" : { "imagID" : , "correct" : , "message" :},
+        "representation4" : { "imagID" : , "correct" : , "message" :},
+        "representation5" : { "inclinaison" : , "angle" : , "correct" : , "message" :},
+        "representation6" : { "inclinaison" : , "angle" : , "correct" : , "message" :}
+        }
+
+}
