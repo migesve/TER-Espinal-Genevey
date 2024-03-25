@@ -5,22 +5,40 @@
 
 ## TO DO
 - Creer la base de donnees et formulaire en ligne
-- Ameliorer l'interface figma
 - Programmer l'interface en code code
+
+## Deja fait
+- Ameliorer l'interface figma
 - BD valide pour RDV 18 mars
 - Maquette "backend" RDV 18 mars
 - Lire les documents pour la soutenance RDV 18 mars
+  
+## Questions
+- Hebergement?
+- 
+## RDV Lucile Vadcard 27/03/2024
 
-## RDV Damien Pellier 25/01/2024
+## RDV Lucile Vadcard 20/03/2024
+- Instalation stand alone, sans serveur
+- Exercices (difficultés) -> questions (difficultés) 
+- Tirage au sort des sets pour les questions "aléatoire modifié" (pour pas sortir 2 fois le meme cas, et autres contraintes de logique et donnees fournis au debut d'exercice)
+
+## RDV Damien Pellier 18/03/2024
+- Penser aux tests unitaires (tester les fonctions), d'integration (si jamais l'environement change, BD different etc), tests fonctionnels (l'appli fait bien ce que le client veut)
+- Prendre des notes au moment de l'installation
+- Video résumé pour la presentation finale
+
+## RDV Lucile Vadcard 11/03/2024
+- Regarder les erreurs plus fréquents etc et les erreurs avec origine de l'appli
+- Table extra, Schema cas limite des schémas non continues et explications
+
+## RDV Damien Pellier 04/03/2024
 - Site web avec l'UGA, OHV, Hostinger, etc.
 - PostgreSQL
 - Historique des images?
 - Temps de realiser une question, un questionaire.
 - Suivi de clicks?
 - Reponses en JSON?
-
-## Questions
-- Hebergement?
 
 ## RDV Lucile Vadcard 22/02/2024
 ajouter dans la BD l'inclinaison de la tête dans les positions
