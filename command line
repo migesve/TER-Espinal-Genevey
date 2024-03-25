@@ -1,0 +1,6 @@
+npm init -y
+npm create vite@latest //choose react and javascript + SWC
+cd // to chosen folder (maieutique)
+follow steps 2 to 4 -> https://tailwindcss.com/docs/guides/vite
+npm i -D react-router-dom
+npm run dev
