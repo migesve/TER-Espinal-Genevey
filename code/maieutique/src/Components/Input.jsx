@@ -1,21 +1,24 @@
 import cn from 'classnames'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext } from "react-hook-form";
 import { findInputError } from '../utils/findInputError'
 import { isFormInvalid } from '../utils/isFormValid'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdError } from 'react-icons/md'
 
-export const Input = ({ label, type, id, placeholder }) => {
+export const Input = ({ name, label, type, id, placeholder, validation, multiline, className }) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext();
 
-  const inputError = findInputError(errors, label)
+  const inputError = findInputError(errors, name)
   const isInvalid = isFormInvalid(inputError)
 
+  const input_tailwind =
+    'p-5 font-medium rounded-md w-full border border-slate-300 placeholder:opacity-60'
+
     return (
-      <div className="flex flex-col w-full gap-2">
+      <div className={cn('flex flex-col w-full gap-2',className)}>
         <div className="flex justify-between">
           <label htmlFor={id} className="font-semibold capitalize">
             {label}
@@ -29,18 +32,23 @@ export const Input = ({ label, type, id, placeholder }) => {
           )}
         </AnimatePresence>
         </div>
-        <input
-          id={id}
-          type={type}
-          className="w-full p-5 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
-          placeholder={placeholder}
-          {...register(label, {
-            required: {
-              value: true,
-              message: 'Obligatoire',
-            },
-          })}
-        />
+        {multiline ? (
+          <textarea
+            id={id}
+            type={type}
+            className={cn(input_tailwind, 'min-h-[10rem] max-h-[20rem] resize-y')}
+            placeholder={placeholder}
+            {...register(name, validation)}
+          ></textarea>
+        ) : (
+          <input
+            id={id}
+            type={type}
+            className={cn(input_tailwind)}
+            placeholder={placeholder}
+            {...register(name, validation)} // checks if the input 'name' is valid from dependencies useFormContext
+          />
+        )}
       </div>
     )
   }
