@@ -45,7 +45,7 @@ export const angle_1_validation = {
   validation: {
     required: {
       value: true,
-      message: "required",
+      message: "Obligatoire",
     },
     maxLength: {
       value: 3,
@@ -63,7 +63,7 @@ export const angle_2_validation = {
   validation: {
     required: {
       value: true,
-      message: "required",
+      message: "Obligatoire",
     },
     maxLength: {
       value: 3,
@@ -81,7 +81,7 @@ export const inclinaison_tete_validation = {
   validation: {
     required: {
       value: true,
-      message: "required",
+      message: "Obligatoire",
     },
     maxLength: {
       value: 3,
@@ -99,7 +99,7 @@ export const desc_validation = {
     validation: {
       required: {
         value: true,
-        message: 'required',
+        message: 'Obligatoire',
       },
       maxLength: {
         value: 200,
@@ -117,7 +117,7 @@ export const password_validation = {
     validation: {
       required: {
         value: true,
-        message: 'required',
+        message: 'Obligatoire',
       },
       minLength: {
         value: 6,
@@ -135,7 +135,7 @@ export const num_validation = {
     validation: {
       required: {
         value: true,
-        message: 'required',
+        message: 'Obligatoire',
       },
     },
   };

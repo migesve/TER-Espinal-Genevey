@@ -1,7 +1,8 @@
-npm init -y
+- clone dans le dossier projets
+- npm init -y
 npm create vite@latest //choose react and javascript + SWC
-cd // to chosen folder (maieutique)
+- cd TER-Espinal-Genevey/code/maieutique // to chosen folder (maieutique)
 follow steps 2 to 4 -> https://tailwindcss.com/docs/guides/vite
 npm i -D react-router-dom
 npm install react-hook-form
-npm run dev
+- npm run dev
