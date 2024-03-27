@@ -17,6 +17,11 @@
 - Hebergement?
 - 
 ## RDV Lucile Vadcard 27/03/2024
+- Moodle
+- Cas n'ont pas de relation avec angle tete et asynclitisme
+- Angle de la tete, ancynclytisme
+- Definir angles 0 en haut?
+- Dessin rond plus symple a nous de faire
 
 ## RDV Lucile Vadcard 20/03/2024
 - Instalation stand alone, sans serveur
