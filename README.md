@@ -15,7 +15,13 @@
   
 ## Questions
 - Hebergement?
+- Difficulte par exo ou par cas
+
+## Semaine 1 06/05/2024
+- Creation du Trello sur miges.fr/index/trello
+- Integration BD postgres et node.js react
 - 
+
 ## RDV Lucile Vadcard 27/03/2024
 - Moodle
 - Cas n'ont pas de relation avec angle tete et asynclitisme
