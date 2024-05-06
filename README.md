@@ -20,7 +20,7 @@
 ## Semaine 1 06/05/2024
 - Creation du Trello sur miges.fr/index/trello
 - Integration BD postgres et node.js react
-- 
+- lien pour tuto integration postgres/react : https://blog.logrocket.com/getting-started-postgres-react-app/
 
 ## RDV Lucile Vadcard 27/03/2024
 - Moodle
