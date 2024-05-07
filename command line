@@ -7,3 +7,12 @@ follow steps 2 to 4 -> https://tailwindcss.com/docs/guides/vite
 npm i -D react-router-dom
 npm install react-hook-form
 - npm run dev
+
+
+
+
+Backend
+node index.js
+
+Frontend
+npm run dev
