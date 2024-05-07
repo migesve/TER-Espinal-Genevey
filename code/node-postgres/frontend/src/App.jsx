@@ -7,7 +7,7 @@ import {useState, useEffect} from 'react';
 
 function App() {
   
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState(false);
 
   function getUser() {
     fetch('http://localhost:3001')
@@ -15,7 +15,7 @@ function App() {
         return response.text();
       })
       .then(data => {
-        setUser(data);
+        setUsers(data);
       });
   }
 

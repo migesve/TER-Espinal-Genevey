@@ -2,11 +2,11 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'my_user',
   host: 'localhost',
-  database: 'dataBasemaieutique',
+  database: 'databasemaieutique',
   password: 'root',
   port: 5432,
 });
-//get all merchants our database
+//get all users from our database
 const getUsers = async () => {
     try {
       return await new Promise(function (resolve, reject) {
@@ -26,7 +26,7 @@ const getUsers = async () => {
       throw new Error("Internal server error");
     }
   };
-  //create a new merchant record in the databsse
+  //create a new user record in the databsse
   const createUser = (body) => {
     return new Promise(function (resolve, reject) {
       const { username, cohorte } = body;
@@ -48,7 +48,7 @@ const getUsers = async () => {
       );
     });
   };
-  //delete a merchant
+  //delete an user
   const deleteUser = (id) => {
     return new Promise(function (resolve, reject) {
       pool.query(
@@ -63,7 +63,7 @@ const getUsers = async () => {
       );
     });
   };
-  //update a merchant record
+  //update an user record
   const updateUser = (id, body) => {
     return new Promise(function (resolve, reject) {
       const { username, cohorte } = body;
