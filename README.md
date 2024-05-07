@@ -15,7 +15,13 @@
   
 ## Questions
 - Hebergement?
-- Difficulte par exo ou par cas
+
+## RDV Lucile Vadcard 07/05/2024
+- 5 sets par exercice, 5 exercices par session - MODIFIER SI C'EST TROP PROBABLE DE TOMBER SUR LES MEMES SETS TOUT LE TEMPS
+- aleatoire sans reprise
+- logique de l'leatoire pour plusierus, faire des sous ensembles des exercices pour difficulté
+- modifier la proba des exercices deja fait
+- si on se trompe bcp des fois, avoir acces pour reviser
 
 ## Semaine 1 06/05/2024
 - Creation du Trello sur miges.fr/index/trello
