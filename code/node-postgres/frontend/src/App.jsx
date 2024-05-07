@@ -22,12 +22,13 @@ function App() {
   function createUser() {
     let username = prompt('Enter username');
     let cohorte = prompt('Enter cohorte name');
+    let password = prompt('Enter cohorte password');
     fetch('http://localhost:3001/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({username, cohorte}),
+      body: JSON.stringify({username, cohorte, password}),
     })
       .then(response => {
         return response.text();
@@ -56,12 +57,13 @@ function App() {
     let id = prompt('Enter user id');
     let username = prompt('Enter new username');
     let cohorte = prompt('Enter new cohorte name');
+    let password = prompt('Enter new password name');
     fetch(`http://localhost:3001/users/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({username, cohorte}),
+      body: JSON.stringify({username, cohorte, password}),
     })
       .then(response => {
         return response.text();

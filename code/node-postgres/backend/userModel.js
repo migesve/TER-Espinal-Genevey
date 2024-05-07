@@ -29,17 +29,17 @@ const getUsers = async () => {
   //create a new user record in the databsse
   const createUser = (body) => {
     return new Promise(function (resolve, reject) {
-      const { username, cohorte } = body;
+      const { username, cohorte, password } = body;
       pool.query(
-        "INSERT INTO users (username, cohorte) VALUES ($1, $2) RETURNING *",
-        [username, cohorte],
+        "INSERT INTO users (username, cohorte, password) VALUES ($1, $2, $3) RETURNING *",
+        [username, cohorte, password],
         (error, results) => {
           if (error) {
             reject(error);
           }
           if (results && results.rows) {
             resolve(
-              `A new merchant has been added: ${JSON.stringify(results.rows[0])}`
+              `A new user has been added: ${JSON.stringify(results.rows[0])}`
             );
           } else {
             reject(new Error("No results found"));
@@ -66,10 +66,10 @@ const getUsers = async () => {
   //update an user record
   const updateUser = (id, body) => {
     return new Promise(function (resolve, reject) {
-      const { username, cohorte } = body;
+      const { username, cohorte, password } = body;
       pool.query(
-        "UPDATE users SET username = $1, cohorte = $2 WHERE id = $3 RETURNING *",
-        [username, cohorte, id],
+        "UPDATE users SET username = $1, cohorte = $2, password = $3 WHERE id = $4 RETURNING *",
+        [username, cohorte, password, id],
         (error, results) => {
           if (error) {
             reject(error);
