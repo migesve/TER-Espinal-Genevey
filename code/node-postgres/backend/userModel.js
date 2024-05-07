@@ -2,15 +2,15 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'my_user',
   host: 'localhost',
-  database: 'dataBaseMaieutique',
-  password: 'Root12*+',
+  database: 'dataBasemaieutique',
+  password: 'root',
   port: 5432,
 });
 //get all merchants our database
-const getMerchants = async () => {
+const getUsers = async () => {
     try {
       return await new Promise(function (resolve, reject) {
-        pool.query("SELECT * FROM merchants", (error, results) => {
+        pool.query("SELECT * FROM users", (error, results) => {
           if (error) {
             reject(error);
           }
@@ -27,12 +27,12 @@ const getMerchants = async () => {
     }
   };
   //create a new merchant record in the databsse
-  const createMerchant = (body) => {
+  const createUser = (body) => {
     return new Promise(function (resolve, reject) {
-      const { name, email } = body;
+      const { username, cohorte } = body;
       pool.query(
-        "INSERT INTO merchants (name, email) VALUES ($1, $2) RETURNING *",
-        [name, email],
+        "INSERT INTO users (username, cohorte, created_at) VALUES ($1, $2, NOW()::date;) RETURNING *",
+        [username, cohorte, created_at],
         (error, results) => {
           if (error) {
             reject(error);
@@ -49,33 +49,33 @@ const getMerchants = async () => {
     });
   };
   //delete a merchant
-  const deleteMerchant = (id) => {
+  const deleteUser = (id) => {
     return new Promise(function (resolve, reject) {
       pool.query(
-        "DELETE FROM merchants WHERE id = $1",
+        "DELETE FROM users WHERE id = $1",
         [id],
         (error, results) => {
           if (error) {
             reject(error);
           }
-          resolve(`Merchant deleted with ID: ${id}`);
+          resolve(`User deleted with ID: ${id}`);
         }
       );
     });
   };
   //update a merchant record
-  const updateMerchant = (id, body) => {
+  const updateUser = (id, body) => {
     return new Promise(function (resolve, reject) {
-      const { name, email } = body;
+      const { username, cohorte } = body;
       pool.query(
-        "UPDATE merchants SET name = $1, email = $2 WHERE id = $3 RETURNING *",
-        [name, email, id],
+        "UPDATE users SET username = $1, cohorte = $2 WHERE id = $3 RETURNING *",
+        [username, cohorte, id],
         (error, results) => {
           if (error) {
             reject(error);
           }
           if (results && results.rows) {
-            resolve(`Merchant updated: ${JSON.stringify(results.rows[0])}`);
+            resolve(`User updated: ${JSON.stringify(results.rows[0])}`);
           } else {
             reject(new Error("No results found"));
           }
@@ -84,8 +84,8 @@ const getMerchants = async () => {
     });
   };
   module.exports = {
-    getMerchants,
-    createMerchant,
-    deleteMerchant,
-    updateMerchant
+    getUsers,
+    createUser,
+    deleteUser,
+    updateUser
   };
