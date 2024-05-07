@@ -31,8 +31,8 @@ const getUsers = async () => {
     return new Promise(function (resolve, reject) {
       const { username, cohorte } = body;
       pool.query(
-        "INSERT INTO users (username, cohorte, created_at) VALUES ($1, $2, NOW()::date;) RETURNING *",
-        [username, cohorte, created_at],
+        "INSERT INTO users (username, cohorte, created_at) VALUES ($1, $2, '2024-05-07') RETURNING *",
+        [username, cohorte],
         (error, results) => {
           if (error) {
             reject(error);
