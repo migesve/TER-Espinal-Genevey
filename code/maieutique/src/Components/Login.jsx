@@ -69,7 +69,7 @@ export const Login = () => {
               <GrLogin />
               Login
             </button>
-            <button onClick={() => navigate('/register')} className="flex items-center gap-1 p-5 my-5 font-semibold ">Céer un compte</button>
+            <button onClick={() => navigate('/creerCompte')} className="flex items-center gap-1 p-5 my-5 font-semibold ">Céer un compte</button>
           </div>
         </form>
       </FormProvider>
