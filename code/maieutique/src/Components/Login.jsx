@@ -15,7 +15,6 @@ export const Login = () => {
   const [error, setError] = useState(null);
   const {setUser} = useContext(AccountContext);
   const navigate = useNavigate();
-
   const methods = useForm()
   const [success, setSuccess] = useState(false)
 
