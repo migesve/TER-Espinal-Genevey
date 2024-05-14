@@ -8,8 +8,11 @@ import {
 import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { useState } from 'react'
 import { Button } from './Button'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
+
+  const navigate = useNavigate();
 
   const methods = useForm()
   const [success, setSuccess] = useState(false)
@@ -17,6 +20,24 @@ export const Login = () => {
   const onSubmit = methods.handleSubmit(data => {
     console.log(data)
     methods.reset()
+    fetch('http://localhost:4000/auth/login', {
+      method: 'POST',
+      credentials: "include", // to allow cookies
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).catch((error) => {
+      console.error('Error:', error);
+      return;
+    }).then((response) => {
+      if(!response || !response.ok || response.status >= 400) {return;}
+      console.log('Success:', response);
+      return response.json();
+    }).then((data) => {
+      if(!data) {return;}
+      console.log('Data:', data);
+    });
     setSuccess(true)
   })
 
@@ -41,7 +62,14 @@ export const Login = () => {
                 Conexion Réussie
               </p>
             )}
-            <Button onClick={onSubmit} text="Login" icon={GrLogin} />
+            <button
+              onClick={onSubmit}
+              className="flex items-center gap-1 p-5 my-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800"
+            >
+              <GrLogin />
+              Login
+            </button>
+            <button onClick={() => navigate('/register')} className="flex items-center gap-1 p-5 my-5 font-semibold ">Céer un compte</button>
           </div>
         </form>
       </FormProvider>
