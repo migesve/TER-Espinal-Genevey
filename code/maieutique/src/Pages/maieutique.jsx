@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react";
+import { Form } from "../Components/Form";
 
 export function Maieutique() {
 //   const [cas, setCas] = useState([]);
@@ -42,6 +43,7 @@ export function Maieutique() {
 
   return (
     <>
+      <Form />
     </>
     // <>
     //   <form onSubmit={handleSubmit}>

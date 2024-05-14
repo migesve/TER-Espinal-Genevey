@@ -113,7 +113,7 @@ export const password_validation = {
     label: 'password',
     type: 'password',
     id: 'password',
-    placeholder: 'type password ...',
+    placeholder: 'ecrivez votre password ...',
     validation: {
       required: {
         value: true,
@@ -142,10 +142,10 @@ export const num_validation = {
   
   export const email_validation = {
     name: "email",
-    label: "email address",
+    label: "adresse email",
     type: "email",
     id: "email",
-    placeholder: "write a random email address",
+    placeholder: "votre email ...",
     validation: {
       required: {
         value: true,
