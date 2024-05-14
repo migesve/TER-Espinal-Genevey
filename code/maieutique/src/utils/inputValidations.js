@@ -131,7 +131,7 @@ export const num_validation = {
     label: 'number',
     type: 'number',
     id: 'num',
-    placeholder: 'write a random number',
+    placeholder: 'Nombre',
     validation: {
       required: {
         value: true,
