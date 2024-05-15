@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { ExerciceCard } from "../Components/ExerciceCard";
+import { ExerciceCard } from "../../Components/ExerciceCard";
 
 export function Exercices() {
 

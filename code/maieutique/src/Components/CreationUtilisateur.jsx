@@ -27,7 +27,7 @@ export const CreationUtilisateur = () => {
           onSubmit={(e) => e.preventDefault()}
           noValidate
           autoComplete="off"
-          className="container"
+          className="container w-96 m-auto my-10"
         >
           <div className="grid gap-5">
             <Input { ...nomComplet_validation } />

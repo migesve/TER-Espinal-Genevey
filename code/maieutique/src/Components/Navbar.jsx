@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const navItems = [
   { id: 1, text: 'Home', path: '/'},
-  { id: 2, text: 'Saisir', path: '/maieutique'},
+  { id: 2, text: 'Saisir Nouveau Set', path: '/saisieSet'},
   { id: 3, text: 'Exercices', path: '/exercices'},
   { id: 4, text: 'Creer Compte', path: '/creerCompte'},
 ];

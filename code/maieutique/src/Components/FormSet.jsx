@@ -14,7 +14,7 @@ import {
 import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { useState } from 'react'
 
-export const Form = () => {
+export const FormSet = () => {
 
   const methods = useForm()
   const [success, setSuccess] = useState(false)
@@ -31,7 +31,7 @@ export const Form = () => {
           onSubmit={(e) => e.preventDefault()}
           noValidate
           autoComplete="off"
-          className="container"
+          className="container w-96 m-auto my-10"
         >
           <div className="grid gap-5 md:grid-cols-3">
             <Input { ...nomComplet_validation } className="md:col-span-3" />

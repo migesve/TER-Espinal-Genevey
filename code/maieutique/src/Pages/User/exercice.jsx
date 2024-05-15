@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { Cas } from "../Components/Cas";
+import { Cas } from "../../Components/Cas";
 
 export function Exercice() {
 
