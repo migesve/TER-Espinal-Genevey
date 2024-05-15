@@ -5,6 +5,7 @@ import { Home } from "./Pages/home";
 
 import { SaisieSet } from "./Pages/Admin/saisieSet";
 import { CreerExercice } from "./Pages/Admin/creerExercice";
+import { Sets } from "./Pages/Admin/sets";
 
 import { Exercices } from "./Pages/User/exercices";
 import { Exercice } from "./Pages/User/exercice";
@@ -19,9 +20,10 @@ function App() {
       <Routes>
         <Route element={<Layout />} >
           <Route path="/" element={<Home />} />
-          
+
           <Route path="/saisieSet" element={<SaisieSet />} />
           <Route path="/creerExercice" element={<CreerExercice />} />
+          <Route path="/sets" element={<Sets />} />
 
           <Route path="/exercices" element={<Exercices />} />
           <Route path="/exercice" element={<Exercice />} />

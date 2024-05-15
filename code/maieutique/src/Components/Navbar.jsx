@@ -6,6 +6,7 @@ const navItems = [
   { id: 3, text: 'Exercices', path: '/exercices'},
   { id: 4, text: 'Creer Compte', path: '/creerCompte'},
   { id: 5, text: 'Creer Exo', path: '/creerExercice'},
+  { id: 6, text: 'Sets', path: '/sets'},
 ];
 
 export function Navbar() {

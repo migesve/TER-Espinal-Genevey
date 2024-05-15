@@ -21,11 +21,16 @@ export const SelectDifficulte = () => {
     { value: '2', label: 'Difficile' },
   ]
 
+  const handleChange = (selectedOption) => {
+    console.log(selectedOption)
+  }
+  
     return (
       <Select
         options={options}
         placeholder="Difficulté"
         styles = {customStyles}
+        onChange={handleChange}
       />
     );
 }
