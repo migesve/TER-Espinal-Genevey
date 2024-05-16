@@ -158,3 +158,39 @@ export const num_validation = {
       },
     },
   };
+
+  export const cohorte_validation = {  // created by espinal/genevey (voir si on efface ou on garde)
+    name: "cohorte",
+    label: "Nom de la cohorte",
+    type: "text",
+    id: "cohorte",
+    placeholder: "Nom de Cohorte ...",
+    validation: {
+      required: {
+        value: true,
+        message: "Obligatoire",
+      },
+      maxLength: {
+        value: 30,
+        message: "30 characters max",
+      },
+    },
+  };
+
+  export const username_validation = {  // created by espinal/genevey (voir si on efface ou on garde)
+    name: "username",
+    label: "Nom d'utilisateur",
+    type: "text",
+    id: "username",
+    placeholder: "Nom d'utilisateur ...",
+    validation: {
+      required: {
+        value: true,
+        message: "Obligatoire",
+      },
+      maxLength: {
+        value: 30,
+        message: "30 characters max",
+      },
+    },
+  };

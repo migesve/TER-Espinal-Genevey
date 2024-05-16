@@ -6,12 +6,13 @@ import {
   password_validation,
 } from '../utils/inputValidations'
 import { BsFillCheckSquareFill } from 'react-icons/bs'
-import { useState } from 'react'
 import { Button } from './Button'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AccountContext } from './AccountContext'
 
 export const Login = () => {
-
+  const {setUser} = useContext(AccountContext);
   const navigate = useNavigate();
 
   const methods = useForm()
@@ -37,8 +38,13 @@ export const Login = () => {
     }).then((data) => {
       if(!data) {return;}
       console.log('Data:', data);
+      if(data.LoggedIn){
+        setUser({ ...data});
+        setSuccess(true);
+        //navigate('/');
+      }
     });
-    setSuccess(true)
+    
   })
 
     return (

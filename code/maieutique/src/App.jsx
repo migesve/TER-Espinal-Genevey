@@ -14,29 +14,36 @@ import { FinExercice } from "./Pages/User/finExercice";
 
 import { CreerCompte } from "./Pages/creerCompte";
 import { Layout } from "./Layout";
+import PrivateRoutes from "./Components/PrivateRoutes";
+import UserContext from "./Components/AccountContext";
 
 
 function App() {
   
   return (
-    <Router>
-      <Routes>
-        <Route element={<Layout />} >
-          <Route path="/" element={<Home />} />
+    <UserContext>
+      <Router>
+        <Routes>
+          <Route element={<Layout />} >
+            <Route path="/" element={<Home />} />
 
-          <Route path="/saisieSet" element={<SaisieSet />} />
+            <Route path="/creerCompte" element={<CreerCompte />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/saisieSet" element={<SaisieSet />} />
           <Route path="/creerExercice" element={<CreerExercice />} />
           <Route path="/sets" element={<Sets />} />
 
-          <Route path="/exercices" element={<Exercices />} />
-          <Route path="/exercice" element={<Exercice />} />
+              <Route path="/exercices" element={<Exercices />} />
+              <Route path="/exercice" element={<Exercice />} />
           <Route path="/retourExercice" element={<RetourExercice />} />
           <Route path="/finExercice" element={<FinExercice />} />
 
-          <Route path="/creerCompte" element={<CreerCompte />} />
-        </Route>
-      </Routes>
-    </Router>
+            </Route>
+            <Route path="*" element={<Home />} />
+          </Route>
+        </Routes>
+      </Router>
+    </UserContext>
   );
 }
 
