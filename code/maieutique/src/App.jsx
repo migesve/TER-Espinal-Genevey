@@ -1,6 +1,6 @@
 import "./App.css";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
+import { useContext } from "react";
 import { Home } from "./Pages/home";
 
 import { SaisieSet } from "./Pages/Admin/saisieSet";
@@ -27,7 +27,6 @@ function App() {
       <Router>
         <Routes>
           <Route element={<Layout />} >
-            <Route path="/" element={<Home />} />
             <Route path="/creerCompte" element={<CreerCompte />} />
 
             <Route element={<PrivateRoutes />}>
@@ -46,6 +45,7 @@ function App() {
                 
               </Route>
             </Route>
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
