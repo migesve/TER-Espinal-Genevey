@@ -26,19 +26,16 @@ function App() {
         <Routes>
           <Route element={<Layout />} >
             <Route path="/" element={<Home />} />
-
             <Route path="/creerCompte" element={<CreerCompte />} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/saisieSet" element={<SaisieSet />} />
-          <Route path="/creerExercice" element={<CreerExercice />} />
-          <Route path="/sets" element={<Sets />} />
-
+              <Route path="/maieutique" element={<Maieutique />} />
               <Route path="/exercices" element={<Exercices />} />
               <Route path="/exercice" element={<Exercice />} />
           <Route path="/retourExercice" element={<RetourExercice />} />
           <Route path="/finExercice" element={<FinExercice />} />
 
             </Route>
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
