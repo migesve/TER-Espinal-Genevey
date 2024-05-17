@@ -14,7 +14,10 @@
 - Lire les documents pour la soutenance RDV 18 mars
   
 ## Questions
-- Hebergement?
+
+## Semaine 13/05/2024
+- Hebergement chez nova - gricad
+- Ajout de react-select et mui react data-grid
 
 ## RDV Lucile Vadcard 07/05/2024
 - 5 sets par exercice, 5 exercices par session - MODIFIER SI C'EST TROP PROBABLE DE TOMBER SUR LES MEMES SETS TOUT LE TEMPS
