@@ -13,7 +13,7 @@ export function Navbar() {
   return (
     //<div className="flex-no-wrap relative flex w-full items-center justify-between bg-slate py-2 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4">
     //<div className="bg-white w-full sticky justify-between items-center max-w-4xl left-0 mx-auto text-white z-50 top-0">
-    <div className="group fixed inset-x-0 top-0 bg-white flex justify-between items-center h-24 mx-auto px-4 text-white z-50">
+    <div className="group inset-x-0 top-0 bg-white flex justify-between items-center h-18 mx-auto px-4 text-white z-50">
       <ul className="md:flex">
         {navItems.map((item) => (
           <Link key={item.id} to={item.path}>
