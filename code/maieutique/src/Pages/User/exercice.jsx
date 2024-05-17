@@ -7,7 +7,9 @@ export function Exercice() {
     <>
       <h1>Exercice X</h1>
       <h2>Question X/X</h2>
-      <button className="bg-red-500" >Finir Question</button>
+      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-red-600 rounded-md hover:bg-red-800">
+        Finir Question
+      </button>
       <div className="grid md:grid-cols-6">
         <Cas />
         <Cas />
@@ -16,7 +18,13 @@ export function Exercice() {
         <Cas />
         <Cas />
       </div>
-      <button>Cas suivant</button>
+      <div>
+        <h3>Reponse</h3>
+        <div className="rectangle" />
+      </div>
+      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-green-600 rounded-md hover:bg-green-800">
+        Cas suivant
+      </button>
     </>
   );
 }

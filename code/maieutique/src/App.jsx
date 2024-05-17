@@ -9,6 +9,7 @@ import { Sets } from "./Pages/Admin/sets";
 
 import { Exercices } from "./Pages/User/exercices";
 import { Exercice } from "./Pages/User/exercice";
+import { RetourExercice } from "./Pages/User/retourExercice";
 
 import { CreerCompte } from "./Pages/creerCompte";
 import { Layout } from "./Layout";
@@ -27,6 +28,7 @@ function App() {
 
           <Route path="/exercices" element={<Exercices />} />
           <Route path="/exercice" element={<Exercice />} />
+          <Route path="/retourExercice" element={<RetourExercice />} />
 
           <Route path="/creerCompte" element={<CreerCompte />} />
         </Route>

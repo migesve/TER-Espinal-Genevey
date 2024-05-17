@@ -6,7 +6,7 @@ const navItems = [
 
 export function Footer() {
   return (
-    <div className="bg-white flex justify-between items-center h-24 mx-auto px-4 text-white">
+    <div className="group fixed inset-x-0 bottom-0 bg-white flex justify-between items-center h-24 mx-auto px-4 text-white z-50">
       <ul className="md:flex">
         {navItems.map((item) => (
           <Link key={item.id} to={item.path}>

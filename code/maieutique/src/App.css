@@ -6,6 +6,20 @@
   height:100%;
 }
 
+.rectangle {
+  display: inline-block;
+  width: 30%;
+  height: 400px;
+  margin-right: 20px;
+  background: rgb(235, 111, 111);
+}
+.rectangle2 {
+  display: inline-block;
+  width: 30%;
+  height: 400px;
+  background: rgb(111, 235, 115);
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

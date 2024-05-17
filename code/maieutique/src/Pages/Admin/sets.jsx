@@ -17,6 +17,12 @@ export function Sets() {
 
   return (
     <>
+      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800">
+        Créer un set
+      </button>
+      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800">
+        Créer un exercice
+      </button>
       <h1>Sets existents</h1>
       <div className="w-96 m-auto my-10 bg-sky-50">
         <DataGrid rows={rows} columns={columns} />
