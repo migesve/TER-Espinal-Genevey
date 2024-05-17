@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { AccountContext } from './AccountContext'
 
 export const Login = () => {
+  const [error, setError] = useState(null);
   const {setUser} = useContext(AccountContext);
   const navigate = useNavigate();
 
@@ -38,8 +39,10 @@ export const Login = () => {
     }).then((data) => {
       if(!data) {return;}
       console.log('Data:', data);
-      if(data.LoggedIn){
-        setUser({ ...data});
+      setUser({ ...data});
+      if(data.status){
+        setError(data.status);
+      }else if(data.LoggedIn){
         setSuccess(true);
         //navigate('/');
       }
@@ -56,6 +59,7 @@ export const Login = () => {
           autoComplete="off"
           className="container w-96 m-auto my-10"
         >
+          <p className='text-red-500'>{error}</p>
           <div className="grid gap-5">
             <h3 className="flex">Login</h3>
             <Input { ...email_validation } />

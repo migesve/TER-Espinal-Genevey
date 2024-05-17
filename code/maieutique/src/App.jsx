@@ -27,6 +27,7 @@ function App() {
           <Route element={<Layout />} >
             <Route path="/" element={<Home />} />
             <Route path="/creerCompte" element={<CreerCompte />} />
+            <Route path="/" element={<Home />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/maieutique" element={<Maieutique />} />
               <Route path="/exercices" element={<Exercices />} />
@@ -35,7 +36,6 @@ function App() {
           <Route path="/finExercice" element={<FinExercice />} />
 
             </Route>
-            <Route path="/" element={<Home />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>

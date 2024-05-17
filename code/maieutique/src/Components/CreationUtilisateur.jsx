@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { AccountContext } from './AccountContext'
 
 export const CreationUtilisateur = () => {
+  const [error, setError] = useState(null);
   const {setUser} = useContext(AccountContext);
   const navigate = useNavigate();
 
@@ -42,8 +43,10 @@ export const CreationUtilisateur = () => {
     }).then((data) => {
       if(!data) {return;}
       console.log('Data:', data);
-      if(data.LoggedIn){
-        setUser({ ...data});
+      setUser({ ...data});
+      if(data.status){
+        setError(data.status);
+      }else if(data.LoggedIn){
         setSuccess(true);
         //navigate('/');
       }
@@ -54,12 +57,14 @@ export const CreationUtilisateur = () => {
 
     return (
       <FormProvider {...methods}>
+        
         <form
           onSubmit={(e) => e.preventDefault()}
           noValidate
           autoComplete="off"
           className="container w-96 m-auto my-10"
         >
+          <p className='text-red-500'>{error}</p>
           <div className="grid gap-5">
             <Input { ...username_validation } />
             <Input { ...email_validation } />

@@ -53,19 +53,29 @@ router.post('/register', async (req, res) => {
     );
 
     if(existingUser.rowCount == 0){
-        const hashedPass = await bcrypt.hash(req.body.password, 10);
-
-        const newUserQuery = await pool.query(
-            'Insert INTO users (username, passhash, email, statut, cohorte) VALUES ($1, $2, $3, $4, $5) RETURNING id, username, statut, cohorte',
-            [req.body.username, hashedPass, req.body.email, 'étudiant', req.body.cohorte]
+        const existingEmail = await pool.query(
+            'SELECT username FROM users WHERE email = $1', 
+            [req.body.email]
         );
-        req.session.user = {
-            username:newUserQuery.rows[0].username,
-            id:newUserQuery.rows[0].id,
-            statut:newUserQuery.rows[0].statut,
-            cohorte:newUserQuery.rows[0].cohorte
+        if(existingEmail.rowCount == 0){
+            const hashedPass = await bcrypt.hash(req.body.password, 10);
+
+            const newUserQuery = await pool.query(
+                'Insert INTO users (username, passhash, email, statut, cohorte) VALUES ($1, $2, $3, $4, $5) RETURNING id, username, statut, cohorte',
+                [req.body.username, hashedPass, req.body.email, 'étudiant', req.body.cohorte]
+            );
+            req.session.user = {
+                username:newUserQuery.rows[0].username,
+                id:newUserQuery.rows[0].id,
+                statut:newUserQuery.rows[0].statut,
+                cohorte:newUserQuery.rows[0].cohorte
+            }
+            res.json({ LoggedIn : true, username: req.body.username});
         }
-        res.json({ LoggedIn : true, username: req.body.username});
+        else {
+            res.json({ LoggedIn : false, status : "Email déjà utilisé"});
+        }
+        
     }
     else {
         res.json({ LoggedIn : false, status : "Nom d'utilisateur déjà utilisé"});
