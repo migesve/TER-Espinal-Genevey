@@ -15,6 +15,8 @@ import { FinExercice } from "./Pages/User/finExercice";
 import { CreerCompte } from "./Pages/creerCompte";
 import { Layout } from "./Layout";
 import PrivateRoutes from "./Components/PrivateRoutes";
+import ProfesseurRoutes from "./Components/ProfesseurRoutes";
+import AdminRoutes from "./Components/AdminRoutes";
 import UserContext from "./Components/AccountContext";
 
 
@@ -27,14 +29,22 @@ function App() {
           <Route element={<Layout />} >
             <Route path="/" element={<Home />} />
             <Route path="/creerCompte" element={<CreerCompte />} />
-            <Route path="/" element={<Home />} />
+
             <Route element={<PrivateRoutes />}>
-              <Route path="/maieutique" element={<Maieutique />} />
               <Route path="/exercices" element={<Exercices />} />
               <Route path="/exercice" element={<Exercice />} />
-          <Route path="/retourExercice" element={<RetourExercice />} />
-          <Route path="/finExercice" element={<FinExercice />} />
+              <Route path="/retourExercice" element={<RetourExercice />} />
+              <Route path="/finExercice" element={<FinExercice />} />
 
+              <Route element={<ProfesseurRoutes />}>
+                <Route path="/creerExercice" element={<CreerExercice />} />
+                <Route path="/saisieSet" element={<SaisieSet />} />
+                <Route path="/sets" element={<Sets />} />
+              </Route>
+
+              <Route element={<ProfesseurRoutes />}>
+                
+              </Route>
             </Route>
             <Route path="*" element={<Home />} />
           </Route>

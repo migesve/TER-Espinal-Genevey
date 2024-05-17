@@ -11,7 +11,7 @@ router
     .get(async (req, res) => {
         if(req.session.user && req.session.user.username){
             console.log(req.session.user.username);
-            res.json({ LoggedIn : true, username: req.session.user.username});
+            res.json({ LoggedIn : true, username: req.session.user.username, statut: req.session.user.statut, cohorte: req.session.user.cohorte});
         }else{
             res.json({ LoggedIn : false});
         }
@@ -35,7 +35,7 @@ router
                     statut:potentialLogin.rows[0].statut,
                     cohorte:potentialLogin.rows[0].cohorte
                 }
-                res.json({ LoggedIn : true, username: potentialLogin.rows[0].username});
+                res.json({ LoggedIn : true, username: potentialLogin.rows[0].username, statut: potentialLogin.rows[0].statut, cohorte: potentialLogin.rows[0].cohorte});
             }else{
                 res.json({ LoggedIn : false, status : "Email ou mot de passe incorrect !"});
             }
@@ -70,7 +70,7 @@ router.post('/register', async (req, res) => {
                 statut:newUserQuery.rows[0].statut,
                 cohorte:newUserQuery.rows[0].cohorte
             }
-            res.json({ LoggedIn : true, username: req.body.username});
+            res.json({ LoggedIn : true, username: req.body.username, statut: newUserQuery.rows[0].statut, cohorte: newUserQuery.rows[0].cohorte});
         }
         else {
             res.json({ LoggedIn : false, status : "Email déjà utilisé"});
