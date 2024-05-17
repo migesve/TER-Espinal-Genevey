@@ -45,7 +45,6 @@ function App() {
                 
               </Route>
             </Route>
-            <Route path="/" element={<Home />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
