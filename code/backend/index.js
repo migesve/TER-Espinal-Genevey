@@ -4,6 +4,10 @@ const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
 const authRouter = require('./routers/authRouter');
+const setsRouter = require('./routers/setsRouter');
+const schema3Router = require('./routers/schema3Router');
+const schema4Router = require('./routers/schema4Router');
+const inclinaisonRouter = require('./routers/inclinaisonRouter');
 const session = require('express-session');
 require('dotenv').config();
 
@@ -37,6 +41,10 @@ app.use(session({
     }
 }));
 app.use('/auth', authRouter);
+app.use('/sets', setsRouter);
+app.use('/schema3', schema3Router);
+app.use('/schema4', schema4Router);
+app.use('inclinaison', inclinaisonRouter);
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
