@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { GrMail } from 'react-icons/gr'
 import { BsFillCheckSquareFill } from 'react-icons/bs'
+import { Button } from './Button'
 
 export const FormCreerExercice = () => {
 
@@ -34,13 +35,7 @@ export const FormCreerExercice = () => {
                 Exercice Sauvegardé
               </p>
             )}
-            <button
-              onClick={onSubmit}
-              className="flex items-center gap-1 p-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800"
-            >
-              <GrMail />
-              Sauvegarder Exercice
-            </button>
+            <Button onClick={onSubmit} text="Sauvegarder Exercice" icon={GrMail} />
           </div>
         </form>
       </FormProvider>

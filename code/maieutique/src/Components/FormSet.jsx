@@ -1,6 +1,6 @@
 import { Input } from './Input'
 import { FormProvider, useForm } from 'react-hook-form'
-import { GrMail } from 'react-icons/gr'
+import { GrSave } from 'react-icons/gr'
 import {
   nomComplet_validation,
   abbreviation_validation,
@@ -13,6 +13,7 @@ import {
 } from '../utils/inputValidations'
 import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { useState } from 'react'
+import { Button } from './Button'
 
 export const FormSet = () => {
 
@@ -48,13 +49,7 @@ export const FormSet = () => {
                 Cas Sauvegardé
               </p>
             )}
-            <button
-              onClick={onSubmit}
-              className="flex items-center gap-1 p-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800"
-            >
-              <GrMail />
-              Sauvegarder Cas
-            </button>
+            <Button onClick={onSubmit} text="Sauvegarder Cas" icon={GrSave} />
           </div>
         </form>
       </FormProvider>

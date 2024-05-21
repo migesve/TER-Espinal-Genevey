@@ -9,6 +9,7 @@ import {
 } from '../utils/inputValidations'
 import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { useState } from 'react'
+import { Button } from './Button'
 
 export const CreationUtilisateur = () => {
 
@@ -42,13 +43,7 @@ export const CreationUtilisateur = () => {
                 Creation Réussie
               </p>
             )}
-            <button
-              onClick={onSubmit}
-              className="flex items-center gap-1 p-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800"
-            >
-              <GrLogin />
-              Enregister
-            </button>
+            <Button onClick={onSubmit} text="Enregister" icon={GrLogin} />
           </div>
         </form>
       </FormProvider>

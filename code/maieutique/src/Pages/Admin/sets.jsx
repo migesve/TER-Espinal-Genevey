@@ -1,8 +1,19 @@
 import { useEffect,useState } from "react";
 import { FormSet } from "../../Components/FormSet";
 import { DataGrid } from '@mui/x-data-grid';
+import { Button } from "../../Components/Button";
+import { useForm } from "react-hook-form";
 
 export function Sets() {
+  
+  const methods = useForm()
+  const [success, setSuccess] = useState(false)
+
+  const onSubmit = methods.handleSubmit(data => {
+    console.log(data)
+    methods.reset()
+    setSuccess(true)
+  })
 
   const rows = [
     { id: 1, col1: 'Hello', col2: 'World' },
@@ -17,12 +28,10 @@ export function Sets() {
 
   return (
     <>
-      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800">
-        Créer un set
-      </button>
-      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-800">
-        Créer un exercice
-      </button>
+      <div className="flex justify-center space-x-4">
+        <Button onClick={onSubmit} text="Créer un set" />
+        <Button onClick={onSubmit} text="Créer un exercice" />
+      </div>
       <h1>Sets existents</h1>
       <div className="w-96 m-auto my-10 bg-sky-50">
         <DataGrid rows={rows} columns={columns} />

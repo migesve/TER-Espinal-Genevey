@@ -1,15 +1,24 @@
 import { useEffect,useState } from "react";
 import { Cas } from "../../Components/Cas";
+import { Button } from "../../Components/Button";
+import { useForm } from "react-hook-form";
+
 
 export function Exercice() {
 
+  const methods = useForm()
+  const [success, setSuccess] = useState(false)
+
+  const onSubmit = methods.handleSubmit(data => {
+    console.log(data)
+    methods.reset()
+    setSuccess(true)
+  })
   return (
     <>
       <h1>Exercice X</h1>
       <h2>Question X/X</h2>
-      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-red-600 rounded-md hover:bg-red-800">
-        Finir Question
-      </button>
+      <Button onClick={onSubmit} text="Finir Question" color="red" hoverColor="red" />
       <div className="grid md:grid-cols-6">
         <Cas />
         <Cas />
@@ -22,9 +31,7 @@ export function Exercice() {
         <h3>Reponse</h3>
         <div className="rectangle" />
       </div>
-      <button className="items-center gap-1 p-4 m-5 font-semibold text-white bg-green-600 rounded-md hover:bg-green-800">
-        Cas suivant
-      </button>
+      <Button onClick={onSubmit} text="Cas suivant" color="green" hoverColor="green" />
     </>
   );
 }
