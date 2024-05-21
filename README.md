@@ -14,6 +14,8 @@
 - Lire les documents pour la soutenance RDV 18 mars
   
 ## Questions
+- Toutes les inclinaitions pour toutes les position
+- Menu deroulant, select multiple, etc (on va faire des exemples pour montrer)
 
 ## Semaine 13/05/2024
 - Hebergement chez nova - gricad
