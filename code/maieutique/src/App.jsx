@@ -41,10 +41,11 @@ function App() {
                 <Route path="/sets" element={<Sets />} />
               </Route>
 
-              <Route element={<ProfesseurRoutes />}>
+              <Route element={<AdminRoutes />}>
                 
               </Route>
             </Route>
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
