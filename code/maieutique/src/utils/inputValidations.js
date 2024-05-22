@@ -196,6 +196,10 @@ export const num_validation = {
         value: true,
         message: "Obligatoire",
       },
+      minLength: {
+        value: 4,
+        message: 'min 4 characters',
+      },
       maxLength: {
         value: 30,
         message: "30 characters max",
