@@ -9,6 +9,40 @@ export function Exercice() {
   const methods = useForm()
   const [success, setSuccess] = useState(false)
 
+  
+  fetch('http://localhost:4000/sets/getAll', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }).catch((error) => {
+      console.error('Error:', error);
+      return;
+  }).then((response) => {
+      if(!response || !response.ok || response.status >= 400) {return;}
+      //console.log('Success:', response);
+      return response.json();
+    }).then((data) => {
+      console.log('Data : ',data);
+      if(!data) {
+        console.log('No data');
+        return;
+      }
+      if(data.status){
+        console.log('Error:', data.status);
+        setError(data.status);
+      }else if(data.Success){
+        setSuccess(true);
+        console.log('Sets : ',data.sets);
+        //navigate('/');
+      }
+    });
+
+  const exercice = {
+    question1: {},
+    reponse1: "Reponse X/X"
+  }
+
   const onSubmit = methods.handleSubmit(data => {
     console.log(data)
     methods.reset()

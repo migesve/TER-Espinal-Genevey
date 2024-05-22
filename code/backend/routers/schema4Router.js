@@ -14,9 +14,9 @@ router
         console.log(listeSchema4.rows);
 
         if (listeSchema4.rowCount > 0) {
-            res.json({ Succes: true, schemas4: listeSchema4.rows });
+            return res.json({ Succes: true, schemas4: listeSchema4.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des schema4 n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des schema4 n'a pas pu être récupérée !" });
         }
     });
 
@@ -31,9 +31,9 @@ router
         console.log(listeSchema4.rows);
 
         if (listeSchema4.rowCount > 0) {
-            res.json({ Succes: true, Schemas4: listeSchema4.rows });
+            return res.json({ Succes: true, Schemas4: listeSchema4.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des schema4 n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des schema4 n'a pas pu être récupérée !" });
         }
     });
 

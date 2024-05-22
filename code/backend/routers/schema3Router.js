@@ -14,9 +14,9 @@ router
         console.log(listeSchema3.rows);
 
         if (listeSchema3.rowCount > 0) {
-            res.json({ Succes: true, schemas3: listeSchema3.rows });
+            return res.json({ Succes: true, schemas3: listeSchema3.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
         }
     });
 
@@ -31,9 +31,9 @@ router
         console.log(listeSchema3.rows);
 
         if (listeSchema3.rowCount > 0) {
-            res.json({ Succes: true, Schemas3: listeSchema3.rows });
+            return res.json({ Succes: true, Schemas3: listeSchema3.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
         }
     });
 
@@ -52,10 +52,10 @@ router.post('/upload', async (req, res) => {
                 'Insert INTO schema3 (image_name, image_path, position_id, inclinaison_id) VALUES ($1, $2, $3, $4) RETURNING *',
                 [req.body.image_name, 'src/images/schema3/' + req.body.image_name, position_id, inclinaison_id]
             );
-            res.json({ Succes: true, schema3_id: newSchema3Query.rows[0].schema3_id, image_name: newSchema3Query.rows[0].image_name, image_path: newSchema3Query.rows[0].position_id, inclinaison_id: newSchema3Query.rows[0].inclinaison_id });
+            return res.json({ Succes: true, schema3_id: newSchema3Query.rows[0].schema3_id, image_name: newSchema3Query.rows[0].image_name, image_path: newSchema3Query.rows[0].position_id, inclinaison_id: newSchema3Query.rows[0].inclinaison_id });
         }
         else {
-            res.json({ Succes: false, status: "Le schema existe déjà !" });
+            return res.json({ Succes: false, status: "Le schema existe déjà !" });
         }
     } catch (err) {
         console.error(err);

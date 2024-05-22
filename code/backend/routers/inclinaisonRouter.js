@@ -14,9 +14,9 @@ router
         console.log(listeInclinaisons.rows);
 
         if (listeInclinaisons.rowCount > 0) {
-            res.json({ Succes: true, inclinaisons: listeInclinaisons.rows });
+            return res.json({ Succes: true, inclinaisons: listeInclinaisons.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des inclinaisons n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des inclinaisons n'a pas pu être récupérée !" });
         }
     });
 
@@ -31,9 +31,9 @@ router
         console.log(listeInclinaisons.rows);
 
         if (listeInclinaisons.rowCount > 0) {
-            res.json({ Succes: true, Inclinaisons: listeInclinaisons.rows });
+            return res.json({ Succes: true, Inclinaisons: listeInclinaisons.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des inclinaisons n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des inclinaisons n'a pas pu être récupérée !" });
         }
     });
 
@@ -52,10 +52,10 @@ router.post('/upload', async (req, res) => {
                 'Insert INTO inclinaison (label, degres_min, degres_max) VALUES ($1, $2, $3) RETURNING *',
                 [req.body.label, req.body.degres_min, degres_max]
             );
-            res.json({ Succes: true, inclinaison_id: newInclinaisonQuery.rows[0].inclinaison_id, label: newInclinaisonQuery.rows[0].label, degres_min: newInclinaisonQuery.rows[0].degres_min, degres_max: newInclinaisonQuery.rows[0].degres_max });
+            return res.json({ Succes: true, inclinaison_id: newInclinaisonQuery.rows[0].inclinaison_id, label: newInclinaisonQuery.rows[0].label, degres_min: newInclinaisonQuery.rows[0].degres_min, degres_max: newInclinaisonQuery.rows[0].degres_max });
         }
         else {
-            res.json({ Succes: false, status: "L'inclinaison existe déjà !" });
+            return res.json({ Succes: false, status: "L'inclinaison existe déjà !" });
         }
     } catch (err) {
         console.error(err);

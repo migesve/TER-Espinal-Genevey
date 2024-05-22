@@ -14,9 +14,9 @@ router
         console.log(listeSets.rows);
 
         if (listeSets.rowCount > 0) {
-            res.json({ Succes: true, sets: listeSets.rows });
+            return res.json({ Succes: true, sets: listeSets.rows });
         } else {
-            res.json({ Succes: false, status: "La liste des sets n'a pas pu être récupérée !" });
+            return res.json({ Succes: false, status: "La liste des sets n'a pas pu être récupérée !" });
         }
     });
 
