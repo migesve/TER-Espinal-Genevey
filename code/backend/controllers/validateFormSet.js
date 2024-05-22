@@ -9,18 +9,16 @@ const formSchemaSet = Yup.object().shape({
     angle2: Yup.number().integer().required("angle2 requis").min(0, "l'angle doit être suppérieur ou égale à 0").max(359, "L'angle doit être inférieur ou égale à 359"),
 });
 
-const validateFormSet = (req, res) => {
+const validateFormSet = async (req, res) => {
     const formeData = req.body;
-    formSchemaSet
-        .validate(formeData)
-        .catch(err => {
-            res.status(422).send();
+    
+    try{
+        await formSchemaSet.validate(formeData);
+        console.log("Formulaire validé");
+    }catch(err) {
             console.log(err.errors);
-    }).then(valid => {  
-        if (valid) {
-            console.log("Formulaire validé");
-        }
-    });
+            res.status(422).send({error: err.errors});
+    };
 };
 
 module.exports = validateFormSet;

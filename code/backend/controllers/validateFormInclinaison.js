@@ -7,18 +7,16 @@ const formSchemaInclinaison = Yup.object().shape({
     inclinaison_id: Yup.number().integer().required("le degres maximum d'inclinaison est requis").min(0, "l'inclinaison doit être suppérieur ou égale à 0").max(100, "l'inclinaison doit être inferieur ou égale à 100"),
 });
 
-const validateFormInclinaison = (req, res) => {
+const validateFormInclinaison = async (req, res) => {
     const formeData = req.body;
-    formSchemaInclinaison
-        .validate(formeData)
-        .catch(err => {
-            res.status(422).send();
-            console.log(err.errors);
-    }).then(valid => {  
-        if (valid) {
-            console.log("Formulaire validé");
-        }
-    });
+
+    try{
+        await formSchemaInclinaison.validate(formeData);
+        console.log("Formulaire validé");
+    }catch(err){
+        console.log(err.errors);
+        res.status(422).send({error: err.errors});
+    };
 };
 
 module.exports = validateFormInclinaison;

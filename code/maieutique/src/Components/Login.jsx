@@ -19,7 +19,6 @@ export const Login = () => {
   const [success, setSuccess] = useState(false)
 
   const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
     methods.reset()
     fetch('http://localhost:4000/auth/login', {
       method: 'POST',
@@ -37,7 +36,6 @@ export const Login = () => {
       return response.json();
     }).then((data) => {
       if(!data) {return;}
-      console.log('Data:', data);
       setUser({ ...data});
       if(data.status){
         setError(data.status);

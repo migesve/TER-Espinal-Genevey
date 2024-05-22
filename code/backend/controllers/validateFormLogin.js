@@ -5,18 +5,15 @@ const formSchemaLogin = Yup.object().shape({
     password: Yup.string().required("Mot de passe requis").min(6, "Le mot de passe doit contenir au moins 6 caractères").max(30, "Le mot de passe doit contenir au plus 50 caractères"),
 });
 
-const validateFormLogin = (req, res) => {
+const validateFormLogin = async (req, res) => {
     const formeData = req.body;
-    formSchemaLogin
-        .validate(formeData)
-        .catch(err => {
-            res.status(422).send();
-            console.log(err.errors);
-    }).then(valid => {  
-        if (valid) {
-            console.log("Formulaire validé");
-        }
-    });
+    try{
+        await formSchemaLogin.validate(formeData)
+        console.log("Formulaire validé");
+    }catch(err){
+        console.log(err.errors);
+        return res.status(422).send({error: err.errors});
+    };
 };
 
 module.exports = validateFormLogin;

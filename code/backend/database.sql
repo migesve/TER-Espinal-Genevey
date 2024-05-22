@@ -28,8 +28,8 @@ CREATE TABLE schema3 (
     schema3_id SERIAL PRIMARY KEY,
     image_name VARCHAR(80) NOT NULL UNIQUE,
     image_path VARCHAR(255) NOT NULL UNIQUE,
-    position_id INTERGER NOT NULL,
-    inclinaison_id INTERGER NOT NULL,
+    position_id SMALLINT NOT NULL,
+    inclinaison_id SMALLINT NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
 );
 
@@ -37,8 +37,8 @@ CREATE TABLE schema4 (
     schema4_id SERIAL PRIMARY KEY,
     image_name VARCHAR(80) NOT NULL UNIQUE,
     image_path VARCHAR(255) NOT NULL UNIQUE,
-    position_id INTERGER NOT NULL,
-    inclinaison_id INTERGER NOT NULL,
+    position_id SMALLINT NOT NULL,
+    inclinaison_id SMALLINT NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
 );
 

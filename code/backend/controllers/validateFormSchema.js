@@ -9,16 +9,14 @@ const formSchemaSchema = Yup.object().shape({
 
 const validateFormSchema = (req, res) => {
     const formeData = req.body;
-    formSchemaSchema
-        .validate(formeData)
-        .catch(err => {
-            res.status(422).send();
-            console.log(err.errors);
-    }).then(valid => {  
-        if (valid) {
-            console.log("Formulaire validé");
-        }
-    });
+
+    try{
+    formSchemaSchema.validate(formeData);
+    console.log("Formulaire validé");
+    }catch(err){
+        console.log(err.errors);
+        res.status(422).send();
+    };
 };
 
 module.exports = validateFormSchema;
