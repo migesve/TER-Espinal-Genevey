@@ -11,6 +11,10 @@ export const nomComplet_validation = {  // created by espinal/genevey (voir si o
       value: true,
       message: "Obligatoire",
     },
+    minLength: {
+      value: 4,
+      message: 'min 4 characters',
+    },
     maxLength: {
       value: 30,
       message: "30 characters max",
@@ -169,6 +173,10 @@ export const num_validation = {
       required: {
         value: true,
         message: "Obligatoire",
+      },
+      minLength: {
+        value: 1,
+        message: 'min 4 characters',
       },
       maxLength: {
         value: 30,

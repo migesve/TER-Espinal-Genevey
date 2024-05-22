@@ -9,17 +9,15 @@ const formSchemaSignUp = Yup.object().shape({
 });
 
 const validateFormSignUp = async (req, res) => {
-    const formeData = req.body;
-    try{
-    await formSchemaSignUp
-        .validate(formeData)
-        console.log("Formulaire validé");
-    }
-        catch(err) {
-            console.log(err.errors);
-            return res.status(422).send({ error: err.errors });
-    }
-    
+  const formeData = req.body;
+
+  try {
+    await formSchemaSignUp.validate(formeData);
+    console.log("Formulaire validé");
+  } catch (err) {
+    console.log(err.errors);
+    return res.status(422).send({ error: err.errors });
+  }
 };
 
 module.exports = validateFormSignUp;
