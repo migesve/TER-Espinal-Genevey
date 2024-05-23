@@ -21,19 +21,30 @@ router
     });
 
 router
-    .route("/getByIds")
+    .route("/getByIds/:position_id/:inclinaison_id")
     .get(async (req, res) => {
 
-        const listeSchema4 = await pool.query(
-            'SELECT * FROM schema4 WHERE position_id = $1 AND inclinaison_id = $2',
-            [req.body.position_id, req.body.inclinaison_id]
-        );
-        console.log(listeSchema4.rows);
+        try {
+            const { position_id, inclinaison_id } = req.params;
 
-        if (listeSchema4.rowCount > 0) {
-            return res.json({ Succes: true, Schemas4: listeSchema4.rows });
-        } else {
-            return res.json({ Succes: false, status: "La liste des schema4 n'a pas pu être récupérée !" });
+            // Assurez-vous que les paramètres sont valides (optionnel, selon vos besoins)
+            if (!position_id || !inclinaison_id) {
+                return res.status(400).json({ Succes: false, status: "Invalid parameters" });
+            }
+            const listeSchema4 = await pool.query(
+                'SELECT * FROM schema4 WHERE position_id = $1 AND inclinaison_id = $2',
+                [req.params.position_id, req.params.inclinaison_id]
+            );
+            console.log(listeSchema4.rows);
+
+            if (listeSchema4.rowCount > 0) {
+                return res.json({ Succes: true, Schemas4: listeSchema4.rows });
+            } else {
+                return res.json({ Succes: false, status: "La liste des schema4 n'a pas pu être récupérée !" });
+            }
+        } catch (error) {
+            console.error('Error executing query', error);
+            return res.status(500).json({ Succes: false, status: "Erreur serveur" });
         }
     });
 

@@ -8,10 +8,9 @@ router
     .get(async (req, res) => {
 
         const listeInclinaisons = await pool.query(
-            'SELECT * FROM inclinaison',
+            'SELECT * FROM inclinaisons',
             []
         );
-        console.log(listeInclinaisons.rows);
 
         if (listeInclinaisons.rowCount > 0) {
             return res.json({ Succes: true, inclinaisons: listeInclinaisons.rows });
@@ -21,12 +20,28 @@ router
     });
 
 router
-    .route("/getById")
+    .route("/getById/:id")
     .get(async (req, res) => {
 
         const listeInclinaisons = await pool.query(
             'SELECT * FROM inclinaison WHERE inclinaison_id = $1',
-            [req.body.inclinaison_id]
+            [req.params.id]
+        );
+        console.log(listeInclinaisons.rows);
+
+        if (listeInclinaisons.rowCount > 0) {
+            return res.json({ Succes: true, Inclinaisons: listeInclinaisons.rows });
+        } else {
+            return res.json({ Succes: false, status: "La liste des inclinaisons n'a pas pu être récupérée !" });
+        }
+    });
+
+router.route("/getAll")
+    .get(async (req, res) => {
+
+        const listeInclinaisons = await pool.query(
+            'SELECT * FROM inclinaison',
+            []
         );
         console.log(listeInclinaisons.rows);
 

@@ -44,7 +44,7 @@ app.use('/auth', authRouter);
 app.use('/sets', setsRouter);
 app.use('/schema3', schema3Router);
 app.use('/schema4', schema4Router);
-app.use('inclinaison', inclinaisonRouter);
+app.use('/inclinaison', inclinaisonRouter);
 app.get('/', (req, res) => {
     res.send('Hello World');
 });

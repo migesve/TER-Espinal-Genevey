@@ -21,19 +21,31 @@ router
     });
 
 router
-    .route("/getByIds")
+    .route("/getByIds/:position_id/:inclinaison_id")
     .get(async (req, res) => {
 
-        const listeSchema3 = await pool.query(
-            'SELECT * FROM schema3 WHERE position_id = $1 AND inclinaison_id = $2',
-            [req.body.position_id, req.body.inclinaison_id]
-        );
-        console.log(listeSchema3.rows);
+        try {
+            const { position_id, inclinaison_id } = req.params;
 
-        if (listeSchema3.rowCount > 0) {
-            return res.json({ Succes: true, Schemas3: listeSchema3.rows });
-        } else {
-            return res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
+            // Assurez-vous que les paramètres sont valides (optionnel, selon vos besoins)
+            if (!position_id || !inclinaison_id) {
+                return res.status(400).json({ Succes: false, status: "Invalid parameters" });
+            }
+
+            const listeSchema3 = await pool.query(
+                'SELECT * FROM schema3 WHERE position_id = $1 AND inclinaison_id = $2',
+                [req.params.position_id, req.params.inclinaison_id]
+            );
+            console.log(listeSchema3.rows);
+
+            if (listeSchema3.rowCount > 0) {
+                return res.json({ Succes: true, Schemas3: listeSchema3.rows });
+            } else {
+                return res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
+            }
+        } catch (error) {
+            console.error('Error executing query', error);
+            return res.status(500).json({ Succes: false, status: "Erreur serveur" });
         }
     });
 
