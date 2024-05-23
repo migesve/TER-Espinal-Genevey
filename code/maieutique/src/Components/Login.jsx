@@ -41,7 +41,7 @@ export const Login = () => {
         setError(data.status);
       }else if(data.LoggedIn){
         setSuccess(true);
-        navigate('/exercice');
+        navigate('/sets');
       }
     });
     

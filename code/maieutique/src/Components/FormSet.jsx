@@ -34,13 +34,12 @@ export const FormSet = () => {
           autoComplete="off"
           className="container w-96 m-auto my-10"
         >
-          <div className="grid gap-5 md:grid-cols-3">
-            <Input { ...nomComplet_validation } className="md:col-span-3" />
-            <Input { ...abbreviation_validation} className="md:col-span-3" />
+          <div className="grid gap-5 md:grid-cols-2">
+            <Input { ...nomComplet_validation } className="md:col-span-2" />
+            <Input { ...abbreviation_validation} className="md:col-span-2" />
             <Input { ...angle_1_validation} />
             <Input { ...angle_2_validation} />
-            <Input { ...inclinaison_tete_validation} />
-            <Input { ...desc_validation} className="md:col-span-3" />
+            <Input { ...desc_validation} className="md:col-span-2" />
           </div>
           <div className="mt-5">
             {success && (

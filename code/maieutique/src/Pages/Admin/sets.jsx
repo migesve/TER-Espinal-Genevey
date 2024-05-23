@@ -1,41 +1,86 @@
-import { useEffect,useState } from "react";
-import { FormSet } from "../../Components/FormSet";
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "../../Components/Button";
-import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 
 export function Sets() {
-  
-  const methods = useForm()
-  const [success, setSuccess] = useState(false)
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
-    methods.reset()
-    setSuccess(true)
-  })
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/sets/getAll', {
+          method: 'GET',
+          credentials: 'include', // to allow cookies
+        });
 
-  const rows = [
-    { id: 1, col1: 'Hello', col2: 'World' },
-    { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-    { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  ];
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.error || 'An error occurred');
+          setLoading(false);
+          return;
+        }
 
-  const columns = [
-    { field: 'col1', headerName: 'Column 1', width: 150 },
-    { field: 'col2', headerName: 'Column 2', width: 150 },
-  ];
+        const result = await response.json();
+
+        if (result && Array.isArray(result.sets)) {
+          setData(result.sets);
+        } else {
+          setError('Unexpected response format');
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('An unexpected error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderDataGrid = () => {
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+
+    if (error) {
+      return <p className="text-red-500">{error}</p>;
+    }
+
+    const columns = [
+      { field: "id", headerName: "ID", width: 30 },
+      { field: "nom", headerName: "Nom", width: 250 },
+      { field: "abreviation", headerName: "Abré", width: 100 },
+      { field: "descriptif", headerName: "Description", width: 250 },
+      { field: "angle1", headerName: "Angle 1", width: 30 },
+      { field: "angle2", headerName: "Angle 2", width: 30 },
+    ];
+
+    const rows = data.map((item) => ({ id: item.position_id, ...item }));
+    return (
+      <div className="w-fit m-auto my-10 bg-sky-50">
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          autoHeight
+          getRowId={(row) => row.id} // Ensure unique ID for each row
+        />
+      </div>
+    );
+  };
 
   return (
     <>
       <div className="flex justify-center space-x-4">
-        <Button onClick={onSubmit} text="Créer un set" />
-        <Button onClick={onSubmit} text="Créer un exercice" />
+        <Button onClick={ () => navigate('/saisieSet') } text="Créer un set" />
+        <Button onClick={ () => navigate('/creerExercice') } text="Créer un exercice" />
       </div>
       <h1>Sets existents</h1>
-      <div className="w-96 m-auto my-10 bg-sky-50">
-        <DataGrid rows={rows} columns={columns} />
-      </div>
+      {renderDataGrid()}
     </>
   );
 }
