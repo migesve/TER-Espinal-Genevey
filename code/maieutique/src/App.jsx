@@ -30,7 +30,6 @@ function App() {
             <Route path="/creerCompte" element={<CreerCompte />} />
 
             <Route element={<PrivateRoutes />}>
-              <Route path="/" element={<Exercice />} />
               <Route path="/exercices" element={<Exercices />} />
               <Route path="/exercice" element={<Exercice />} />
               <Route path="/retourExercice" element={<RetourExercice />} />

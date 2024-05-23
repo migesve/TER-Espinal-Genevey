@@ -26,7 +26,7 @@ const UserContext = ({children}) => {
                     return; 
                 }
                 setUser({ ...data});
-                //navigate('/exercices');
+                //navigate('/exercice');
             }
         );
     }, []);

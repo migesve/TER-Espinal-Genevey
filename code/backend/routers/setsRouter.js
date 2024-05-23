@@ -11,7 +11,6 @@ router
             'SELECT * FROM sets',
             []
         );
-        console.log(listeSets.rows);
 
         if (listeSets.rowCount > 0) {
             return res.json({ Succes: true, sets: listeSets.rows });
