@@ -18,9 +18,6 @@ CREATE TABLE sets (
     descriptif VARCHAR(255),
     angle1 SMALLINT NOT NULL UNIQUE,
     angle2 SMALLINT NOT NULL UNIQUE,
-    schema1_tete VARCHAR(255) NOT NULL,
-    schema1_bassin VARCHAR(255) NOT NULL,
-    schema1_fontanelle VARCHAR(255) NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
 );
 
