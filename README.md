@@ -4,10 +4,14 @@
 [Lien BD](https://dbdiagram.io/d/BD-Maieutique-65d33717ac844320ae779687)
 
 ## TO DO
+- Deprecated to miges.fr/index/trello
+  
 - Creer la base de donnees et formulaire en ligne
 - Programmer l'interface en code code
 
 ## Deja fait
+- Deprecated to miges.fr/index/trello
+  
 - Ameliorer l'interface figma
 - BD valide pour RDV 18 mars
 - Maquette "backend" RDV 18 mars
