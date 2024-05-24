@@ -19,6 +19,8 @@ import ProfesseurRoutes from "./Components/ProfesseurRoutes";
 import AdminRoutes from "./Components/AdminRoutes";
 import UserContext from "./Components/AccountContext";
 
+import { Schema3 } from "./Components/Schema3";
+
 
 function App() {
   
@@ -34,6 +36,7 @@ function App() {
               <Route path="/exercice" element={<Exercice />} />
               <Route path="/retourExercice" element={<RetourExercice />} />
               <Route path="/finExercice" element={<FinExercice />} />
+              <Route path="/schema3" element={<Schema3 />} />
 
               <Route element={<ProfesseurRoutes />}>
                 <Route path="/creerExercice" element={<CreerExercice />} />

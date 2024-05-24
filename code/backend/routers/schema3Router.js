@@ -50,6 +50,37 @@ router
     });
 
 
+    router
+    .route("/getByIncl/:inclinaison_id")
+    .get(async (req, res) => {
+
+        try {
+            const { inclinaison_id } = req.params;
+
+            // Assurez-vous que les paramètres sont valides (optionnel, selon vos besoins)
+            if (!inclinaison_id) {
+                return res.status(400).json({ Succes: false, status: "Invalid parameters" });
+            }
+
+            const listeSchema3 = await pool.query(
+                'SELECT * FROM schema3 WHERE inclinaison_id = $1',
+                [req.params.inclinaison_id]
+            );
+            console.log(listeSchema3.rows);
+
+            if (listeSchema3.rowCount > 0) {
+                return res.json({ Succes: true, Schemas3: listeSchema3.rows });
+            } else {
+                return res.json({ Succes: false, status: "La liste des schema3 n'a pas pu être récupérée !" });
+            }
+        } catch (error) {
+            console.error('Error executing query', error);
+            return res.status(500).json({ Succes: false, status: "Erreur serveur" });
+        }
+    });
+
+
+
 router.post('/upload', async (req, res) => {
     try {
         await validateFormSchema(req, res);

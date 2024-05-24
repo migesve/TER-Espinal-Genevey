@@ -66,14 +66,14 @@ export function Exercice() {
         const tableauPos = [];
         const tableauIncl = [];
 
-        while (tableauPos.length < 1/*5*/) {
+        while (tableauPos.length < 5) {
           const rdm = Math.floor(Math.random() * listeSets.length);
           if (!tableauPos.includes(rdm)) {
             tableauPos.push(rdm);
           }
         }
 
-        while (tableauIncl.length < 1/*5*/) {
+        while (tableauIncl.length < 5) {
           const rdm = Math.floor(Math.random() * listeInclinaisons.length);
           const position_id = listeSets[tableauPos[tableauIncl.length]].position_id;
           const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
