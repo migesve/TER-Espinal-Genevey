@@ -126,7 +126,7 @@ export function Exercice() {
         setTableauPos(newTableauPos);
         setTableauIncl(newTableauIncl);
         setSuccess(true);
-        setEnnonce(choixEnnonce());
+        choixEnnonce();
       };
 
       generateExercice();
@@ -137,6 +137,7 @@ export function Exercice() {
   console.log('ListeInclinaisons : ', listeInclinaisons);
   console.log('TableauPos : ', tableauPos);
   console.log('TableauIncl : ', tableauIncl);
+  console.log('Ennonce : ', ennonce);
 
   const choixEnnonce = () => {
     const rdm = Math.floor(Math.random() * 6);
@@ -176,12 +177,12 @@ export function Exercice() {
       <h2>Question X/X</h2>
       <Button onClick={onSubmit} text="Finir Question" color="red" hoverColor="red" />
       <div className="grid md:grid-cols-6">
-        <Cas text="Nom"/>
-        <Cas text="Sigle" color={(ennonce==="Sigle" ? 'text-green-600' : '')}/>
-        <Cas text="Schéma très simplifié"/>
-        <Cas text="Scéma simplifié"/>
-        <Cas text="Schéma réaliste"/>
-        <Cas text="schéma très réaliste"/>
+        <Cas text="Nom" color={ennonce==="Nom" ? 'text-green-600 border-green-600' : ''}/>
+        <Cas text="Sigle" color={ennonce==="Sigle" ? 'text-green-600 border-green-600' : ''}/>
+        <Cas text="Schéma très simplifié" color={ennonce==="Schéma très simplifié" ? 'text-green-600 border-green-600' : ''}/>
+        <Cas text="Scéma simplifié" color={ennonce==="Scéma simplifié" ? 'text-green-600 border-green-600' : ''}/>
+        <Cas text="Schéma réaliste" color={ennonce==="Schéma réaliste" ? 'text-green-600 border-green-600' : ''}/>
+        <Cas text="schéma très réaliste" color={ennonce==="schéma très réaliste" ? 'text-green-600 border-green-600' : ''}/>
       </div>
       <div>
         <h3>Reponse</h3>
