@@ -20,7 +20,7 @@ import AdminRoutes from "./Components/AdminRoutes";
 import UserContext from "./Components/AccountContext";
 
 import { Schema3 } from "./Components/Schema3";
-
+import { Schema4 } from "./Components/Schema4";
 
 function App() {
   
@@ -37,6 +37,7 @@ function App() {
               <Route path="/retourExercice" element={<RetourExercice />} />
               <Route path="/finExercice" element={<FinExercice />} />
               <Route path="/schema3" element={<Schema3 />} />
+              <Route path="/schema4" element={<Schema4 />} />
 
               <Route element={<ProfesseurRoutes />}>
                 <Route path="/creerExercice" element={<CreerExercice />} />

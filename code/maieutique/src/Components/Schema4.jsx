@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 
-export const Schema3 = () => {
-    const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
-    const [listeSchema3Pos2, setListeSchema3Pos2] = useState([]);
+export const Schema4 = () => {
+    const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
+    const [listeSchema4Pos2, setListeSchema4Pos2] = useState([]);
     const [error, setError] = useState(null);
     const [index, setIndex] = useState(0);
-    const [listeSchema3selectionnee, setListeSchema3selectionnee] = useState([]);
+    const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const promises = [1, 2].map(i =>
-                    fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
+                    fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
                     }).then(response => {
                         if (!response.ok) {
-                            throw new Error('Failed to fetch schema3 data');
+                            throw new Error('Failed to fetch schema4 data');
                         }
                         return response.json();
                     })
@@ -26,9 +26,9 @@ export const Schema3 = () => {
                     setError(data1.status || data2.status);
                     return;
                 }
-                setListeSchema3Pos1(data1.Schemas3);
-                setListeSchema3Pos2(data2.Schemas3);
-                setListeSchema3selectionnee(data1.Schemas3);
+                setListeSchema4Pos1(data1.Schemas4);
+                setListeSchema4Pos2(data2.Schemas4);
+                setListeSchema4selectionnee(data1.Schemas4);
             } catch (err) {
                 console.error('Error:', err);
                 setError(err.message);
@@ -39,20 +39,20 @@ export const Schema3 = () => {
     }, []);
 
     const positionSuivante = () => {
-        setIndex(prevIndex => (prevIndex + 1) % listeSchema3selectionnee.length);
+        setIndex(prevIndex => (prevIndex + 1) % listeSchema4selectionnee.length);
     };
 
     const positionPrecedante = () => {
-        setIndex(prevIndex => (prevIndex - 1 + listeSchema3selectionnee.length) % listeSchema3selectionnee.length);
+        setIndex(prevIndex => (prevIndex - 1 + listeSchema4selectionnee.length) % listeSchema4selectionnee.length);
     };
 
     const inclinaisonSuivante = () => {
-        setListeSchema3selectionnee(prevList => (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1));
+        setListeSchema4selectionnee(prevList => (prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1));
         //setIndex(0);
     };
 
     const inclinaisonPrecedante = () => {
-        setListeSchema3selectionnee(prevList => (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1));
+        setListeSchema4selectionnee(prevList => (prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1));
         //setIndex(0);
     };
 
@@ -63,7 +63,7 @@ export const Schema3 = () => {
     return (
         <section className="flex flex-col items-center gap-1 p-4 m-5 border border-gray-200">
             <h4 className="font-semibold text-xl">Schéma réaliste</h4>
-            {listeSchema3selectionnee.length > 0 && (
+            {listeSchema4selectionnee.length > 0 && (
                 <div className="flex items-center">
                     <div className="flex flex-col items-center gap-1">
                         <img width={50} height={50} 
@@ -78,7 +78,7 @@ export const Schema3 = () => {
                             onClick={inclinaisonSuivante}
                         />
                     </div>
-                    <img src={listeSchema3selectionnee[index].image_path} alt={listeSchema3selectionnee[index].image_name} className="mx-4" />
+                    <img src={listeSchema4selectionnee[index].image_path} alt={listeSchema4selectionnee[index].image_name} className="mx-4" />
                     <div className="flex flex-col items-center gap-1">
                         <img width={50} height={50} 
                             src='src/images/icons/flecheHaut.png' alt='flecheHaut'

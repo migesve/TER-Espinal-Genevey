@@ -63,7 +63,7 @@ router
             }
 
             const listeSchema3 = await pool.query(
-                'SELECT * FROM schema3 WHERE inclinaison_id = $1',
+                'SELECT * FROM schema3 WHERE inclinaison_id = $1 ORDER BY position_id ASC',
                 [req.params.inclinaison_id]
             );
             console.log(listeSchema3.rows);
