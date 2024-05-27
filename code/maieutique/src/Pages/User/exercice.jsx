@@ -3,6 +3,7 @@ import { Cas } from "../../Components/Cas";
 import { Button } from "../../Components/Button";
 import { useForm } from "react-hook-form";
 import { randomNumberBetween } from "@mui/x-data-grid/internals";
+import { ExerciceContinu } from "../../Components/ExerciceContinu";
 
 
 export function Exercice() {
@@ -152,6 +153,7 @@ export function Exercice() {
       <div>
         <h3>Reponse</h3>
         <div className="rectangle" />
+        <ExerciceContinu />
       </div>
       <Button onClick={onSubmit} text="Cas suivant" color="green" hoverColor="green" />
     </>
