@@ -1,20 +1,12 @@
 import { useEffect,useState } from "react";
-import { ExerciceCard } from "../../Components/ExerciceCard";
+import { FormCreerExercice } from "../../Components/FormCreerExercice";
 
 export function Exercices() {
 
   return (
     <>
-      <h1>Exercices</h1>
-      <div className="grid md:grid-cols-5">
-        <ExerciceCard />
-        <ExerciceCard />
-        <ExerciceCard />
-        <ExerciceCard />
-        <ExerciceCard />
-        <ExerciceCard />
-        <ExerciceCard />
-      </div>
+      <h1>Lancer exercice</h1>
+      <FormCreerExercice />
     </>
   );
 }
