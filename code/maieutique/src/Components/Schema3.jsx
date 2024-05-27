@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { GrUp, GrDown } from 'react-icons/gr';
+import { Button } from './Button';
 
 export const Schema3 = () => {
     const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
@@ -66,31 +68,15 @@ export const Schema3 = () => {
             {listeSchema3selectionnee.length > 0 && (
                 <div className="flex items-center">
                     <div className="flex flex-col items-center gap-1">
-                        <img width={50} height={50} 
-                            src='src/images/icons/flecheHaut.png' alt='flecheHaut'
-                            className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={inclinaisonPrecedante}
-                        />
+                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonPrecedante}/>
                         <p>Inclinaisons</p>
-                        <img width={50} height={50} 
-                            src='src/images/icons/flecheBas.png' alt='flecheBas'
-                            className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={inclinaisonSuivante}
-                        />
+                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonSuivante}/>
                     </div>
                     <img src={listeSchema3selectionnee[index].image_path} alt={listeSchema3selectionnee[index].image_name} className="mx-4" />
                     <div className="flex flex-col items-center gap-1">
-                        <img width={50} height={50} 
-                            src='src/images/icons/flecheHaut.png' alt='flecheHaut'
-                            className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={positionPrecedante}
-                        />
+                    <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionPrecedante}/>
                         <p>Positions</p>
-                        <img width={50} height={50} 
-                            src='src/images/icons/flecheBas.png' alt='flecheBas'
-                            className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={positionSuivante}
-                        />
+                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionSuivante}/>
                     </div>
                 </div>
             )}

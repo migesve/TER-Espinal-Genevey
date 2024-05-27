@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Cas } from "../../Components/Cas";
 import { Button } from "../../Components/Button";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { randomNumberBetween } from "@mui/x-data-grid/internals";
 import { ExerciceContinu } from "../../Components/ExerciceContinu";
 
@@ -13,7 +13,9 @@ export function Exercice() {
   const [error, setError] = useState(null);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
-  const [exercice, setExercice] = useState(null);
+  const [tableauIncl, setTableauIncl] = useState([]);
+  const [tableauPos, setTableauPos] = useState([]);
+  const [ennonce, setEnnonce] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,64 +66,67 @@ export function Exercice() {
   useEffect(() => {
     if (listeSets.length > 0 && listeInclinaisons.length > 0) {
       const generateExercice = async () => {
-        const tableauPos = [];
-        const tableauIncl = [];
+        const newTableauPos = [];
+        const newTableauIncl = [];
 
-        while (tableauPos.length < 5) {
+        while (newTableauPos.length < 5) {
           const rdm = Math.floor(Math.random() * listeSets.length);
-          if (!tableauPos.includes(rdm)) {
-            tableauPos.push(rdm);
+          if (!newTableauPos.includes(rdm)) {
+            newTableauPos.push(rdm);
           }
         }
 
-        while (tableauIncl.length < 5) {
-          const rdm = Math.floor(Math.random() * listeInclinaisons.length);
-          const position_id = listeSets[tableauPos[tableauIncl.length]].position_id;
-          const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
-
-          const schema3Response = await fetch(`http://localhost:4000/schema3/getByIds/${position_id}/${inclinaison_id}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-          });
-
-          if (!schema3Response.ok) {
-            console.error('Failed to fetch schema3');
-            continue;
+        while (newTableauPos.length < 5) {
+          const rdm = Math.floor(Math.random() * listeSets.length);
+          if (!newTableauPos.includes(rdm)) {
+            newTableauPos.push(rdm);
           }
+        }
 
-          const schema3Data = await schema3Response.json();
-          if (schema3Data.Succes && schema3Data.Schemas3.length > 0) {
-            const schema4Response = await fetch(`http://localhost:4000/schema4/getByIds/${position_id}/${inclinaison_id}`, {
+        for (let i = 0; i < 5; i++) {
+          let rdm;
+          let found = false;
+          while (!found) {
+            rdm = Math.floor(Math.random() * listeInclinaisons.length);
+            const position_id = listeSets[newTableauPos[i]].position_id;
+            const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
+            
+
+            const schema3Response = await fetch(`http://localhost:4000/schema3/getByIds/${position_id}/${inclinaison_id}`, {
               method: 'GET',
               headers: { 'Content-Type': 'application/json' },
             });
 
-            if (!schema4Response.ok) {
-              console.error('Failed to fetch schema4');
+            if (!schema3Response.ok) {
+              console.error('Failed to fetch schema3');
               continue;
             }
 
-            const schema4Data = await schema4Response.json();
-            if (schema4Data.Succes && schema4Data.Schemas4.length > 0) {
-              tableauIncl.push(rdm);
+            const schema3Data = await schema3Response.json();
+            if (schema3Data.Succes && schema3Data.Schemas3.length > 0) {
+              const schema4Response = await fetch(`http://localhost:4000/schema4/getByIds/${position_id}/${inclinaison_id}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+              });
+
+              if (!schema4Response.ok) {
+                console.error('Failed to fetch schema4');
+                continue;
+              }
+
+              const schema4Data = await schema4Response.json();
+              if (schema4Data.Succes && schema4Data.Schemas4.length > 0) {
+                newTableauIncl.push(rdm);
+                found = true;
+              }
             }
           }
         }
 
-        setExercice({
-          question1: { position: listeSets[tableauPos[0]], inclinaison: listeInclinaisons[tableauIncl[0]] },
-          reponse1: { position: {}, inclinaison: {} },
-          question2: { position: listeSets[tableauPos[1]], inclinaison: listeInclinaisons[tableauIncl[1]] },
-          reponse2: { position: {}, inclinaison: {} },
-          question3: { position: listeSets[tableauPos[2]], inclinaison: listeInclinaisons[tableauIncl[2]] },
-          reponse3: { position: {}, inclinaison: {} },
-          question4: { position: listeSets[tableauPos[3]], inclinaison: listeInclinaisons[tableauIncl[3]] },
-          reponse4: { position: {}, inclinaison: {} },
-          question5: { position: listeSets[tableauPos[4]], inclinaison: listeInclinaisons[tableauIncl[4]] },
-          reponse5: { position: {}, inclinaison: {} },
-        });
-
+        setTableauPos(newTableauPos);
+        setTableauIncl(newTableauIncl);
         setSuccess(true);
+        setEnnonce(choixEnnonce());
       };
 
       generateExercice();
@@ -130,7 +135,35 @@ export function Exercice() {
 
   console.log('ListeSets : ', listeSets);
   console.log('ListeInclinaisons : ', listeInclinaisons);
-  console.log('Exercice : ', exercice);
+  console.log('TableauPos : ', tableauPos);
+  console.log('TableauIncl : ', tableauIncl);
+
+  const choixEnnonce = () => {
+    const rdm = Math.floor(Math.random() * 6);
+    switch (rdm) {
+      case 0:
+        setEnnonce('Nom');
+        break;
+      case 1:
+        setEnnonce('Sigle');
+        break;
+      case 2:
+        setEnnonce('Schéma très simplifié');
+        break;
+      case 3:
+        setEnnonce('Schéma simplifié');
+        break;
+      case 4:
+        setEnnonce('Schéma réaliste');
+        break;
+      case 5:
+        setEnnonce('Schéma très réaliste');
+        break;
+      default:
+        setEnnonce('Nom');
+        break;
+    }
+  }
 
   const onSubmit = methods.handleSubmit(data => {
     console.log(data)
@@ -143,19 +176,19 @@ export function Exercice() {
       <h2>Question X/X</h2>
       <Button onClick={onSubmit} text="Finir Question" color="red" hoverColor="red" />
       <div className="grid md:grid-cols-6">
-        <Cas />
-        <Cas />
-        <Cas />
-        <Cas />
-        <Cas />
-        <Cas />
+        <Cas text="Nom"/>
+        <Cas text="Sigle" color={(ennonce==="Sigle" ? 'text-green-600' : '')}/>
+        <Cas text="Schéma très simplifié"/>
+        <Cas text="Scéma simplifié"/>
+        <Cas text="Schéma réaliste"/>
+        <Cas text="schéma très réaliste"/>
       </div>
       <div>
         <h3>Reponse</h3>
         <div className="rectangle" />
         <ExerciceContinu />
       </div>
-      <Button onClick={onSubmit} text="Cas suivant" color="green" hoverColor="green" />
+      <Button onClick={onSubmit} text="Cas suivant" color="bg-green-600" hoverColor="hover:bg-green-800" />
     </>
   );
 }

@@ -1,12 +1,12 @@
 
-import { useState } from 'react'
+import { React, useState } from 'react'
 
-export const Cas = () => {
+export const Cas = ({text, color}) => {
 
     return (
       <>
-        <section className="flex flex-col items-center gap-1 p-4 m-5 border border-gray-200">
-          <h4 className="font-semibold text-xl">Sigles rallonges</h4>
+        <section className={`flex flex-col items-center gap-1 p-4 m-5 border border-gray-200 ${color}`}>
+          <h4 className="font-semibold text-xl">{text}</h4>
         </section>
       </>
     );
