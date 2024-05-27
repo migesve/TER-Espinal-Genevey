@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { Home } from "./Pages/home";
 
 import { SaisieSet } from "./Pages/Admin/saisieSet";
-import { CreerExercice } from "./Pages/Admin/creerExercice";
 import { Sets } from "./Pages/Admin/sets";
 
 import { Exercices } from "./Pages/User/exercices";
@@ -40,7 +39,6 @@ function App() {
               <Route path="/schema4" element={<Schema4 />} />
 
               <Route element={<ProfesseurRoutes />}>
-                <Route path="/creerExercice" element={<CreerExercice />} />
                 <Route path="/saisieSet" element={<SaisieSet />} />
                 <Route path="/sets" element={<Sets />} />
               </Route>
