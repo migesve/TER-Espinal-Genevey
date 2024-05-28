@@ -178,7 +178,12 @@ export function Exercice() {
     <>
       <h1>Exercice X</h1>
       <h2>Question X/X</h2>
-      <Button onClick={onSubmit} text="Finir Question" color="red" hoverColor="red" />
+      <Button
+        onClick={onSubmit}
+        text="Finir Question"
+        color="red"
+        hoverColor="red"
+      />
       <div className="grid md:grid-cols-6">
         <Cas text="Nom" color={ennonce&&ennonce.representation==="Nom" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Nom")}/>
         <Cas text="Sigle" color={ennonce&&ennonce.representation==="Sigle" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Sigle")}/>
@@ -199,7 +204,20 @@ export function Exercice() {
         </div>
         
       </div>
-      <Button onClick={onSubmit} text="Cas suivant" color="bg-green-600" hoverColor="hover:bg-green-800" />
+      <div className="flex justify-between">
+        <Button
+          onClick={onSubmit}
+          text="Representation precedente"
+          color="bg-green-600"
+          hoverColor="hover:bg-green-800"
+        />
+        <Button
+          onClick={onSubmit}
+          text="Representation suivante"
+          color="bg-green-600"
+          hoverColor="hover:bg-green-800"
+        />
+      </div>
     </>
   );
 }

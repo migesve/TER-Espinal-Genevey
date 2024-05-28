@@ -12,10 +12,10 @@ html, body, #app, #app>div {
 
 .rectangle {
   display: inline-block;
-  width: 30%;
+  width: 66%;
   height: 400px;
   margin-right: 20px;
-  background: rgb(235, 111, 111);
+  padding: 20px;
 }
 .rectangle2 {
   display: inline-block;
