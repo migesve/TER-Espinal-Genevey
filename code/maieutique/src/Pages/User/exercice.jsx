@@ -175,7 +175,12 @@ export function Exercice() {
     <>
       <h1>Exercice X</h1>
       <h2>Question X/X</h2>
-      <Button onClick={onSubmit} text="Finir Question" color="red" hoverColor="red" />
+      <Button
+        onClick={onSubmit}
+        text="Finir Question"
+        color="red"
+        hoverColor="red"
+      />
       <div className="grid md:grid-cols-6">
         <Cas text="Nom" color={ennonce==="Nom" ? 'text-green-600 border-green-600' : ''}/>
         <Cas text="Sigle" color={ennonce==="Sigle" ? 'text-green-600 border-green-600' : ''}/>
@@ -186,10 +191,23 @@ export function Exercice() {
       </div>
       <div>
         <h3>Reponse</h3>
-        <div className="rectangle" />
         <ExerciceContinu />
       </div>
       <Button onClick={onSubmit} text="Cas suivant" color="bg-green-600" hoverColor="hover:bg-green-800" />
+      <div className="flex justify-between">
+        <Button
+          onClick={onSubmit}
+          text="Representation precedente"
+          color="bg-green-600"
+          hoverColor="hover:bg-green-800"
+        />
+        <Button
+          onClick={onSubmit}
+          text="Representation suivante"
+          color="bg-green-600"
+          hoverColor="hover:bg-green-800"
+        />
+      </div>
     </>
   );
 }
