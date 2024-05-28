@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Cas } from "../../Components/Cas";
 import { Button } from "../../Components/Button";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { randomNumberBetween } from "@mui/x-data-grid/internals";
 import { ExerciceContinu } from "../../Components/ExerciceContinu";
+import { Schema3 } from "../../Components/Schema3";
+import { Schema4 } from "../../Components/Schema4";
 
 
 export function Exercice() {
@@ -15,7 +17,8 @@ export function Exercice() {
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
   const [tableauIncl, setTableauIncl] = useState([]);
   const [tableauPos, setTableauPos] = useState([]);
-  const [ennonce, setEnnonce] = useState('');
+  const [ennonce, setEnnonce] = useState(null);
+  const [view, setView] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,13 +71,6 @@ export function Exercice() {
       const generateExercice = async () => {
         const newTableauPos = [];
         const newTableauIncl = [];
-
-        while (newTableauPos.length < 5) {
-          const rdm = Math.floor(Math.random() * listeSets.length);
-          if (!newTableauPos.includes(rdm)) {
-            newTableauPos.push(rdm);
-          }
-        }
 
         while (newTableauPos.length < 5) {
           const rdm = Math.floor(Math.random() * listeSets.length);
@@ -143,25 +139,32 @@ export function Exercice() {
     const rdm = Math.floor(Math.random() * 6);
     switch (rdm) {
       case 0:
-        setEnnonce('Nom');
+        setEnnonce({representation: 'Nom'});
+        setView('Nom');
         break;
       case 1:
-        setEnnonce('Sigle');
+        setEnnonce({representation:'Sigle'});
+        setView('Sigle');
         break;
       case 2:
-        setEnnonce('Schéma très simplifié');
+        setEnnonce({representation:'Schéma très simplifié', angle: null});
+        setView('Schéma très simplifié');
         break;
       case 3:
-        setEnnonce('Schéma simplifié');
+        setEnnonce({representation:'Schéma simplifié', angle: null});
+        setView('Schéma simplifié');
         break;
       case 4:
-        setEnnonce('Schéma réaliste');
+        setEnnonce({representation:'Schéma réaliste', angle: null});
+        setView('Schéma réaliste');
         break;
       case 5:
-        setEnnonce('Schéma très réaliste');
+        setEnnonce({representation:'Schéma très réaliste', angle: null});
+        setView('Schéma très réaliste');
         break;
       default:
-        setEnnonce('Nom');
+        setEnnonce({representation:'Nom'});
+        setView('Nom');
         break;
     }
   }
@@ -177,17 +180,24 @@ export function Exercice() {
       <h2>Question X/X</h2>
       <Button onClick={onSubmit} text="Finir Question" color="red" hoverColor="red" />
       <div className="grid md:grid-cols-6">
-        <Cas text="Nom" color={ennonce==="Nom" ? 'text-green-600 border-green-600' : ''}/>
-        <Cas text="Sigle" color={ennonce==="Sigle" ? 'text-green-600 border-green-600' : ''}/>
-        <Cas text="Schéma très simplifié" color={ennonce==="Schéma très simplifié" ? 'text-green-600 border-green-600' : ''}/>
-        <Cas text="Scéma simplifié" color={ennonce==="Scéma simplifié" ? 'text-green-600 border-green-600' : ''}/>
-        <Cas text="Schéma réaliste" color={ennonce==="Schéma réaliste" ? 'text-green-600 border-green-600' : ''}/>
-        <Cas text="schéma très réaliste" color={ennonce==="schéma très réaliste" ? 'text-green-600 border-green-600' : ''}/>
+        <Cas text="Nom" color={ennonce&&ennonce.representation==="Nom" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Nom")}/>
+        <Cas text="Sigle" color={ennonce&&ennonce.representation==="Sigle" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Sigle")}/>
+        <Cas text="Schéma très simplifié" color={ennonce&&ennonce.representation==="Schéma très simplifié" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma très simplifié")}/>
+        <Cas text="Schéma simplifié" color={ennonce&&ennonce.representation==="Schéma simplifié" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma simplifié")}/>
+        <Cas text="Schéma réaliste" color={ennonce&&ennonce.representation==="Schéma réaliste" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma réaliste")}/>
+        <Cas text="Schéma très réaliste" color={ennonce&&ennonce.representation==="Schéma très réaliste" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma très réaliste")}/>
       </div>
       <div>
         <h3>Reponse</h3>
-        <div className="rectangle" />
-        <ExerciceContinu />
+        <div className="rectangle">
+          {(view === 'Nom')? <p></p>:"" }
+          {(view === 'Sigle')? <p></p>:"" }
+          {(view === 'Schéma très simplifié')? <ExerciceContinu />:"" }
+          {(view === 'Schéma simplifié')? <ExerciceContinu/>:"" }
+          {(view === 'Schéma réaliste')? <Schema3/>:"" }
+          {(view === 'Schéma très réaliste')? <Schema4/>:"" }
+        </div>
+        
       </div>
       <Button onClick={onSubmit} text="Cas suivant" color="bg-green-600" hoverColor="hover:bg-green-800" />
     </>
