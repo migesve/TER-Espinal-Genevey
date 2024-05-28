@@ -193,7 +193,6 @@ export function Exercice() {
         <h3>Reponse</h3>
         <ExerciceContinu />
       </div>
-      <Button onClick={onSubmit} text="Cas suivant" color="bg-green-600" hoverColor="hover:bg-green-800" />
       <div className="flex justify-between">
         <Button
           onClick={onSubmit}
