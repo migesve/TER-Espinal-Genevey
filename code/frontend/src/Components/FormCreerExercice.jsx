@@ -2,7 +2,7 @@ import { Input } from './Input'
 import { SelectDifficulte } from './Select'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { GrMail } from 'react-icons/gr'
+import { GrPlay } from 'react-icons/gr'
 import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { Button } from './Button'
 
@@ -32,10 +32,10 @@ export const FormCreerExercice = () => {
             {success && (
               <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
                 <BsFillCheckSquareFill />
-                Exercice Sauvegardé
+                Exercice généré
               </p>
             )}
-            <Button onClick={onSubmit} text="Sauvegarder Exercice" icon={GrMail} />
+            <Button onClick={onSubmit} text="Lancer Exercice" icon={GrPlay} />
           </div>
         </form>
       </FormProvider>

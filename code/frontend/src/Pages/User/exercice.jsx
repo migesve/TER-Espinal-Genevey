@@ -129,11 +129,11 @@ export function Exercice() {
     }
   }, [listeSets, listeInclinaisons]);
 
-  console.log('ListeSets : ', listeSets);
-  console.log('ListeInclinaisons : ', listeInclinaisons);
-  console.log('TableauPos : ', tableauPos);
-  console.log('TableauIncl : ', tableauIncl);
-  console.log('Ennonce : ', ennonce);
+  // console.log('ListeSets : ', listeSets);
+  // console.log('ListeInclinaisons : ', listeInclinaisons);
+  // console.log('TableauPos : ', tableauPos);
+  // console.log('TableauIncl : ', tableauIncl);
+  // console.log('Ennonce : ', ennonce);
 
   const choixEnnonce = () => {
     const rdm = Math.floor(Math.random() * 6);
