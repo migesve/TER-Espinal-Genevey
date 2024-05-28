@@ -8,7 +8,7 @@ router
     .get(async (req, res) => {
 
         const listeSets = await pool.query(
-            'SELECT * FROM sets',
+            'SELECT * FROM sets ORDER BY position_id ASC',
             []
         );
 

@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Cas } from "../../Components/Cas";
 import { Button } from "../../Components/Button";
 import { useForm } from "react-hook-form";
-import { randomNumberBetween } from "@mui/x-data-grid/internals";
 import { ExerciceContinu } from "../../Components/ExerciceContinu";
 import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
 
-
 export function Exercice() {
-
-  const methods = useForm()
-  const [success, setSuccess] = useState(false)
+  const methods = useForm();
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
@@ -19,6 +16,18 @@ export function Exercice() {
   const [tableauPos, setTableauPos] = useState([]);
   const [ennonce, setEnnonce] = useState(null);
   const [view, setView] = useState('');
+  const [indexQuestion, setIndexQuestion] = useState(0);
+  const [reponseSchema3, setReponseSchema3] = useState(null);
+
+  function handleChildClick(data) {
+    switch(data.representation) {
+      case "Schéma3":
+        setReponseSchema3(data.choix);
+        break;
+      default:
+        break;
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +95,6 @@ export function Exercice() {
             rdm = Math.floor(Math.random() * listeInclinaisons.length);
             const position_id = listeSets[newTableauPos[i]].position_id;
             const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
-            
 
             const schema3Response = await fetch(`http://localhost:4000/schema3/getByIds/${position_id}/${inclinaison_id}`, {
               method: 'GET',
@@ -122,7 +130,7 @@ export function Exercice() {
         setTableauPos(newTableauPos);
         setTableauIncl(newTableauIncl);
         setSuccess(true);
-        choixEnnonce();
+        choixEnnonce(newTableauPos, listeSets);
       };
 
       generateExercice();
@@ -135,49 +143,79 @@ export function Exercice() {
   console.log('TableauIncl : ', tableauIncl);
   console.log('Ennonce : ', ennonce);
 
-  const choixEnnonce = () => {
+  function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const choixEnnonce = (tableauPos, listeSets) => {
+    if (!tableauPos || !listeSets || tableauPos.length === 0 || listeSets.length === 0 || indexQuestion >= tableauPos.length) {
+      console.error("Invalid tableauPos or listeSets");
+      return;
+    }
+
     const rdm = Math.floor(Math.random() * 6);
+    const selectedSet = listeSets[tableauPos[indexQuestion]];
+
+    if (!selectedSet) {
+      console.error("Invalid selectedSet");
+      return;
+    }
+    console.log('SelectedSet : ', selectedSet);
+
     switch (rdm) {
       case 0:
-        setEnnonce({representation: 'Nom'});
+        setEnnonce({ representation: 'Nom' });
         setView('Nom');
         break;
       case 1:
-        setEnnonce({representation:'Sigle'});
+        setEnnonce({ representation: 'Sigle' });
         setView('Sigle');
         break;
       case 2:
-        setEnnonce({representation:'Schéma très simplifié', angle: null});
+        setEnnonce({
+          representation: 'Schéma très simplifié',
+          angle: selectedSet.angle2 - selectedSet.angle1 >= 11 ? 
+            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78) : 
+            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 10) % 360
+        });
         setView('Schéma très simplifié');
         break;
       case 3:
-        setEnnonce({representation:'Schéma simplifié', angle: null});
+        setEnnonce({
+          representation: 'Schéma simplifié',
+          angle: selectedSet.angle2 - selectedSet.angle1 >= 11 ? 
+            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78) : 
+            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 10) % 360
+        });
         setView('Schéma simplifié');
         break;
       case 4:
-        setEnnonce({representation:'Schéma réaliste', angle: null});
+        setEnnonce({ representation: 'Schéma réaliste', angle: null });
         setView('Schéma réaliste');
         break;
       case 5:
-        setEnnonce({representation:'Schéma très réaliste', angle: null});
+        setEnnonce({ representation: 'Schéma très réaliste', angle: null });
         setView('Schéma très réaliste');
         break;
       default:
-        setEnnonce({representation:'Nom'});
+        setEnnonce({ representation: 'Nom' });
         setView('Nom');
         break;
     }
   }
 
   const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
-    methods.reset()
-    setSuccess(true)
-  })
+    console.log(data);
+    methods.reset();
+    setSuccess(true);
+  });
+
   return (
     <>
       <h1>Exercice X</h1>
-      <h2>Question X/X</h2>
+      <h2>Question {indexQuestion+1}/5</h2>
       <Button
         onClick={onSubmit}
         text="Finir Question"
@@ -185,34 +223,33 @@ export function Exercice() {
         hoverColor="red"
       />
       <div className="grid md:grid-cols-6">
-        <Cas text="Nom" color={ennonce&&ennonce.representation==="Nom" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Nom")}/>
-        <Cas text="Sigle" color={ennonce&&ennonce.representation==="Sigle" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Sigle")}/>
-        <Cas text="Schéma très simplifié" color={ennonce&&ennonce.representation==="Schéma très simplifié" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma très simplifié")}/>
-        <Cas text="Schéma simplifié" color={ennonce&&ennonce.representation==="Schéma simplifié" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma simplifié")}/>
-        <Cas text="Schéma réaliste" color={ennonce&&ennonce.representation==="Schéma réaliste" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma réaliste")}/>
-        <Cas text="Schéma très réaliste" color={ennonce&&ennonce.representation==="Schéma très réaliste" ? 'text-green-600 border-green-600' : ''} onClick={()=>setView("Schéma très réaliste")}/>
+        <Cas text="Nom" color={ennonce && ennonce.representation === "Nom" ? 'text-green-600 border-green-600' : ''} onClick={() => setView("Nom")} />
+        <Cas text="Sigle" color={ennonce && ennonce.representation === "Sigle" ? 'text-green-600 border-green-600' : ''} onClick={() => setView("Sigle")} />
+        <Cas text="Schéma très simplifié" color={ennonce && ennonce.representation === "Schéma très simplifié" ? 'text-green-600 border-green-600' : ''} onClick={() => setView("Schéma très simplifié")} />
+        <Cas text="Schéma simplifié" color={ennonce && ennonce.representation === "Schéma simplifié" ? 'text-green-600 border-green-600' : ''} onClick={() => setView("Schéma simplifié")} />
+        <Cas text="Schéma réaliste" color={ennonce && ennonce.representation === "Schéma réaliste" ? 'text-green-600 border-green-600' : ''} onClick={() => setView("Schéma réaliste")} />
+        <Cas text="Schéma très réaliste" color={ennonce && ennonce.representation === "Schéma très réaliste" ? 'text-green-600 border-green-600' : ''} onClick={() => setView("Schéma très réaliste")} />
       </div>
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
-          {(view === 'Nom')? <p></p>:"" }
-          {(view === 'Sigle')? <p></p>:"" }
-          {(view === 'Schéma très simplifié')? <ExerciceContinu />:"" }
-          {(view === 'Schéma simplifié')? <ExerciceContinu/>:"" }
-          {(view === 'Schéma réaliste')? <Schema3/>:"" }
-          {(view === 'Schéma très réaliste')? <Schema4/>:"" }
+          {(view === 'Nom') ? <p></p> : ""}
+          {(view === 'Sigle') ? <p></p> : ""}
+          {(view === 'Schéma très simplifié') ? <ExerciceContinu /> : ""}
+          {(view === 'Schéma simplifié') ? <ExerciceContinu /> : ""}
+          {(view === 'Schéma réaliste') ? <Schema3 lastEdit={reponseSchema3} sendToParent={handleChildClick}/> : ""}
+          {(view === 'Schéma très réaliste') ? <Schema4 /> : ""}
         </div>
-        
       </div>
       <div className="flex justify-between">
         <Button
-          onClick={onSubmit}
+          onClick={() => setIndexQuestion(prev => Math.max(prev - 1, 0))}
           text="Representation precedente"
           color="bg-green-600"
           hoverColor="hover:bg-green-800"
         />
         <Button
-          onClick={onSubmit}
+          onClick={() => setIndexQuestion(prev => prev + 1)}
           text="Representation suivante"
           color="bg-green-600"
           hoverColor="hover:bg-green-800"

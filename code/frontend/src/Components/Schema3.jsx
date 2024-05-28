@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GrUp, GrDown } from 'react-icons/gr';
 import { Button } from './Button';
 
-export const Schema3 = () => {
+export function Schema3({sendToParent, lastEdit}) {
     const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
     const [listeSchema3Pos2, setListeSchema3Pos2] = useState([]);
     const [error, setError] = useState(null);
@@ -38,23 +38,39 @@ export const Schema3 = () => {
         };
 
         fetchData();
+
+        if(lastEdit) {
+            if(listeSchema3Pos1.includes(lastEdit.choix)) {
+                setListeSchema3selectionnee(listeSchema3Pos1);
+            } else if(listeSchema3Pos2.includes(lastEdit.choix)) {
+                setListeSchema3selectionnee(listeSchema3Pos2);
+            }
+            console.log(listeSchema3selectionnee);
+            setIndex(listeSchema3selectionnee.findIndex(schema => schema === lastEdit.choix));
+        }
+
     }, []);
+
 
     const positionSuivante = () => {
         setIndex(prevIndex => (prevIndex + 1) % listeSchema3selectionnee.length);
+        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
     };
 
     const positionPrecedante = () => {
         setIndex(prevIndex => (prevIndex - 1 + listeSchema3selectionnee.length) % listeSchema3selectionnee.length);
+        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
     };
 
     const inclinaisonSuivante = () => {
         setListeSchema3selectionnee(prevList => (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1));
+        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
         //setIndex(0);
     };
 
     const inclinaisonPrecedante = () => {
         setListeSchema3selectionnee(prevList => (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1));
+        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
         //setIndex(0);
     };
 
@@ -70,13 +86,13 @@ export const Schema3 = () => {
                     <div className="flex flex-col items-center gap-1">
                         <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonPrecedante}/>
                         <p>Inclinaisons</p>
-                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonSuivante}/>
+                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrDown} onClick={inclinaisonSuivante}/>
                     </div>
                     <img src={listeSchema3selectionnee[index].image_path} alt={listeSchema3selectionnee[index].image_name} className="mx-4" />
                     <div className="flex flex-col items-center gap-1">
                     <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionPrecedante}/>
                         <p>Positions</p>
-                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionSuivante}/>
+                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrDown} onClick={positionSuivante}/>
                     </div>
                 </div>
             )}
