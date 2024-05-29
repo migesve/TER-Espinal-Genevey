@@ -5,7 +5,7 @@ export const ExerciceContinu = ({display}) => {
   const [rotation, setRotation] = useState(0);
 
   return (
-    <div className="flex flex-col items-center p-4 min-h-screen relative">
+    <div className={`${display} flex-col items-center p-4 min-h-screen relative`}>
       <div className="relative w-[384px] h-[288px]">
         <img
           src="images/bassin.png"
