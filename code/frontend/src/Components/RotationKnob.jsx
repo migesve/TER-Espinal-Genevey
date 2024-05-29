@@ -10,7 +10,13 @@ const RotationKnob = ({ rotation, setRotation }) => {
   };
 
   return (
-    <Knob size={200} min={0} max={360} value={rotation} onChange={handleDragRotate}>
+    <Knob
+      size={200}
+      min={0}
+      max={360}
+      value={rotation}
+      onChange={handleDragRotate}
+    >
       <Pointer width={3} radius={80} type="circle" color="#FC5A96" />
     </Knob>
   );
