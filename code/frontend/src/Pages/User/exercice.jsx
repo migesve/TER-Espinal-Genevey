@@ -18,12 +18,17 @@ export function Exercice() {
   const [view, setView] = useState('');
   const [indexQuestion, setIndexQuestion] = useState(0);
   const [reponseSchema3, setReponseSchema3] = useState(null);
+  const [reponseSchema4, setReponseSchema4] = useState(null);
+
 
   function handleChildClick(data) {
     switch(data.representation) {
       case "Schéma3":
         setReponseSchema3(data.choix);
         break;
+        case "Schéma4":
+          setReponseSchema4(data.choix);
+          break;
       default:
         break;
     }
