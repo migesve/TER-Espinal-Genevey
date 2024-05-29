@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GrUp, GrDown } from 'react-icons/gr';
 import { Button } from './Button';
 
-export const Schema4 = () => {
+export const Schema4 = ({sendToParent, display}) => {
     const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
     const [listeSchema4Pos2, setListeSchema4Pos2] = useState([]);
     const [error, setError] = useState(null);
@@ -40,6 +40,10 @@ export const Schema4 = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        sendToParent({ representation: "Schéma4", choix: listeSchema4selectionnee[index] });
+    }, [index, listeSchema4selectionnee]);
+
     const positionSuivante = () => {
         setIndex(prevIndex => (prevIndex + 1) % listeSchema4selectionnee.length);
     };
@@ -49,13 +53,23 @@ export const Schema4 = () => {
     };
 
     const inclinaisonSuivante = () => {
-        setListeSchema4selectionnee(prevList => (prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1));
-        //setIndex(0);
+        setListeSchema4selectionnee(prevList => {
+            const newList = (prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1);
+            if (index >= newList.length || index < 0) {
+                setIndex(0);
+            }
+            return newList;
+        });
     };
 
     const inclinaisonPrecedante = () => {
-        setListeSchema4selectionnee(prevList => (prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1));
-        //setIndex(0);
+        setListeSchema4selectionnee(prevList => {
+            const newList = (prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1);
+            if (index >= newList.length || index < 0) {
+                setIndex(0);
+            }
+            return newList;
+        });
     };
 
     if (error) {
@@ -63,7 +77,7 @@ export const Schema4 = () => {
     }
 
     return (
-        <section className="flex flex-col items-center gap-1 p-4 m-5 border border-gray-200">
+        <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
             <h4 className="font-semibold text-xl">Schéma réaliste</h4>
             {listeSchema4selectionnee.length > 0 && (
                 <div className="flex items-center">

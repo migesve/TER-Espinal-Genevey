@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Knob, Value, Pointer } from 'rc-knob';
 
-export const ExerciceContinu = () => {
+export const ExerciceContinu = ({display}) => {
   const [rotation, setRotation] = useState(0);
 
   const handleDragRotate = (data) => {
@@ -9,7 +9,7 @@ export const ExerciceContinu = () => {
     setRotation(newRotation);
   };
   return (
-    <div className="flex flex-col items-center p-4 min-h-screen">
+    <div className={`${display} flex-col items-center p-4 min-h-screen`}>
       <Knob
         size={200}
         min={0}

@@ -235,10 +235,10 @@ export function Exercice() {
         <div className="rectangle">
           {(view === 'Nom') ? <p></p> : ""}
           {(view === 'Sigle') ? <p></p> : ""}
-          {(view === 'Schéma très simplifié') ? <ExerciceContinu /> : ""}
-          {(view === 'Schéma simplifié') ? <ExerciceContinu /> : ""}
-          {(view === 'Schéma réaliste') ? <Schema3 lastEdit={reponseSchema3} sendToParent={handleChildClick}/> : ""}
-          {(view === 'Schéma très réaliste') ? <Schema4 /> : ""}
+          <ExerciceContinu display={(view === 'Schéma très simplifié') ? "flex" : "hidden"} />
+          <ExerciceContinu display={(view === 'Schéma simplifié') ? "flex" : "hidden"} />
+          <Schema3 sendToParent={handleChildClick} display={(view === 'Schéma réaliste') ? "flex" : "hidden"}/>
+          <Schema4 sendToParent={handleChildClick} display={(view === 'Schéma très réaliste') ? "flex" : "hidden"} />
         </div>
       </div>
       <div className="flex justify-between">

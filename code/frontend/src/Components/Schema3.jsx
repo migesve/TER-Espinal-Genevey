@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GrUp, GrDown } from 'react-icons/gr';
 import { Button } from './Button';
 
-export function Schema3({sendToParent, lastEdit}) {
+export function Schema3({sendToParent, display}) {
     const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
     const [listeSchema3Pos2, setListeSchema3Pos2] = useState([]);
     const [error, setError] = useState(null);
@@ -39,39 +39,38 @@ export function Schema3({sendToParent, lastEdit}) {
 
         fetchData();
 
-        if(lastEdit) {
-            if(listeSchema3Pos1.includes(lastEdit.choix)) {
-                setListeSchema3selectionnee(listeSchema3Pos1);
-            } else if(listeSchema3Pos2.includes(lastEdit.choix)) {
-                setListeSchema3selectionnee(listeSchema3Pos2);
-            }
-            console.log(listeSchema3selectionnee);
-            setIndex(listeSchema3selectionnee.findIndex(schema => schema === lastEdit.choix));
-        }
-
     }, []);
 
+    useEffect(() => {
+        sendToParent({ representation: "Schéma3", choix: listeSchema3selectionnee[index] });
+    }, [index, listeSchema3selectionnee]);
 
     const positionSuivante = () => {
         setIndex(prevIndex => (prevIndex + 1) % listeSchema3selectionnee.length);
-        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
     };
 
     const positionPrecedante = () => {
         setIndex(prevIndex => (prevIndex - 1 + listeSchema3selectionnee.length) % listeSchema3selectionnee.length);
-        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
     };
 
     const inclinaisonSuivante = () => {
-        setListeSchema3selectionnee(prevList => (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1));
-        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
-        //setIndex(0);
+        setListeSchema3selectionnee(prevList => {
+            const newList = (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1);
+            if (index >= newList.length || index < 0) {
+                setIndex(0);
+            }
+            return newList;
+        });
     };
 
     const inclinaisonPrecedante = () => {
-        setListeSchema3selectionnee(prevList => (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1));
-        sendToParent({representation: "Schéma3", choix:listeSchema3selectionnee[index]});
-        //setIndex(0);
+        setListeSchema3selectionnee(prevList => {
+            const newList = (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1);
+            if (index >= newList.length || index < 0) {
+                setIndex(0);
+            }
+            return newList;
+        });
     };
 
     if (error) {
@@ -79,7 +78,7 @@ export function Schema3({sendToParent, lastEdit}) {
     }
 
     return (
-        <section className="flex flex-col items-center gap-1 p-4 m-5 border border-gray-200">
+        <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
             <h4 className="font-semibold text-xl">Schéma réaliste</h4>
             {listeSchema3selectionnee.length > 0 && (
                 <div className="flex items-center">
