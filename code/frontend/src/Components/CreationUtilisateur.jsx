@@ -37,12 +37,14 @@ export const CreationUtilisateur = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        localStorage.setItem("user", JSON.stringify({ LoggedIn: false }));
         setError(errorData.error || errorData.status || 'An error occurred');
         return;
       }
 
       const responseData = await response.json();
       console.log("Success:", responseData);
+      localStorage.setItem("user", JSON.stringify({ ...data }));
       setUser({ ...responseData });
       
       if (responseData.LoggedIn) {

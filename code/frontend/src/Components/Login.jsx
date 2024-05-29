@@ -30,6 +30,7 @@ export const Login = () => {
     })
       .catch((error) => {
         console.error("Error:", error);
+        localStorage.setItem("user", JSON.stringify({ LoggedIn: false }));
         return;
       })
       .then((response) => {
@@ -41,9 +42,11 @@ export const Login = () => {
       })
       .then((data) => {
         if (!data) {
+          localStorage.setItem("user", JSON.stringify({ LoggedIn: false }));
           return;
         }
         setUser({ ...data });
+        localStorage.setItem("user", JSON.stringify({ ...data }));
         if (data.status) {
           setError(data.status);
         } else if (data.LoggedIn) {
