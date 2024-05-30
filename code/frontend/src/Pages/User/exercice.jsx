@@ -19,6 +19,7 @@ export function Exercice() {
   const [indexQuestion, setIndexQuestion] = useState(0);
   const [reponseSchema3, setReponseSchema3] = useState(null);
   const [reponseSchema4, setReponseSchema4] = useState(null);
+  const [typesRepresentation, setTypesRepresentation] = useState(['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste']);
 
 
   function handleChildClick(data) {
@@ -215,8 +216,12 @@ export function Exercice() {
 
   const onSubmit = methods.handleSubmit(data => {
     console.log(data);
-    methods.reset();
-    setSuccess(true);
+    if(indexQuestion == 4) {
+      
+    }else{
+      setIndexQuestion(prev => prev + 1);
+      choixEnnonce(tableauPos, listeSets, tableauIncl, listeInclinaisons);
+    }
   });
 
   return (
@@ -260,13 +265,17 @@ export function Exercice() {
       </div>
       <div className="flex justify-between">
         <Button
-          onClick={() => setIndexQuestion(prev => Math.max(prev - 1, 0))}
+          onClick={() => {
+            setView(typesRepresentation[((typesRepresentation.indexOf(view) - 1)%typesRepresentation.length<0) ? typesRepresentation.length - 1 : (typesRepresentation.indexOf(view) - 1)%typesRepresentation.length]);
+          }}
           text="Representation precedente"
           color="bg-green-600"
           hoverColor="hover:bg-green-800"
         />
         <Button
-          onClick={() => setIndexQuestion(prev => prev + 1)}
+          onClick={() => {
+            setView(typesRepresentation[(typesRepresentation.indexOf(view) + 1)%typesRepresentation.length]);
+          }}
           text="Representation suivante"
           color="bg-green-600"
           hoverColor="hover:bg-green-800"
