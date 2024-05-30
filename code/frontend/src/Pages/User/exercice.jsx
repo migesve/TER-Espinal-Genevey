@@ -22,13 +22,13 @@ export function Exercice() {
 
 
   function handleChildClick(data) {
-    switch(data.representation) {
+    switch (data.representation) {
       case "Schéma3":
         setReponseSchema3(data.choix);
         break;
-        case "Schéma4":
-          setReponseSchema4(data.choix);
-          break;
+      case "Schéma4":
+        setReponseSchema4(data.choix);
+        break;
       default:
         break;
     }
@@ -135,18 +135,18 @@ export function Exercice() {
         setTableauPos(newTableauPos);
         setTableauIncl(newTableauIncl);
         setSuccess(true);
-        choixEnnonce(newTableauPos, listeSets);
+        choixEnnonce(newTableauPos, listeSets, newTableauIncl, listeInclinaisons);
       };
 
       generateExercice();
     }
   }, [listeSets, listeInclinaisons]);
 
-  // console.log('ListeSets : ', listeSets);
-  // console.log('ListeInclinaisons : ', listeInclinaisons);
-  // console.log('TableauPos : ', tableauPos);
-  // console.log('TableauIncl : ', tableauIncl);
-  // console.log('Ennonce : ', ennonce);
+  console.log('ListeSets : ', listeSets);
+  console.log('ListeInclinaisons : ', listeInclinaisons);
+  console.log('TableauPos : ', tableauPos);
+  console.log('TableauIncl : ', tableauIncl);
+  console.log('Ennonce : ', ennonce);
 
   function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -154,7 +154,7 @@ export function Exercice() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const choixEnnonce = (tableauPos, listeSets) => {
+  const choixEnnonce = (tableauPos, listeSets, tableauIncl, listeInclinaisons) => {
     if (!tableauPos || !listeSets || tableauPos.length === 0 || listeSets.length === 0 || indexQuestion >= tableauPos.length) {
       console.error("Invalid tableauPos or listeSets");
       return;
@@ -162,12 +162,14 @@ export function Exercice() {
 
     const rdm = Math.floor(Math.random() * 6);
     const selectedSet = listeSets[tableauPos[indexQuestion]];
+    const selectedInclinaison = listeInclinaisons[tableauIncl[indexQuestion]];
 
-    if (!selectedSet) {
-      console.error("Invalid selectedSet");
+    if (!selectedSet || !selectedInclinaison) {
+      console.error("Invalid selectedSet ou selectedInclinaison");
       return;
     }
     console.log('SelectedSet : ', selectedSet);
+    console.log('SelectedInclinaison : ', selectedInclinaison);
 
     switch (rdm) {
       case 0:
@@ -181,8 +183,8 @@ export function Exercice() {
       case 2:
         setEnnonce({
           representation: 'Schéma très simplifié',
-          angle: selectedSet.angle2 - selectedSet.angle1 >= 11 ? 
-            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78) : 
+          angle: selectedSet.angle2 - selectedSet.angle1 >= 11 ?
+            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78) :
             getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 10) % 360
         });
         setView('Schéma très simplifié');
@@ -190,18 +192,18 @@ export function Exercice() {
       case 3:
         setEnnonce({
           representation: 'Schéma simplifié',
-          angle: selectedSet.angle2 - selectedSet.angle1 >= 11 ? 
-            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78) : 
+          angle: selectedSet.angle2 - selectedSet.angle1 >= 11 ?
+            getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78) :
             getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 10) % 360
         });
         setView('Schéma simplifié');
         break;
       case 4:
-        setEnnonce({ representation: 'Schéma réaliste', angle: null });
+        setEnnonce({ representation: 'Schéma réaliste', angle: null, position: selectedSet.position_id, inclinaison: selectedInclinaison.inclinaison_id });
         setView('Schéma réaliste');
         break;
       case 5:
-        setEnnonce({ representation: 'Schéma très réaliste', angle: null });
+        setEnnonce({ representation: 'Schéma très réaliste', angle: null, position: selectedSet.position_id, inclinaison: selectedInclinaison.inclinaison_id });
         setView('Schéma très réaliste');
         break;
       default:
@@ -220,7 +222,7 @@ export function Exercice() {
   return (
     <>
       <h1>Exercice X</h1>
-      <h2>Question {indexQuestion+1}/5</h2>
+      <h2>Question {indexQuestion + 1}/5</h2>
       <Button
         onClick={onSubmit}
         text="Finir Question"
@@ -242,8 +244,18 @@ export function Exercice() {
           {(view === 'Sigle') ? <p></p> : ""}
           <ExerciceContinu display={(view === 'Schéma très simplifié') ? "flex" : "hidden"} />
           <ExerciceContinu display={(view === 'Schéma simplifié') ? "flex" : "hidden"} />
-          <Schema3 sendToParent={handleChildClick} display={(view === 'Schéma réaliste') ? "flex" : "hidden"}/>
-          <Schema4 sendToParent={handleChildClick} display={(view === 'Schéma très réaliste') ? "flex" : "hidden"} />
+          <Schema3 sendToParent={handleChildClick}
+            display={(view === 'Schéma réaliste') ? "flex" : "hidden"}
+            estEnnonce={(ennonce?.representation === 'Schéma réaliste') ? "true" : "false"}
+            position={ennonce?.position}
+            inclinaison={ennonce?.inclinaison}
+          />
+          <Schema4 sendToParent={handleChildClick}
+            display={(view === 'Schéma très réaliste') ? "flex" : "hidden"}
+            estEnnonce={(ennonce?.representation === 'Schéma très réaliste') ? "true" : "false"}
+            position={ennonce?.position}
+            inclinaison={ennonce?.inclinaison}
+          />
         </div>
       </div>
       <div className="flex justify-between">

@@ -2,35 +2,55 @@ import { useState, useEffect } from 'react';
 import { GrUp, GrDown } from 'react-icons/gr';
 import { Button } from './Button';
 
-export const Schema4 = ({sendToParent, display}) => {
+export const Schema4 = ({ sendToParent, display, estEnnonce, position, inclinaison }) => {
     const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
     const [listeSchema4Pos2, setListeSchema4Pos2] = useState([]);
     const [error, setError] = useState(null);
     const [index, setIndex] = useState(0);
     const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
+    const [ennonce, setEnnonce] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const promises = [1, 2].map(i =>
-                    fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
+
+                if (estEnnonce === "false") {
+                    const promises = [1, 2].map(i =>
+                        fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
+                            method: 'GET',
+                            headers: { 'Content-Type': 'application/json' },
+                        }).then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to fetch schema4 data');
+                            }
+                            return response.json();
+                        })
+                    );
+                    const [data1, data2] = await Promise.all(promises);
+                    if (data1.status || data2.status) {
+                        setError(data1.status || data2.status);
+                        return;
+                    }
+                    setListeSchema4Pos1(data1.Schemas4);
+                    setListeSchema4Pos2(data2.Schemas4);
+                    setListeSchema4selectionnee(data1.Schemas4);
+                } else {
+                    const response = await fetch(`http://localhost:4000/schema4/getByIds/${position}/${inclinaison}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
-                    }).then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to fetch schema4 data');
-                        }
-                        return response.json();
-                    })
-                );
-                const [data1, data2] = await Promise.all(promises);
-                if (data1.status || data2.status) {
-                    setError(data1.status || data2.status);
-                    return;
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch ennonce data');
+                    }
+                    const data = await response.json();
+                    if (data.status) {
+                        setError(data.status);
+                        return;
+                    }
+
+                    setEnnonce(data.Schemas4[0]);
                 }
-                setListeSchema4Pos1(data1.Schemas4);
-                setListeSchema4Pos2(data2.Schemas4);
-                setListeSchema4selectionnee(data1.Schemas4);
+
             } catch (err) {
                 console.error('Error:', err);
                 setError(err.message);
@@ -38,7 +58,8 @@ export const Schema4 = ({sendToParent, display}) => {
         };
 
         fetchData();
-    }, []);
+
+    }, [position, inclinaison, estEnnonce]);
 
     useEffect(() => {
         sendToParent({ representation: "Schéma4", choix: listeSchema4selectionnee[index] });
@@ -76,24 +97,37 @@ export const Schema4 = ({sendToParent, display}) => {
         return <div>Error: {error}</div>;
     }
 
-    return (
-        <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
-            <h4 className="font-semibold text-xl">Schéma réaliste</h4>
-            {listeSchema4selectionnee.length > 0 && (
-                <div className="flex items-center">
-                    <div className="flex flex-col items-center gap-1">
-                    <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonPrecedante}/>
-                        <p>Inclinaisons</p>
-                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonSuivante}/>
+    else {
+        if (ennonce !== null) {
+            return (
+                <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
+                    <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+                    <div className="flex items-center">
+                        <img src={ennonce.image_path} alt={ennonce.image_name} className="mx-4" />
                     </div>
-                    <img src={listeSchema4selectionnee[index].image_path} alt={listeSchema4selectionnee[index].image_name} className="mx-4" />
-                    <div className="flex flex-col items-center gap-1">
-                    <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionPrecedante}/>
-                        <p>Positions</p>
-                        <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionSuivante}/>
-                    </div>
-                </div>
-            )}
-        </section>
-    );
+                </section>
+            );
+        } else {
+            return (
+                <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
+                    <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+                    {listeSchema4selectionnee.length > 0 && (
+                        <div className="flex items-center">
+                            <div className="flex flex-col items-center gap-1">
+                                <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonPrecedante} />
+                                <p>Inclinaisons</p>
+                                <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrDown} onClick={inclinaisonSuivante} />
+                            </div>
+                            <img src={listeSchema4selectionnee[index].image_path} alt={listeSchema4selectionnee[index].image_name} className="mx-4" />
+                            <div className="flex flex-col items-center gap-1">
+                                <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionPrecedante} />
+                                <p>Positions</p>
+                                <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrDown} onClick={positionSuivante} />
+                            </div>
+                        </div>
+                    )}
+                </section>
+            );
+        }
+    }
 };
