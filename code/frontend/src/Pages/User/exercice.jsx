@@ -20,6 +20,7 @@ export function Exercice() {
   const [reponseSchema3, setReponseSchema3] = useState(null);
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [typesRepresentation, setTypesRepresentation] = useState(['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste']);
+  const [key, setKey] = useState(0);
 
 
   function handleChildClick(data) {
@@ -136,7 +137,7 @@ export function Exercice() {
         setTableauPos(newTableauPos);
         setTableauIncl(newTableauIncl);
         setSuccess(true);
-        choixEnnonce(newTableauPos, listeSets, newTableauIncl, listeInclinaisons);
+        choixEnnonce(newTableauPos, listeSets, newTableauIncl, listeInclinaisons, indexQuestion);
       };
 
       generateExercice();
@@ -155,7 +156,7 @@ export function Exercice() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const choixEnnonce = (tableauPos, listeSets, tableauIncl, listeInclinaisons) => {
+  const choixEnnonce = (tableauPos, listeSets, tableauIncl, listeInclinaisons, indexQuestion) => {
     if (!tableauPos || !listeSets || tableauPos.length === 0 || listeSets.length === 0 || indexQuestion >= tableauPos.length) {
       console.error("Invalid tableauPos or listeSets");
       return;
@@ -219,8 +220,12 @@ export function Exercice() {
     if(indexQuestion == 4) {
       
     }else{
-      setIndexQuestion(prev => prev + 1);
-      choixEnnonce(tableauPos, listeSets, tableauIncl, listeInclinaisons);
+      setIndexQuestion(prev => {
+        const newIndex = prev + 1;
+        choixEnnonce(tableauPos, listeSets, tableauIncl, listeInclinaisons, newIndex);// Appeler choixEnnonce avec le nouvel index de la question
+        setKey(prevKey => prevKey + 1);// Mettre à jour la clé pour recharger les composants Schema3 et Schema4
+        return newIndex;
+      });
     }
   });
 
@@ -249,13 +254,15 @@ export function Exercice() {
           {(view === 'Sigle') ? <p></p> : ""}
           <ExerciceContinu display={(view === 'Schéma très simplifié') ? "flex" : "hidden"} />
           <ExerciceContinu display={(view === 'Schéma simplifié') ? "flex" : "hidden"} />
-          <Schema3 sendToParent={handleChildClick}
+          <Schema3 key={key} 
+            sendToParent={handleChildClick}
             display={(view === 'Schéma réaliste') ? "flex" : "hidden"}
             estEnnonce={(ennonce?.representation === 'Schéma réaliste') ? "true" : "false"}
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          <Schema4 sendToParent={handleChildClick}
+          <Schema4 key={key + 1} 
+            sendToParent={handleChildClick}
             display={(view === 'Schéma très réaliste') ? "flex" : "hidden"}
             estEnnonce={(ennonce?.representation === 'Schéma très réaliste') ? "true" : "false"}
             position={ennonce?.position}
