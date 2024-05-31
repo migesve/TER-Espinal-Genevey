@@ -19,6 +19,7 @@
     "formik": "^2.4.6",
     "framer-motion": "^11.0.20",
     "helmet": "^7.1.0",
+    "rc-slider": "^10.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
