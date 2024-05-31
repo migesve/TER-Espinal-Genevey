@@ -58,7 +58,7 @@ export function Schema3({ sendToParent, display, estEnnonce, position, inclinais
 
         fetchData();
 
-    }, []);
+    }, [position, inclinaison, estEnnonce]);
 
     useEffect(() => {
         sendToParent({ representation: "Schéma3", choix: listeSchema3selectionnee[index] });

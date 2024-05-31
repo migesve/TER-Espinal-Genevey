@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ExerciceContinu } from "../../Components/ExerciceContinu";
 import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
+import { NomPosition } from "../../Components/NomPosition";
 
 export function Exercice() {
   const methods = useForm();
@@ -19,12 +20,16 @@ export function Exercice() {
   const [indexQuestion, setIndexQuestion] = useState(0);
   const [reponseSchema3, setReponseSchema3] = useState(null);
   const [reponseSchema4, setReponseSchema4] = useState(null);
+  const [reponseNom, setReponseNom] = useState(null);
   const [typesRepresentation, setTypesRepresentation] = useState(['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste']);
   const [key, setKey] = useState(0);
 
 
   function handleChildClick(data) {
     switch (data.representation) {
+      case "Nom":
+        setReponseNom(data.choix);
+        break;
       case "Schéma3":
         setReponseSchema3(data.choix);
         break;
@@ -175,7 +180,7 @@ export function Exercice() {
 
     switch (rdm) {
       case 0:
-        setEnnonce({ representation: 'Nom' });
+        setEnnonce({ representation: 'Nom', position: selectedSet.nom, inclinaison: selectedInclinaison.label});
         setView('Nom');
         break;
       case 1:
@@ -250,7 +255,13 @@ export function Exercice() {
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
-          {(view === 'Nom') ? <p></p> : ""}
+          <NomPosition key={key+2}
+            sendToParent={handleChildClick}
+            display={(view === 'Nom') ? "flex" : "hidden"}
+            estEnnonce={(ennonce?.representation === 'Nom') ? "true" : "false"}
+            position={ennonce?.position}
+            inclinaison={ennonce?.inclinaison}
+          />
           {(view === 'Sigle') ? <p></p> : ""}
           <ExerciceContinu display={(view === 'Schéma très simplifié') ? "flex" : "hidden"} />
           <ExerciceContinu display={(view === 'Schéma simplifié') ? "flex" : "hidden"} />
