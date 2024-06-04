@@ -48,7 +48,7 @@ export function Schema3({ sendToParent, display, estEnnonce, position, inclinais
                         return;
                     }
 
-                    setEnnonce(data.Schemas3[0]);
+                    setEnnonce(data.Schemas3[Math.floor(Math.random() * data.Schemas3.length )]);
                 }
             } catch (err) {
                 console.error('Error:', err);

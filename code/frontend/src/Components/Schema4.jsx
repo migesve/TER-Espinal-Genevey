@@ -48,7 +48,7 @@ export const Schema4 = ({ sendToParent, display, estEnnonce, position, inclinais
                         return;
                     }
 
-                    setEnnonce(data.Schemas4[0]);
+                    setEnnonce(data.Schemas4[Math.floor(Math.random() * data.Schemas4.length )]);
                 }
 
             } catch (err) {

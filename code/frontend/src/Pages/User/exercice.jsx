@@ -6,6 +6,7 @@ import { ExerciceContinu } from "../../Components/ExerciceContinu";
 import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
 import { NomPosition } from "../../Components/NomPosition";
+import { Sigle } from "../../Components/Sigle";
 
 export function Exercice() {
   const methods = useForm();
@@ -21,6 +22,7 @@ export function Exercice() {
   const [reponseSchema3, setReponseSchema3] = useState(null);
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [reponseNom, setReponseNom] = useState(null);
+  const [reponseSigle, setReponseSigle] = useState(null);
   const [typesRepresentation, setTypesRepresentation] = useState(['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste']);
   const [key, setKey] = useState(0);
 
@@ -28,6 +30,9 @@ export function Exercice() {
   function handleChildClick(data) {
     switch (data.representation) {
       case "Nom":
+        setReponseNom(data.choix);
+        break;
+      case "Sigle":
         setReponseNom(data.choix);
         break;
       case "Schéma3":
@@ -184,7 +189,7 @@ export function Exercice() {
         setView('Nom');
         break;
       case 1:
-        setEnnonce({ representation: 'Sigle' });
+        setEnnonce({ representation: 'Sigle', position: selectedSet.abreviation, inclinaison: selectedInclinaison.label});
         setView('Sigle');
         break;
       case 2:
@@ -262,10 +267,16 @@ export function Exercice() {
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          {(view === 'Sigle') ? <p></p> : ""}
+          <Sigle key={key+3}
+            sendToParent={handleChildClick}
+            display={(view === 'Sigle') ? "flex" : "hidden"}
+            estEnnonce={(ennonce?.representation === 'Sigle') ? "true" : "false"}
+            position={ennonce?.position}
+            inclinaison={ennonce?.inclinaison}
+          />
           <ExerciceContinu display={(view === 'Schéma très simplifié') ? "flex" : "hidden"} />
           <ExerciceContinu display={(view === 'Schéma simplifié') ? "flex" : "hidden"} />
-          <Schema3 key={key} 
+          <Schema3 key={key}
             sendToParent={handleChildClick}
             display={(view === 'Schéma réaliste') ? "flex" : "hidden"}
             estEnnonce={(ennonce?.representation === 'Schéma réaliste') ? "true" : "false"}
