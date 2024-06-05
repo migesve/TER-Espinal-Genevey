@@ -13,8 +13,6 @@ export const choixEnnonce = (
     setEnnonce,
     setView
   ) => {
-    console.log("tableauPos : ", tableauPos);
-    console.log("listeSets : ", listeSets);
     if (
       !tableauPos ||
       !listeSets ||
