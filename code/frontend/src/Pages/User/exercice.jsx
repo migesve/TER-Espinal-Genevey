@@ -7,6 +7,8 @@ import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
 import { NomPosition } from "../../Components/NomPosition";
 import { Sigle } from "../../Components/Sigle";
+import { fetchDataPosition, fetchDataInclinaison, fetchDataSchema3, fetchDataSchema4 } from "../../utils/fetchData";
+import { getRandomIntInclusive } from "../../utils/outils";
 
 export function Exercice() {
   const methods = useForm();
@@ -23,7 +25,7 @@ export function Exercice() {
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [reponseNom, setReponseNom] = useState(null);
   const [reponseSigle, setReponseSigle] = useState(null);
-  const [typesRepresentation, setTypesRepresentation] = useState(['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste']);
+  const typesRepresentation = ['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste'];
   const [key, setKey] = useState(0);
 
 
@@ -33,7 +35,7 @@ export function Exercice() {
         setReponseNom(data.choix);
         break;
       case "Sigle":
-        setReponseNom(data.choix);
+        setReponseSigle(data.choix);
         break;
       case "Schéma3":
         setReponseSchema3(data.choix);
@@ -47,49 +49,31 @@ export function Exercice() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       try {
-        const setsResponse = await fetch('http://localhost:4000/sets/getAll', {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (!setsResponse.ok) {
-          throw new Error('Failed to fetch sets');
-        }
-
-        const setsData = await setsResponse.json();
+        const setsData = await fetchDataPosition();
         if (setsData.status) {
-          setError(setsData.status);
-          return;
+          setError(inclinaisonsData.status);
+        } else {
+          console.log('SetsData : ', setsData);
+          setListeSets(setsData);
         }
 
-        setListeSets(setsData.sets);
-
-        const inclinaisonsResponse = await fetch('http://localhost:4000/inclinaison/getAll', {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (!inclinaisonsResponse.ok) {
-          throw new Error('Failed to fetch inclinaisons');
-        }
-
-        const inclinaisonsData = await inclinaisonsResponse.json();
+        const inclinaisonsData = await fetchDataInclinaison();
         if (inclinaisonsData.status) {
           setError(inclinaisonsData.status);
-          return;
+        } else {
+          console.log('InclinaisonsData : ', inclinaisonsData);
+          setListeInclinaisons(inclinaisonsData);
         }
-
-        setListeInclinaisons(inclinaisonsData.inclinaisons);
 
       } catch (err) {
         console.error('Error:', err);
         setError(err.message);
       }
-    };
-
+    }
     fetchData();
+
   }, []);
 
   useEffect(() => {
@@ -113,40 +97,22 @@ export function Exercice() {
             const position_id = listeSets[newTableauPos[i]].position_id;
             const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
 
-            const schema3Response = await fetch(`http://localhost:4000/schema3/getByIds/${position_id}/${inclinaison_id}`, {
-              method: 'GET',
-              headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (!schema3Response.ok) {
-              console.error('Failed to fetch schema3');
-              continue;
-            }
-
-            const schema3Data = await schema3Response.json();
-            if (schema3Data.Succes && schema3Data.Schemas3.length > 0) {
-              const schema4Response = await fetch(`http://localhost:4000/schema4/getByIds/${position_id}/${inclinaison_id}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-              });
-
-              if (!schema4Response.ok) {
-                console.error('Failed to fetch schema4');
-                continue;
+            try {
+              const schema3Data = await fetchDataSchema3(position_id, inclinaison_id);
+              if (schema3Data.Succes && schema3Data.Schemas3.length > 0) {
+                const schema4Data = await fetchDataSchema4(position_id, inclinaison_id);
+                if (schema4Data.Succes && schema4Data.Schemas4.length > 0) {
+                  newTableauIncl.push(rdm);
+                  found = true;
+                }
               }
-
-              const schema4Data = await schema4Response.json();
-              if (schema4Data.Succes && schema4Data.Schemas4.length > 0) {
-                newTableauIncl.push(rdm);
-                found = true;
-              }
+            } catch (error) {
+              console.error('Error fetching schemas:', error);
             }
           }
         }
-
         setTableauPos(newTableauPos);
         setTableauIncl(newTableauIncl);
-        setSuccess(true);
         choixEnnonce(newTableauPos, listeSets, newTableauIncl, listeInclinaisons, indexQuestion);
       };
 
@@ -159,12 +125,6 @@ export function Exercice() {
   console.log('TableauPos : ', tableauPos);
   console.log('TableauIncl : ', tableauIncl);
   console.log('Ennonce : ', ennonce);
-
-  function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 
   const choixEnnonce = (tableauPos, listeSets, tableauIncl, listeInclinaisons, indexQuestion) => {
     if (!tableauPos || !listeSets || tableauPos.length === 0 || listeSets.length === 0 || indexQuestion >= tableauPos.length) {
@@ -185,11 +145,11 @@ export function Exercice() {
 
     switch (rdm) {
       case 0:
-        setEnnonce({ representation: 'Nom', position: selectedSet.nom, inclinaison: selectedInclinaison.label});
+        setEnnonce({ representation: 'Nom', position: selectedSet.nom, inclinaison: selectedInclinaison.label });
         setView('Nom');
         break;
       case 1:
-        setEnnonce({ representation: 'Sigle', position: selectedSet.abreviation, inclinaison: selectedInclinaison.label});
+        setEnnonce({ representation: 'Sigle', position: selectedSet.abreviation, inclinaison: selectedInclinaison.label });
         setView('Sigle');
         break;
       case 2:
@@ -227,9 +187,9 @@ export function Exercice() {
 
   const onSubmit = methods.handleSubmit(data => {
     console.log(data);
-    if(indexQuestion == 4) {
-      
-    }else{
+    if (indexQuestion == 4) {
+
+    } else {
       setIndexQuestion(prev => {
         const newIndex = prev + 1;
         choixEnnonce(tableauPos, listeSets, tableauIncl, listeInclinaisons, newIndex);// Appeler choixEnnonce avec le nouvel index de la question
@@ -260,14 +220,14 @@ export function Exercice() {
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
-          <NomPosition key={key+2}
+          <NomPosition key={key + 2}
             sendToParent={handleChildClick}
             display={(view === 'Nom') ? "flex" : "hidden"}
             estEnnonce={(ennonce?.representation === 'Nom') ? "true" : "false"}
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          <Sigle key={key+3}
+          <Sigle key={key + 3}
             sendToParent={handleChildClick}
             display={(view === 'Sigle') ? "flex" : "hidden"}
             estEnnonce={(ennonce?.representation === 'Sigle') ? "true" : "false"}
@@ -283,7 +243,7 @@ export function Exercice() {
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          <Schema4 key={key + 1} 
+          <Schema4 key={key + 1}
             sendToParent={handleChildClick}
             display={(view === 'Schéma très réaliste') ? "flex" : "hidden"}
             estEnnonce={(ennonce?.representation === 'Schéma très réaliste') ? "true" : "false"}
@@ -295,7 +255,7 @@ export function Exercice() {
       <div className="flex justify-between">
         <Button
           onClick={() => {
-            setView(typesRepresentation[((typesRepresentation.indexOf(view) - 1)%typesRepresentation.length<0) ? typesRepresentation.length - 1 : (typesRepresentation.indexOf(view) - 1)%typesRepresentation.length]);
+            setView(typesRepresentation[((typesRepresentation.indexOf(view) - 1) % typesRepresentation.length < 0) ? typesRepresentation.length - 1 : (typesRepresentation.indexOf(view) - 1) % typesRepresentation.length]);
           }}
           text="Representation precedente"
           color="bg-green-600"
@@ -303,7 +263,7 @@ export function Exercice() {
         />
         <Button
           onClick={() => {
-            setView(typesRepresentation[(typesRepresentation.indexOf(view) + 1)%typesRepresentation.length]);
+            setView(typesRepresentation[(typesRepresentation.indexOf(view) + 1) % typesRepresentation.length]);
           }}
           text="Representation suivante"
           color="bg-green-600"
