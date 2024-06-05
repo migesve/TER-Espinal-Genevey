@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-const RotationKnob = () => {
+export const RotationKnob = () => {
   const [angle, setAngle] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [translateY, setTranslateY] = useState(0);
@@ -120,5 +120,3 @@ const RotationKnob = () => {
     </div>
   );
 };
-
-export default RotationKnob;

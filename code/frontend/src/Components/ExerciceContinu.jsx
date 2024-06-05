@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
-import RotationKnob from './RotationKnob';
+import React, { useState } from "react";
+import { RotationKnob } from "./RotationKnob";
+import { FixedRotationKnob } from "./FixedRotationKnob";
 
-export const ExerciceContinu = ({display}) => {
-  const [rotation, setRotation] = useState(0);
+export const ExerciceContinu = ({
+  display,
+  angle,
+  inclinaison,
+  estEnnonce,
+  sendToParent,
+}) => {
+  console.log("estEnnonce value:", estEnnonce);
 
   return (
     <>
-      <div
-        className={`${display} flex-col items-center p-4`}
-      >
-        <RotationKnob />
+      <div className={`${display} flex-col items-center p-4`}>
+        {estEnnonce ? (
+          <FixedRotationKnob angle={angle} inclinaison={inclinaison} />
+        ) : (
+          <RotationKnob sendToParent={sendToParent} />
+        )}
       </div>
     </>
   );
