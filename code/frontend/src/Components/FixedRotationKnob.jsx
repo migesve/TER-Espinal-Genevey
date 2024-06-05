@@ -4,10 +4,7 @@ import "rc-slider/assets/index.css";
 
 export const FixedRotationKnob = ({ angle, inclinaison }) => {
   
-  var translateY;
-  
-  inclinaison == 0 ? translateY = 0 : translateY = 20;
-  
+  console.log("fixed" + inclinaison);
   return (
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none">
@@ -27,7 +24,7 @@ export const FixedRotationKnob = ({ angle, inclinaison }) => {
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
-            transform: `rotate(${angle}deg) translateY(${translateY}px)`,
+            transform: `rotate(${angle}deg) translateY(${-inclinaison}px)`,
           }}
         />
         <img
@@ -42,9 +39,10 @@ export const FixedRotationKnob = ({ angle, inclinaison }) => {
         <Slider
           min={-10}
           max={10}
-          value={translateY}
+          value={inclinaison}
           className="z-50 max-h-[200px]"
           vertical={true}
+          disabled={true}
         />
         <div className="mt-2">Pas flechi</div>
       </div>

@@ -21,6 +21,14 @@ export function Exercice() {
   const [ennonce, setEnnonce] = useState(null);
   const [view, setView] = useState("");
   const [indexQuestion, setIndexQuestion] = useState(0);
+  const [reponseSchema1, setReponseSchema1] = useState({
+    angle: null,
+    inclinaison: null,
+  });
+  const [reponseSchema2, setReponseSchema2] = useState({
+    angle: null,
+    inclinaison: null,
+  });
   const [reponseSchema3, setReponseSchema3] = useState(null);
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [reponseNom, setReponseNom] = useState(null);
@@ -35,6 +43,14 @@ export function Exercice() {
         break;
       case "Sigle":
         setReponseSigle(data.choix);
+        break;
+      case "Schéma1":
+        setReponseSchema1({ angle: data.angle, inclinaison: data.inclinaison });
+        console.log("Reponse Schema 1 : ", reponseSchema1);
+        break;
+      case "Schéma2":
+        setReponseSchema2({ angle: data.angle, inclinaison: data.inclinaison });
+        console.log("Reponse Schema 2 : ", reponseSchema2);
         break;
       case "Schéma3":
         setReponseSchema3(data.choix);
@@ -144,12 +160,20 @@ export function Exercice() {
 
     switch (rdm) {
       case 0:
-        setEnnonce({ representation: 'Nom', position: selectedSet.nom, inclinaison: selectedInclinaison.label });
-        setView('Nom');
+        setEnnonce({
+          representation: "Nom",
+          position: selectedSet.nom,
+          inclinaison: selectedInclinaison.label,
+        });
+        setView("Nom");
         break;
       case 1:
-        setEnnonce({ representation: 'Sigle', position: selectedSet.abreviation, inclinaison: selectedInclinaison.label });
-        setView('Sigle');
+        setEnnonce({
+          representation: "Sigle",
+          position: selectedSet.abreviation,
+          inclinaison: selectedInclinaison.label,
+        });
+        setView("Sigle");
         break;
       case 2:
         setEnnonce({
@@ -164,6 +188,7 @@ export function Exercice() {
                   selectedSet.angle1,
                   selectedSet.angle1 + 10
                 ) % 360,
+          inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
         });
         setView("Schéma très simplifié");
         break;
@@ -180,6 +205,7 @@ export function Exercice() {
                   selectedSet.angle1,
                   selectedSet.angle1 + 10
                 ) % 360,
+          inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
         });
         setView("Schéma simplifié");
         break;
@@ -297,23 +323,44 @@ export function Exercice() {
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
-          <NomPosition key={key + 2}
+          <NomPosition
+            key={key + 2}
             sendToParent={handleChildClick}
-            display={(view === 'Nom') ? "flex" : "hidden"}
-            estEnnonce={(ennonce?.representation === 'Nom') ? "true" : "false"}
+            display={view === "Nom" ? "flex" : "hidden"}
+            estEnnonce={ennonce?.representation === "Nom" ? "true" : "false"}
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          <Sigle key={key + 3}
+          <Sigle
+            key={key + 3}
             sendToParent={handleChildClick}
-            display={(view === 'Sigle') ? "flex" : "hidden"}
-            estEnnonce={(ennonce?.representation === 'Sigle') ? "true" : "false"}
+            display={view === "Sigle" ? "flex" : "hidden"}
+            estEnnonce={ennonce?.representation === "Sigle" ? "true" : "false"}
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          <ExerciceContinu display={(view === 'Schéma très simplifié') ? "flex" : "hidden"} />
-          <ExerciceContinu display={(view === 'Schéma simplifié') ? "flex" : "hidden"} />
-          <Schema3 key={key}
+          <ExerciceContinu
+            estEnnonce={
+              ennonce?.representation === "Schéma très simplifié" ? true : false
+            }
+            sendToParent={handleChildClick}
+            display={view === "Schéma très simplifié" ? "flex" : "hidden"}
+            angle={ennonce?.angle}
+            inclinaison={ennonce?.inclinaison}
+            schema={1}
+          />
+          <ExerciceContinu
+            estEnnonce={
+              ennonce?.representation === "Schéma simplifié" ? true : false
+            }
+            sendToParent={handleChildClick}
+            display={view === "Schéma simplifié" ? "flex" : "hidden"}
+            angle={ennonce?.angle}
+            inclinaison={ennonce?.inclinaison}
+            schema={2}
+          />
+          <Schema3
+            key={key}
             sendToParent={handleChildClick}
             display={view === "Schéma réaliste" ? "flex" : "hidden"}
             estEnnonce={

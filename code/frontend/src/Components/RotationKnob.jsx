@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-export const RotationKnob = () => {
+export const RotationKnob = ({ sendToParent, schema }) => {
   const [angle, setAngle] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [translateY, setTranslateY] = useState(0);
@@ -10,7 +10,7 @@ export const RotationKnob = () => {
   const radius = 20;
 
   const handleMouseDown = (e) => {
-    e.preventDefault(); // Prevent default text selection behavior
+    e.preventDefault();
     setDragging(true);
   };
 
@@ -31,12 +31,19 @@ export const RotationKnob = () => {
 
       setAngle((prevAngle) => {
         const deltaAngle = newAngle - prevAngle;
+        let adjustedAngle = prevAngle;
+
         if (deltaAngle > 180) {
-          return prevAngle + (deltaAngle - 360);
+          adjustedAngle += deltaAngle - 360;
         } else if (deltaAngle < -180) {
-          return prevAngle + (deltaAngle + 360);
+          adjustedAngle += deltaAngle + 360;
+        } else {
+          adjustedAngle += deltaAngle;
         }
-        return prevAngle + deltaAngle;
+
+        adjustedAngle = (adjustedAngle + 360) % 360;
+
+        return adjustedAngle;
       });
     }
   };
@@ -54,6 +61,14 @@ export const RotationKnob = () => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [dragging]);
+
+  useEffect(() => {
+    sendToParent({ representation: "Schéma" + schema, angle: angle, inclinaison: translateY });
+
+    const responseKey = schema === 1 ? "reponseSchema1" : "reponseSchema2";
+    const responseValue = { angle, translateY };
+    localStorage.setItem(responseKey, JSON.stringify(responseValue));
+  }, [angle, translateY]);
 
   const circleX = 50 + radius * Math.cos((angle * Math.PI) / 180);
   const circleY = 50 + radius * Math.sin((angle * Math.PI) / 180);
@@ -89,7 +104,7 @@ export const RotationKnob = () => {
           src="images/tete.png"
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-10 pointer-events-none"
-          style={{ transform: `rotate(${angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner
+          style={{ transform: `rotate(${angle}deg)` }}
           onMouseDown={handleMouseDown}
         />
         <svg

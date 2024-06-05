@@ -8,6 +8,7 @@ export const ExerciceContinu = ({
   inclinaison,
   estEnnonce,
   sendToParent,
+  schema,
 }) => {
   console.log("estEnnonce value:", estEnnonce);
 
@@ -17,7 +18,7 @@ export const ExerciceContinu = ({
         {estEnnonce ? (
           <FixedRotationKnob angle={angle} inclinaison={inclinaison} />
         ) : (
-          <RotationKnob sendToParent={sendToParent} />
+          <RotationKnob sendToParent={sendToParent} schema={schema} />
         )}
       </div>
     </>
