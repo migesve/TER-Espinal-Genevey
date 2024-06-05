@@ -8,6 +8,7 @@ const setsRouter = require('./routers/setsRouter');
 const schema3Router = require('./routers/schema3Router');
 const schema4Router = require('./routers/schema4Router');
 const inclinaisonRouter = require('./routers/inclinaisonRouter');
+const reponsesRouter = require('./routers/reponsesRouter');
 const session = require('express-session');
 require('dotenv').config();
 
@@ -45,6 +46,7 @@ app.use('/sets', setsRouter);
 app.use('/schema3', schema3Router);
 app.use('/schema4', schema4Router);
 app.use('/inclinaison', inclinaisonRouter);
+app.use('/reponses', reponsesRouter);
 app.get('/', (req, res) => {
     res.send('Hello World');
 });

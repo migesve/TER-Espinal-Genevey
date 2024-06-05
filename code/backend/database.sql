@@ -27,6 +27,7 @@ CREATE TABLE schema3 (
     image_path VARCHAR(255) NOT NULL UNIQUE,
     position_id SMALLINT NOT NULL,
     inclinaison_id SMALLINT NOT NULL,
+    angle SMALLINT NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
 );
 
@@ -36,6 +37,7 @@ CREATE TABLE schema4 (
     image_path VARCHAR(255) NOT NULL UNIQUE,
     position_id SMALLINT NOT NULL,
     inclinaison_id SMALLINT NOT NULL,
+    angle SMALLINT NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
 );
 
@@ -44,5 +46,38 @@ CREATE TABLE inclinaisons (
     label VARCHAR(30) NOT NULL UNIQUE,
     degres_min SMALLINT NOT NULL UNIQUE,
     degres_max SMALLINT NOT NULL UNIQUE,
+    created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
+);
+
+CREATE TABLE reponses (
+    reponse_id SERIAL PRIMARY KEY,
+    user_id SMALLINT NOT NULL,
+    position_id SMALLINT NOT NULL,
+    inclinaison_id SMALLINT NOT NULL,
+    ennonce SMALLINT NOT NULL,
+    nom VARCHAR(60) NOT NULL,
+    abreviation VARCHAR(10) NOT NULL,
+    schema1_angle SMALLINT NOT NULL,
+    schema1_inclinaison SMALLINT NOT NULL,
+    schema2_angle SMALLINT NOT NULL,
+    schema2_inclinaison SMALLINT NOT NULL,
+    schema3_id SMALLINT NOT NULL,
+    schema4_id SMALLINT NOT NULL,
+    corr_nom BOOLEAN,
+    corr_abreviation BOOLEAN,
+    corr_schema1_angle BOOLEAN,
+    corr_schema1_inclinaison BOOLEAN,
+    corr_schema2_angle BOOLEAN,
+    corr_schema2_inclinaison BOOLEAN,
+    corr_schema3_id BOOLEAN,
+    corr_schema4_id BOOLEAN,
+    remarque_nom VARCHAR(60),
+    remarque_abreviation VARCHAR(60),
+    remarque_schema1_angle VARCHAR(60),
+    remarque_schema1_inclinaison VARCHAR(60),
+    remarque_schema2_angle VARCHAR(60),
+    remarque_schema2_inclinaison VARCHAR(60),
+    remarque_schema3_id VARCHAR(60),
+    remarque_schema4_id VARCHAR(60),
     created_at timestamp with time zone NOT NULL DEFAULT current_timestamp
 );
