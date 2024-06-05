@@ -7,17 +7,18 @@ import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
 import { NomPosition } from "../../Components/NomPosition";
 import { Sigle } from "../../Components/Sigle";
-import { fetchDataPosition, fetchDataInclinaison, fetchDataSchema3, fetchDataSchema4 } from "../../utils/fetchData";
-import { getRandomIntInclusive } from "../../utils/outils";
+import {
+  fetchDataPosition,
+  fetchDataInclinaison,
+  fetchDataSchema3,
+  fetchDataSchema4,
+} from "../../utils/fetchData";
+import { choixEnnonce } from "../../utils/outils";
 
 export function Exercice() {
   const methods = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const [listeSets, setListeSets] = useState([]);
-  const [listeInclinaisons, setListeInclinaisons] = useState([]);
-  const [tableauIncl, setTableauIncl] = useState([]);
-  const [tableauPos, setTableauPos] = useState([]);
   const [ennonce, setEnnonce] = useState(null);
   const [view, setView] = useState("");
   const [indexQuestion, setIndexQuestion] = useState(0);
@@ -33,8 +34,29 @@ export function Exercice() {
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [reponseNom, setReponseNom] = useState(null);
   const [reponseSigle, setReponseSigle] = useState(null);
-  const typesRepresentation = ['Nom', 'Sigle', 'Schéma très simplifié', 'Schéma simplifié', 'Schéma réaliste', 'Schéma très réaliste'];
+  const typesRepresentation = [
+    "Nom",
+    "Sigle",
+    "Schéma très simplifié",
+    "Schéma simplifié",
+    "Schéma réaliste",
+    "Schéma très réaliste",
+  ];
   const [key, setKey] = useState(0);
+  const [tableauPos, setTableauPos] = useState([localStorage.getItem("tableauPos")]);
+  const [tableauIncl, setTableauIncl] = useState([localStorage.getItem("tableauIncl")]);
+  const [listeSets, setListeSets] = useState([]);
+  const [listeInclinaisons, setListeInclinaisons] = useState([]);
+
+  useEffect(() => {
+    const tableauPos = localStorage.getItem("newTableauPos");
+    const tableauIncl = localStorage.getItem("newTableauIncl");
+
+    if (tableauPos && tableauIncl) {
+      setTableauPos(JSON.parse(tableauPos));
+      setTableauIncl(JSON.parse(tableauIncl));
+    }
+  }, []);
 
   function handleChildClick(data) {
     switch (data.representation) {
@@ -70,7 +92,7 @@ export function Exercice() {
         if (setsData.status) {
           setError(inclinaisonsData.status);
         } else {
-          console.log('SetsData : ', setsData);
+          console.log("SetsData : ", setsData);
           setListeSets(setsData);
         }
 
@@ -78,62 +100,25 @@ export function Exercice() {
         if (inclinaisonsData.status) {
           setError(inclinaisonsData.status);
         } else {
-          console.log('InclinaisonsData : ', inclinaisonsData);
+          console.log("InclinaisonsData : ", inclinaisonsData);
           setListeInclinaisons(inclinaisonsData);
         }
-
       } catch (err) {
         console.error("Error:", err);
         setError(err.message);
       }
     }
     fetchData();
-
   }, []);
 
-  useEffect(() => {
-    if (listeSets.length > 0 && listeInclinaisons.length > 0) {
-      const generateExercice = async () => {
-        const newTableauPos = [];
-        const newTableauIncl = [];
-
-        while (newTableauPos.length < 5) {
-          const rdm = Math.floor(Math.random() * listeSets.length);
-          if (!newTableauPos.includes(rdm)) {
-            newTableauPos.push(rdm);
-          }
-        }
-
-        for (let i = 0; i < 5; i++) {
-          let rdm;
-          let found = false;
-          while (!found) {
-            rdm = Math.floor(Math.random() * listeInclinaisons.length);
-            const position_id = listeSets[newTableauPos[i]].position_id;
-            const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
-
-            try {
-              const schema3Data = await fetchDataSchema3(position_id, inclinaison_id);
-              if (schema3Data.Succes && schema3Data.Schemas3.length > 0) {
-                const schema4Data = await fetchDataSchema4(position_id, inclinaison_id);
-                if (schema4Data.Succes && schema4Data.Schemas4.length > 0) {
-                  newTableauIncl.push(rdm);
-                  found = true;
-                }
-              }
-            } catch (error) {
-              console.error('Error fetching schemas:', error);
-            }
-          }
-        }
-        setTableauPos(newTableauPos);
-        setTableauIncl(newTableauIncl);
-        choixEnnonce(newTableauPos, listeSets, newTableauIncl, listeInclinaisons, indexQuestion);
-      };
-
-      generateExercice();
-    }
-  }, [listeSets, listeInclinaisons]);
+  
+  choixEnnonce(
+    tableauPos,
+    listeSets,
+    tableauIncl,
+    listeInclinaisons,
+    indexQuestion
+  );
 
   console.log("ListeSets : ", listeSets);
   console.log("ListeInclinaisons : ", listeInclinaisons);
@@ -141,105 +126,11 @@ export function Exercice() {
   console.log("TableauIncl : ", tableauIncl);
   console.log("Ennonce : ", ennonce);
 
-  const choixEnnonce = (tableauPos, listeSets, tableauIncl, listeInclinaisons, indexQuestion) => {
-    if (!tableauPos || !listeSets || tableauPos.length === 0 || listeSets.length === 0 || indexQuestion >= tableauPos.length) {
-      console.error("Invalid tableauPos or listeSets");
-      return;
-    }
-
-    const rdm = Math.floor(Math.random() * 6);
-    const selectedSet = listeSets[tableauPos[indexQuestion]];
-    const selectedInclinaison = listeInclinaisons[tableauIncl[indexQuestion]];
-
-    if (!selectedSet || !selectedInclinaison) {
-      console.error("Invalid selectedSet ou selectedInclinaison");
-      return;
-    }
-    console.log("SelectedSet : ", selectedSet);
-    console.log("SelectedInclinaison : ", selectedInclinaison);
-
-    switch (rdm) {
-      case 0:
-        setEnnonce({
-          representation: "Nom",
-          position: selectedSet.nom,
-          inclinaison: selectedInclinaison.label,
-        });
-        setView("Nom");
-        break;
-      case 1:
-        setEnnonce({
-          representation: "Sigle",
-          position: selectedSet.abreviation,
-          inclinaison: selectedInclinaison.label,
-        });
-        setView("Sigle");
-        break;
-      case 2:
-        setEnnonce({
-          representation: "Schéma très simplifié",
-          angle:
-            selectedSet.angle2 - selectedSet.angle1 >= 11
-              ? getRandomIntInclusive(
-                  selectedSet.angle1,
-                  selectedSet.angle1 + 78
-                )
-              : getRandomIntInclusive(
-                  selectedSet.angle1,
-                  selectedSet.angle1 + 10
-                ) % 360,
-          inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
-        });
-        setView("Schéma très simplifié");
-        break;
-      case 3:
-        setEnnonce({
-          representation: "Schéma simplifié",
-          angle:
-            selectedSet.angle2 - selectedSet.angle1 >= 11
-              ? getRandomIntInclusive(
-                  selectedSet.angle1,
-                  selectedSet.angle1 + 78
-                )
-              : getRandomIntInclusive(
-                  selectedSet.angle1,
-                  selectedSet.angle1 + 10
-                ) % 360,
-          inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
-        });
-        setView("Schéma simplifié");
-        break;
-      case 4:
-        setEnnonce({
-          representation: "Schéma réaliste",
-          angle: null,
-          position: selectedSet.position_id,
-          inclinaison: selectedInclinaison.inclinaison_id,
-        });
-        setView("Schéma réaliste");
-        break;
-      case 5:
-        setEnnonce({
-          representation: "Schéma très réaliste",
-          angle: null,
-          position: selectedSet.position_id,
-          inclinaison: selectedInclinaison.inclinaison_id,
-        });
-        setView("Schéma très réaliste");
-        break;
-      default:
-        setEnnonce({ representation: "Nom" });
-        setView("Nom");
-        break;
-    }
-  };
-
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
     if (indexQuestion == 4) {
-
     } else {
-      setIndexQuestion(prev => {
+      setIndexQuestion((prev) => {
         const newIndex = prev + 1;
         choixEnnonce(
           tableauPos,
@@ -369,7 +260,8 @@ export function Exercice() {
             position={ennonce?.position}
             inclinaison={ennonce?.inclinaison}
           />
-          <Schema4 key={key + 1}
+          <Schema4
+            key={key + 1}
             sendToParent={handleChildClick}
             display={view === "Schéma très réaliste" ? "flex" : "hidden"}
             estEnnonce={
@@ -385,7 +277,16 @@ export function Exercice() {
       <div className="flex justify-between">
         <Button
           onClick={() => {
-            setView(typesRepresentation[((typesRepresentation.indexOf(view) - 1) % typesRepresentation.length < 0) ? typesRepresentation.length - 1 : (typesRepresentation.indexOf(view) - 1) % typesRepresentation.length]);
+            setView(
+              typesRepresentation[
+                (typesRepresentation.indexOf(view) - 1) %
+                  typesRepresentation.length <
+                0
+                  ? typesRepresentation.length - 1
+                  : (typesRepresentation.indexOf(view) - 1) %
+                    typesRepresentation.length
+              ]
+            );
           }}
           text="Representation precedente"
           color="bg-green-600"
@@ -393,7 +294,12 @@ export function Exercice() {
         />
         <Button
           onClick={() => {
-            setView(typesRepresentation[(typesRepresentation.indexOf(view) + 1) % typesRepresentation.length]);
+            setView(
+              typesRepresentation[
+                (typesRepresentation.indexOf(view) + 1) %
+                  typesRepresentation.length
+              ]
+            );
           }}
           text="Representation suivante"
           color="bg-green-600"
