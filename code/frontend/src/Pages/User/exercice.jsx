@@ -43,20 +43,14 @@ export function Exercice() {
     "Schéma très réaliste",
   ];
   const [key, setKey] = useState(0);
-  const [tableauPos, setTableauPos] = useState([localStorage.getItem("tableauPos")]);
-  const [tableauIncl, setTableauIncl] = useState([localStorage.getItem("tableauIncl")]);
+  const [tableauPos, setTableauPos] = useState(
+    JSON.parse(localStorage.getItem("tableauPos"))
+  );
+  const [tableauIncl, setTableauIncl] = useState(
+    JSON.parse(localStorage.getItem("tableauIncl"))
+  );
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
-
-  useEffect(() => {
-    const tableauPos = localStorage.getItem("newTableauPos");
-    const tableauIncl = localStorage.getItem("newTableauIncl");
-
-    if (tableauPos && tableauIncl) {
-      setTableauPos(JSON.parse(tableauPos));
-      setTableauIncl(JSON.parse(tableauIncl));
-    }
-  }, []);
 
   function handleChildClick(data) {
     switch (data.representation) {
@@ -110,21 +104,31 @@ export function Exercice() {
     }
     fetchData();
   }, []);
-
   
-  choixEnnonce(
-    tableauPos,
-    listeSets,
-    tableauIncl,
-    listeInclinaisons,
-    indexQuestion
-  );
+  useEffect(() => {
+    if (
+      tableauPos.length > 0 &&
+      listeSets.length > 0 &&
+      tableauIncl.length > 0 &&
+      listeInclinaisons.length > 0
+    ) {
+      choixEnnonce(
+        tableauPos,
+        listeSets,
+        tableauIncl,
+        listeInclinaisons,
+        indexQuestion,
+        setEnnonce,
+        setView
+      );
+    }
+  }, [tableauPos, listeSets, tableauIncl, listeInclinaisons, indexQuestion]);
 
-  console.log("ListeSets : ", listeSets);
-  console.log("ListeInclinaisons : ", listeInclinaisons);
-  console.log("TableauPos : ", tableauPos);
-  console.log("TableauIncl : ", tableauIncl);
-  console.log("Ennonce : ", ennonce);
+  // console.log("ListeSets : ", listeSets);
+  // console.log("ListeInclinaisons : ", listeInclinaisons);
+  // console.log("TableauPos : ", tableauPos);
+  // console.log("TableauIncl : ", tableauIncl);
+  // console.log("Ennonce : ", ennonce);
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
