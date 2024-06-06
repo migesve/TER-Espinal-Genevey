@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { MdError } from 'react-icons/md'
 import Select from 'react-select'
 
-export const SelectDifficulte = () => {
+export const SelectDifficulte = ({ setDifficulte }) => {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -22,7 +22,8 @@ export const SelectDifficulte = () => {
   ]
 
   const handleChange = (selectedOption) => {
-    console.log(selectedOption)
+    console.log(selectedOption);
+    setDifficulte(selectedOption.value);
   }
   
     return (

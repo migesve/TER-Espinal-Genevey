@@ -1,36 +1,108 @@
-import { Input } from './Input'
-import { SelectDifficulte } from './Select'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useState } from 'react'
-import { GrPlay } from 'react-icons/gr'
-import { BsFillCheckSquareFill } from 'react-icons/bs'
-import { Button } from './Button'
-import { useNavigate } from 'react-router-dom'
+import { Input } from "./Input";
+import { SelectDifficulte } from "./Select";
+import { FormProvider, useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { GrPlay } from "react-icons/gr";
+import { BsFillCheckSquareFill } from "react-icons/bs";
+import { Button } from "./Button";
+import { useNavigate } from "react-router-dom";
+import { fetchDataSchema3, fetchDataSchema4 } from "../utils/fetchData";
+import { choixEnnonce } from "../utils/outils";
 
-export const FormCreerExercice = () => {
+export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
+  const methods = useForm();
+  const [success, setSuccess] = useState(false);
+  const [difficulte, setDifficulte] = useState(null);
+  const navigate = useNavigate();
+  const [ennonce, setEnnonce] = useState();
+  const [view, setView] = useState();
+  const [indexQuestion] = useState(0);
+  const [formData, setFormData] = useState(null);
 
-  const methods = useForm()
-  const [success, setSuccess] = useState(false)
-  const navigate = useNavigate()
+  const onSubmit = methods.handleSubmit((data) => {
+    setFormData(data);
+    if (listeSets.length > 0 && listeInclinaisons.length > 0) {
+      generateExercice();
+    }
+  });
 
-  const onSubmit = methods.handleSubmit(data => {
-    
-    console.log(data)
-    methods.reset()
-    setSuccess(true)
-    navigate('/exercice', { state: { ...data } })
-  })
+  const generateExercice = async () => {
+    const newPos = [];
+    const newIncl = [];
+
+    while (newPos.length < 5) {
+      const rdm = Math.floor(Math.random() * listeSets.length);
+      if (!newPos.includes(rdm)) {
+        newPos.push(rdm);
+      }
+    }
+
+    for (let i = 0; i < 5; i++) {
+      let rdm;
+      let found = false;
+      while (!found) {
+        rdm = Math.floor(Math.random() * listeInclinaisons.length);
+        const position_id = listeSets[newPos[i]].position_id;
+        const inclinaison_id = listeInclinaisons[rdm].inclinaison_id;
+
+        try {
+          const schema3Data = await fetchDataSchema3(position_id, inclinaison_id);
+          if (schema3Data.Succes && schema3Data.Schemas3.length > 0) {
+            const schema4Data = await fetchDataSchema4(position_id, inclinaison_id);
+            if (schema4Data.Succes && schema4Data.Schemas4.length > 0) {
+              newIncl.push(rdm);
+              found = true;
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching schemas:", error);
+        }
+      }
+    }
+
+    console.log("NewPos : ", newPos);
+    console.log("NewIncl : ", newIncl);
+
+    localStorage.setItem("tableauPos", JSON.stringify(newPos));
+    localStorage.setItem("tableauIncl", JSON.stringify(newIncl));
+
+    if (
+      newPos.length > 0 &&
+      listeSets.length > 0 &&
+      newIncl.length > 0 &&
+      listeInclinaisons.length > 0
+    ) {
+      choixEnnonce(
+        listeSets,
+        listeInclinaisons,
+        indexQuestion,
+        setEnnonce,
+        setView
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (ennonce && view) {
+      localStorage.setItem("ennonce", JSON.stringify(ennonce));
+      localStorage.setItem("view", JSON.stringify(view));
+      navigate("/exercice", { state: { ...formData, ennonce, view, difficulte } });
+    }
+  }, [ennonce, view, navigate, formData]);
 
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={onSubmit}
         noValidate
         autoComplete="off"
         className="container w-96 m-auto my-10"
       >
         <div className="grid gap-5">
-          <SelectDifficulte className="md:col-span-3" />
+          <SelectDifficulte
+            setDifficulte={setDifficulte}
+            className="md:col-span-3"
+          />
         </div>
         <div className="mt-5">
           {success && (
@@ -44,4 +116,4 @@ export const FormCreerExercice = () => {
       </form>
     </FormProvider>
   );
-}
+};
