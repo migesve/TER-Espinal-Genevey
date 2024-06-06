@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Cas } from "../../Components/Cas";
-import { Button } from "../../Components/Button";
+import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Button } from "../../Components/Button";
 import { ExerciceContinu } from "../../Components/ExerciceContinu";
 import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
@@ -16,11 +16,21 @@ import {
 import { choixEnnonce } from "../../utils/outils";
 
 export function Exercice() {
+  const location = useLocation();
+  const initialState = location.state || {};
+  const {
+    ennonce: initialEnnonce,
+    view: initialView,
+    difficulte: initialDifficulte,
+    ...formData
+  } = initialState;
+
   const methods = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const [ennonce, setEnnonce] = useState(null);
-  const [view, setView] = useState("");
+  const [ennonce, setEnnonce] = useState(initialEnnonce);
+  const [view, setView] = useState(initialView);
+  const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(0);
   const [reponseSchema1, setReponseSchema1] = useState({
     angle: null,
@@ -34,23 +44,25 @@ export function Exercice() {
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [reponseNom, setReponseNom] = useState(null);
   const [reponseSigle, setReponseSigle] = useState(null);
-  const typesRepresentation = [
-    "Nom",
-    "Sigle",
-    "Schéma très simplifié",
-    "Schéma simplifié",
-    "Schéma réaliste",
-    "Schéma très réaliste",
-  ];
-  const [key, setKey] = useState(0);
-  const [tableauPos, setTableauPos] = useState(
-    JSON.parse(localStorage.getItem("tableauPos"))
-  );
-  const [tableauIncl, setTableauIncl] = useState(
-    JSON.parse(localStorage.getItem("tableauIncl"))
-  );
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
+
+  var buttonsArea = "flex justify-between";
+  var typesRepresentation = [];
+  if (difficulte == 1) {
+    buttonsArea = "grid md:grid-cols-6 space-x-2";
+    typesRepresentation = [
+      "Nom",
+      "Sigle",
+      "Schéma très simplifié",
+      "Schéma simplifié",
+      "Schéma réaliste",
+      "Schéma très réaliste",
+    ];
+  } else {
+    buttonsArea = "grid md:grid-cols-3 space-x-2";
+    typesRepresentation = ["Nom", "Sigle", "Schéma très simplifié"];
+  }
 
   function handleChildClick(data) {
     switch (data.representation) {
@@ -62,11 +74,9 @@ export function Exercice() {
         break;
       case "Schéma1":
         setReponseSchema1({ angle: data.angle, inclinaison: data.inclinaison });
-        console.log("Reponse Schema 1 : ", reponseSchema1);
         break;
       case "Schéma2":
         setReponseSchema2({ angle: data.angle, inclinaison: data.inclinaison });
-        console.log("Reponse Schema 2 : ", reponseSchema2);
         break;
       case "Schéma3":
         setReponseSchema3(data.choix);
@@ -86,7 +96,6 @@ export function Exercice() {
         if (setsData.status) {
           setError(inclinaisonsData.status);
         } else {
-          console.log("SetsData : ", setsData);
           setListeSets(setsData);
         }
 
@@ -94,7 +103,6 @@ export function Exercice() {
         if (inclinaisonsData.status) {
           setError(inclinaisonsData.status);
         } else {
-          console.log("InclinaisonsData : ", inclinaisonsData);
           setListeInclinaisons(inclinaisonsData);
         }
       } catch (err) {
@@ -104,46 +112,34 @@ export function Exercice() {
     }
     fetchData();
   }, []);
-  
-  useEffect(() => {
-    if (
-      tableauPos.length > 0 &&
-      listeSets.length > 0 &&
-      tableauIncl.length > 0 &&
-      listeInclinaisons.length > 0
-    ) {
-      choixEnnonce(
-        tableauPos,
-        listeSets,
-        tableauIncl,
-        listeInclinaisons,
-        indexQuestion,
-        setEnnonce,
-        setView
-      );
-    }
-  }, [tableauPos, listeSets, tableauIncl, listeInclinaisons, indexQuestion]);
-
-  // console.log("ListeSets : ", listeSets);
-  // console.log("ListeInclinaisons : ", listeInclinaisons);
-  // console.log("TableauPos : ", tableauPos);
-  // console.log("TableauIncl : ", tableauIncl);
-  // console.log("Ennonce : ", ennonce);
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
     if (indexQuestion == 4) {
+      // On a fini les questions
     } else {
+      const answersValues = {
+        reponseNom,
+        reponseSigle,
+        reponseSchema1,
+        reponseSchema2,
+        reponseSchema3,
+        reponseSchema4,
+      };
+      localStorage.setItem(
+        "response" + indexQuestion,
+        JSON.stringify(answersValues)
+      );
+
       setIndexQuestion((prev) => {
         const newIndex = prev + 1;
         choixEnnonce(
-          tableauPos,
           listeSets,
-          tableauIncl,
           listeInclinaisons,
-          newIndex
-        ); // Appeler choixEnnonce avec le nouvel index de la question
-        setKey((prevKey) => prevKey + 1); // Mettre à jour la clé pour recharger les composants Schema3 et Schema4
+          newIndex,
+          setEnnonce,
+          setView
+        );
         return newIndex;
       });
     }
@@ -153,73 +149,25 @@ export function Exercice() {
     <>
       <h1>Exercice X</h1>
       <h2>Question {indexQuestion + 1}/5</h2>
-      <Button
-        onClick={onSubmit}
-        text="Finir Question"
-        color="bg-red-600"
-        hoverColor="bg-red-800"
-      />
-      <div className="grid md:grid-cols-6">
-        <Button
-          text="Nom"
-          color={
-            ennonce && ennonce.representation === "Nom"
-              ? "bg-green-600 hover:bg-green-800"
-              : "bg-blue-600"
-          }
-          onClick={() => setView("Nom")}
-        />
-        <Button
-          text="Sigle"
-          color={
-            ennonce && ennonce.representation === "Sigle"
-              ? "bg-green-600 hover:bg-green-800"
-              : "bg-blue-600"
-          }
-          onClick={() => setView("Sigle")}
-        />
-        <Button
-          text="Schéma très simplifié"
-          color={
-            ennonce && ennonce.representation === "Schéma très simplifié"
-              ? "bg-green-600 hover:bg-green-800"
-              : "bg-blue-600"
-          }
-          onClick={() => setView("Schéma très simplifié")}
-        />
-        <Button
-          text="Schéma simplifié"
-          color={
-            ennonce && ennonce.representation === "Schéma simplifié"
-              ? "bg-green-600 hover:bg-green-800"
-              : "bg-blue-600"
-          }
-          onClick={() => setView("Schéma simplifié")}
-        />
-        <Button
-          text="Schéma réaliste"
-          color={
-            ennonce && ennonce.representation === "Schéma réaliste"
-              ? "bg-green-600 hover:bg-green-800"
-              : "bg-blue-600"
-          }
-          onClick={() => setView("Schéma réaliste")}
-        />
-        <Button
-          text="Schéma très réaliste"
-          color={
-            ennonce && ennonce.representation === "Schéma très réaliste"
-              ? "bg-green-600 hover:bg-green-800"
-              : "bg-blue-600"
-          }
-          onClick={() => setView("Schéma très réaliste")}
-        />
+      <div className={buttonsArea}>
+        {typesRepresentation.map((type) => (
+          <Button
+            key={type}
+            text={type}
+            color={
+              ennonce && ennonce.representation === type
+                ? "bg-yellow-500 hover:bg-yellow-600"
+                : "bg-blue-600"
+            }
+            onClick={() => setView(type)}
+          />
+        ))}
       </div>
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
           <NomPosition
-            key={key + 2}
+            indexQuestion={indexQuestion + 2}
             sendToParent={handleChildClick}
             display={view === "Nom" ? "flex" : "hidden"}
             estEnnonce={ennonce?.representation === "Nom" ? "true" : "false"}
@@ -227,7 +175,7 @@ export function Exercice() {
             inclinaison={ennonce?.inclinaison}
           />
           <Sigle
-            key={key + 3}
+            indexQuestion={indexQuestion + 3}
             sendToParent={handleChildClick}
             display={view === "Sigle" ? "flex" : "hidden"}
             estEnnonce={ennonce?.representation === "Sigle" ? "true" : "false"}
@@ -255,7 +203,7 @@ export function Exercice() {
             schema={2}
           />
           <Schema3
-            key={key}
+            indexQuestion={indexQuestion}
             sendToParent={handleChildClick}
             display={view === "Schéma réaliste" ? "flex" : "hidden"}
             estEnnonce={
@@ -265,7 +213,7 @@ export function Exercice() {
             inclinaison={ennonce?.inclinaison}
           />
           <Schema4
-            key={key + 1}
+            indexQuestion={indexQuestion + 1}
             sendToParent={handleChildClick}
             display={view === "Schéma très réaliste" ? "flex" : "hidden"}
             estEnnonce={
@@ -283,12 +231,10 @@ export function Exercice() {
           onClick={() => {
             setView(
               typesRepresentation[
-                (typesRepresentation.indexOf(view) - 1) %
-                  typesRepresentation.length <
-                0
-                  ? typesRepresentation.length - 1
-                  : (typesRepresentation.indexOf(view) - 1) %
-                    typesRepresentation.length
+                (typesRepresentation.indexOf(view) -
+                  1 +
+                  typesRepresentation.length) %
+                  typesRepresentation.length
               ]
             );
           }}
@@ -308,6 +254,14 @@ export function Exercice() {
           text="Representation suivante"
           color="bg-green-600"
           hoverColor="hover:bg-green-800"
+        />
+      </div>
+      <div className="flex py-4 justify-end">
+        <Button
+          onClick={onSubmit}
+          text="Finir Question"
+          color="bg-red-600"
+          hoverColor="bg-red-800"
         />
       </div>
     </>

@@ -63,11 +63,11 @@ export const RotationKnob = ({ sendToParent, schema }) => {
   }, [dragging]);
 
   useEffect(() => {
-    sendToParent({ representation: "Schéma" + schema, angle: angle, inclinaison: translateY });
 
     const responseKey = schema === 1 ? "reponseSchema1" : "reponseSchema2";
     const responseValue = { angle, translateY };
     localStorage.setItem(responseKey, JSON.stringify(responseValue));
+    //sendToParent({ representation: responseKey, responseValue: responseValue });
   }, [angle, translateY]);
 
   const circleX = 50 + radius * Math.cos((angle * Math.PI) / 180);
