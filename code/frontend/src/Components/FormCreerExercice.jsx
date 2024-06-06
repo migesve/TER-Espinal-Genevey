@@ -7,7 +7,7 @@ import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { Button } from './Button'
 import { useNavigate } from 'react-router-dom'
 
-export const FormCreerExercice = ({tableauPos,tableauIncl}) => {
+export const FormCreerExercice = () => {
 
   const methods = useForm()
   const [success, setSuccess] = useState(false)
@@ -15,14 +15,6 @@ export const FormCreerExercice = ({tableauPos,tableauIncl}) => {
 
   const onSubmit = methods.handleSubmit(data => {
     
-    localStorage.setItem(
-      "tableauPos",
-      JSON.stringify(tableauPos)
-    );
-    localStorage.setItem(
-      "tableauIncl",
-      JSON.stringify(tableauIncl)
-    );
     console.log(data)
     methods.reset()
     setSuccess(true)

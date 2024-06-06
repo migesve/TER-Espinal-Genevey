@@ -42,13 +42,6 @@ export function Exercice() {
     "Schéma réaliste",
     "Schéma très réaliste",
   ];
-  const [key, setKey] = useState(0);
-  const [tableauPos, setTableauPos] = useState(
-    JSON.parse(localStorage.getItem("tableauPos"))
-  );
-  const [tableauIncl, setTableauIncl] = useState(
-    JSON.parse(localStorage.getItem("tableauIncl"))
-  );
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
 
@@ -86,7 +79,6 @@ export function Exercice() {
         if (setsData.status) {
           setError(inclinaisonsData.status);
         } else {
-          console.log("SetsData : ", setsData);
           setListeSets(setsData);
         }
 
@@ -94,7 +86,6 @@ export function Exercice() {
         if (inclinaisonsData.status) {
           setError(inclinaisonsData.status);
         } else {
-          console.log("InclinaisonsData : ", inclinaisonsData);
           setListeInclinaisons(inclinaisonsData);
         }
       } catch (err) {
@@ -104,25 +95,6 @@ export function Exercice() {
     }
     fetchData();
   }, []);
-  
-  useEffect(() => {
-    if (
-      tableauPos.length > 0 &&
-      listeSets.length > 0 &&
-      tableauIncl.length > 0 &&
-      listeInclinaisons.length > 0
-    ) {
-      choixEnnonce(
-        tableauPos,
-        listeSets,
-        tableauIncl,
-        listeInclinaisons,
-        indexQuestion,
-        setEnnonce,
-        setView
-      );
-    }
-  }, [tableauPos, listeSets, tableauIncl, listeInclinaisons, indexQuestion]);
 
   // console.log("ListeSets : ", listeSets);
   // console.log("ListeInclinaisons : ", listeInclinaisons);
@@ -137,13 +109,13 @@ export function Exercice() {
       setIndexQuestion((prev) => {
         const newIndex = prev + 1;
         choixEnnonce(
-          tableauPos,
           listeSets,
-          tableauIncl,
           listeInclinaisons,
-          newIndex
+          newIndex,
+          setEnnonce,
+          setView
         ); // Appeler choixEnnonce avec le nouvel index de la question
-        setKey((prevKey) => prevKey + 1); // Mettre à jour la clé pour recharger les composants Schema3 et Schema4
+        setIndexQuestion((prevIndex) => prevIndex + 1); // Mettre à jour la clé pour recharger les composants Schema3 et Schema4
         return newIndex;
       });
     }
@@ -219,7 +191,7 @@ export function Exercice() {
         <h3>Reponse</h3>
         <div className="rectangle">
           <NomPosition
-            key={key + 2}
+            indexQuestion={indexQuestion + 2}
             sendToParent={handleChildClick}
             display={view === "Nom" ? "flex" : "hidden"}
             estEnnonce={ennonce?.representation === "Nom" ? "true" : "false"}
@@ -227,7 +199,7 @@ export function Exercice() {
             inclinaison={ennonce?.inclinaison}
           />
           <Sigle
-            key={key + 3}
+            indexQuestion={indexQuestion + 3}
             sendToParent={handleChildClick}
             display={view === "Sigle" ? "flex" : "hidden"}
             estEnnonce={ennonce?.representation === "Sigle" ? "true" : "false"}
@@ -255,7 +227,7 @@ export function Exercice() {
             schema={2}
           />
           <Schema3
-            key={key}
+            indexQuestion={indexQuestion}
             sendToParent={handleChildClick}
             display={view === "Schéma réaliste" ? "flex" : "hidden"}
             estEnnonce={
@@ -265,7 +237,7 @@ export function Exercice() {
             inclinaison={ennonce?.inclinaison}
           />
           <Schema4
-            key={key + 1}
+            indexQuestion={indexQuestion + 1}
             sendToParent={handleChildClick}
             display={view === "Schéma très réaliste" ? "flex" : "hidden"}
             estEnnonce={

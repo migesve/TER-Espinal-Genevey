@@ -10,7 +10,6 @@ export const ExerciceContinu = ({
   sendToParent,
   schema,
 }) => {
-  console.log("estEnnonce value:", estEnnonce);
 
   return (
     <>

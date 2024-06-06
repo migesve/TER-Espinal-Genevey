@@ -5,28 +5,29 @@ export function getRandomIntInclusive(min, max) {
 }
 
 export const choixEnnonce = (
-    tableauPos,
-    listeSets,
-    tableauIncl,
-    listeInclinaisons,
+    listeQuestionsSets,
+    listeQuestionsInclinaisons,
     indexQuestion,
     setEnnonce,
     setView
   ) => {
+    console.log("setEnnonce");
+    const tableauSets = JSON.parse(localStorage.getItem("tableauIncl"))
+    const tableauIncl = JSON.parse(localStorage.getItem("tableauPos"))
     if (
-      !tableauPos ||
-      !listeSets ||
-      tableauPos.length === 0 ||
-      listeSets.length === 0 ||
-      indexQuestion >= tableauPos.length
+      !tableauSets ||
+      !listeQuestionsSets ||
+      tableauSets.length === 0 ||
+      listeQuestionsSets.length === 0 ||
+      indexQuestion >= tableauSets.length
     ) {
-      console.error("Invalid tableauPos or listeSets");
+      console.error("Invalid tableauSets or listeQuestionsSets");
       return;
     }
 
-    const rdm = Math.floor(Math.random() * 6);
-    const selectedSet = listeSets[tableauPos[indexQuestion]];
-    const selectedInclinaison = listeInclinaisons[tableauIncl[indexQuestion]];
+    const ennonceAleatoire = Math.floor(Math.random() * 6);
+    const selectedSet = listeQuestionsSets[tableauSets[indexQuestion]];
+    const selectedInclinaison = listeQuestionsInclinaisons[tableauIncl[indexQuestion]];
 
     if (!selectedSet || !selectedInclinaison) {
       console.error("Invalid selectedSet ou selectedInclinaison");
@@ -35,7 +36,7 @@ export const choixEnnonce = (
     console.log("SelectedSet : ", selectedSet);
     console.log("SelectedInclinaison : ", selectedInclinaison);
 
-    switch (rdm) {
+    switch (ennonceAleatoire) {
       case 0:
         setEnnonce({
           representation: "Nom",

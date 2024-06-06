@@ -13,6 +13,8 @@ export function Exercices() {
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
   const [newTableauPos, setNewTableauPos] = useState([]);
   const [newTableauIncl, setNewTableauIncl] = useState([]);
+  const [ennonce, setEnnonce] = useState(null);
+  const [view, setView] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -41,6 +43,8 @@ export function Exercices() {
   }, []);
 
   useEffect(() => {
+    console.log("listeSets : ", listeSets);
+    console.log("listeInclinaisons : ", listeInclinaisons);
     if (listeSets.length > 0 && listeInclinaisons.length > 0) {
       const generateExercice = async () => {
         const newPos = [];
@@ -81,9 +85,32 @@ export function Exercices() {
             }
           }
         }
+        console.log("NewPos : ", newPos);
+        console.log("NewIncl : ", newIncl);
 
         setNewTableauPos(newPos);
         setNewTableauIncl(newIncl);
+
+        localStorage.setItem("tableauPos", JSON.stringify(newTableauPos));
+        localStorage.setItem("tableauIncl", JSON.stringify(newTableauIncl));
+
+        if (
+          newTableauPos.length > 0 &&
+          listeSets.length > 0 &&
+          newTableauIncl.length > 0 &&
+          listeInclinaisons.length > 0
+        ) {
+          choixEnnonce(
+            newTableauPos,
+            listeSets,
+            newTableauIncl,
+            listeInclinaisons,
+            indexQuestion = 0,
+            setEnnonce,
+            setView
+          );
+          console.log("Ennonce : ", ennonce);
+        }
       };
 
       generateExercice();
@@ -93,7 +120,7 @@ export function Exercices() {
   return (
     <>
       <h1>Lancer exercice</h1>
-      <FormCreerExercice tableauPos={newTableauPos} tableauIncl={newTableauIncl} />
+      <FormCreerExercice />
     </>
   );
 }
