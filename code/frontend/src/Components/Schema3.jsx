@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { GrUp, GrDown } from 'react-icons/gr';
 import { Button } from './Button';
 
@@ -9,6 +9,7 @@ export function Schema3({ sendToParent, display, estEnnonce, position, inclinais
     const [index, setIndex] = useState(0);
     const [listeSchema3selectionnee, setListeSchema3selectionnee] = useState([]);
     const [ennonce, setEnnonce] = useState(null);
+    const { ennonce, reponseNom, setReponseNom } = useContext(ContextReponses);
 
     useEffect(() => {
         const fetchData = async () => {

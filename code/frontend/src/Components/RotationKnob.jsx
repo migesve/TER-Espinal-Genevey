@@ -5,7 +5,7 @@ import "rc-slider/assets/index.css";
 export const RotationKnob = ({ sendToParent, schema }) => {
   const [angle, setAngle] = useState(0);
   const [dragging, setDragging] = useState(false);
-  const [translateY, setTranslateY] = useState(0);
+  const [inclinaison, setTranslateY] = useState(0);
   const centerRef = useRef(null);
   const radius = 20;
 
@@ -65,10 +65,10 @@ export const RotationKnob = ({ sendToParent, schema }) => {
   useEffect(() => {
 
     const responseKey = schema === 1 ? "reponseSchema1" : "reponseSchema2";
-    const responseValue = { angle, translateY };
+    const responseValue = { angle, inclinaison};
     localStorage.setItem(responseKey, JSON.stringify(responseValue));
     //sendToParent({ representation: responseKey, responseValue: responseValue });
-  }, [angle, translateY]);
+  }, [angle, inclinaison]);
 
   const circleX = 50 + radius * Math.cos((angle * Math.PI) / 180);
   const circleY = 50 + radius * Math.sin((angle * Math.PI) / 180);
@@ -96,7 +96,7 @@ export const RotationKnob = ({ sendToParent, schema }) => {
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
-            transform: `rotate(${angle}deg) translateY(${-translateY}px)`,
+            transform: `rotate(${angle}deg) translateY(${-inclinaison}px)`,
           }}
           onMouseDown={handleMouseDown}
         />
@@ -125,10 +125,15 @@ export const RotationKnob = ({ sendToParent, schema }) => {
         <Slider
           min={-10}
           max={10}
-          value={translateY}
+          value={inclinaison}
           onChange={handleSliderChange}
           className="z-50 max-h-[200px]"
           vertical={true}
+          handleStyle={{
+            backgroundColor: "#ff6969",
+            borderColor: "#f00",
+            ringColor: "#f00", // a verifier
+          }}
         />
         <div className="mt-2">Pas flechi</div>
       </div>

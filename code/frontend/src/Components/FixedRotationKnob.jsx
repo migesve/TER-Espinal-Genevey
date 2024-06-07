@@ -4,7 +4,6 @@ import "rc-slider/assets/index.css";
 
 export const FixedRotationKnob = ({ angle, inclinaison }) => {
   
-  console.log("fixed" + inclinaison);
   return (
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none">
