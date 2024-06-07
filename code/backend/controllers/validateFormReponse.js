@@ -29,6 +29,7 @@ const formSchemaReponse = Yup.object().shape({
     remarque_schema2_inclinaison: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
     remarque_schema3_id: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
     remarque_schema4_id: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
+    difficulte: Yup.number().integer().required("La difficulté de la réponse est requise").min(1, "La difficulté doit être 1(facile) ou 2(difficile)").max(2, "La difficulté doit être 1(facile) ou 2(difficile)")
 });
 
 const validateFormReponse = async (req, res, next) => {

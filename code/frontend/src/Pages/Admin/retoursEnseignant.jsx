@@ -10,6 +10,7 @@ import { GridComponent, TooltipComponent, TitleComponent, DatasetComponent } fro
 // Import renderer, note that introducing the CanvasRenderer or SVGRenderer is a required step
 import { CanvasRenderer/*, SVGRenderer*/ } from 'echarts/renderers';
 import { columnsStateInitializer } from '@mui/x-data-grid/internals';
+import { RetoursCohorte } from '../../Components/RetoursCohorte';
 
 // Register the required components
 echarts.use(
@@ -42,6 +43,7 @@ export function RetoursEnseignant() {
                 } else {
                     console.log("cohorteListe : ", cohorteListe);
                     setCohortes(cohorteListe);
+                    setView(cohorteListe[0].cohorte);
                 }
                 setLoading(false);
 
@@ -92,18 +94,7 @@ export function RetoursEnseignant() {
 
         return (
             <div className="w-fit m-auto my-10 bg-sky-50">
-                {/*<RetoursCohorte cohorte={view}/>*/}
-        // The usage of ReactEChartsCore are same with above.
-                <ReactEChartsCore
-                    echarts={echarts}
-                    option={getOption()}
-                    notMerge={true}
-                    lazyUpdate={true}
-                    theme={"theme_name"}
-                    onChartReady={() => {}}
-                    onEvents={{}}
-                    opts={{ renderer: "canvas" }}
-                />
+                {<RetoursCohorte cohorte={view}/>}
             </div>
         );
     };

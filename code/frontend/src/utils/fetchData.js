@@ -106,8 +106,8 @@ export const fetchDataCohorte = async () => {
   return cohorteData.reponses;
 };
 
-export const fetchDataReponsesCohorte = async (cohorte) => {
-  const listeCohorte = await fetch(`http://localhost:4000/reponses/getByCohorte/${cohorte}`, {
+export const fetchDataReponsesCohorte = async (cohorte,difficulte) => {
+  const listeCohorte = await fetch(`http://localhost:4000/reponses/getByCohorte/${cohorte}/${difficulte}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
