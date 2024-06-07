@@ -14,6 +14,7 @@ import {
   fetchDataSchema4,
 } from "../../utils/fetchData";
 import { choixEnnonce } from "../../utils/outils";
+export const ContextReponses = createContext(); 
 
 export function Exercice() {
   const location = useLocation();
@@ -25,11 +26,10 @@ export function Exercice() {
   } = initialState;
 
   const methods = useForm();
-  const ContextReponses = createContext();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [ennonce, setEnnonce] = useState(initialEnnonce);
-  const [view, setView] = useState(initialView);
+  const [view, setView] = useState(initialEnnonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(0);
 
@@ -213,12 +213,8 @@ export function Exercice() {
               setReponseSchema4,
             }}
           >
-            <NomPosition
-              display={view === "Nom" ? "flex" : "hidden"}
-            />
-            <Sigle
-              display={view === "Sigle" ? "flex" : "hidden"}
-            />
+            <NomPosition display={view === "Nom" ? "flex" : "hidden"} />
+            <Sigle display={view === "Sigle" ? "flex" : "hidden"} />
             <ExerciceContinu
               display={view === "Schéma très simplifié" ? "flex" : "hidden"}
               schema={1}
@@ -227,9 +223,7 @@ export function Exercice() {
               display={view === "Schéma simplifié" ? "flex" : "hidden"}
               schema={2}
             />
-            <Schema3
-              display={view === "Schéma réaliste" ? "flex" : "hidden"}
-            />
+            <Schema3 display={view === "Schéma réaliste" ? "flex" : "hidden"} />
             <Schema4
               display={view === "Schéma très réaliste" ? "flex" : "hidden"}
             />

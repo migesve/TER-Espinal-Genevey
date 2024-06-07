@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { GrUp, GrDown } from 'react-icons/gr';
 import { Button } from './Button';
+import { ContextReponses } from '../Pages/User/exercice';
 
 export const Schema4 = ({ sendToParent, display, estEnnonce, position, inclinaison }) => {
     const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
@@ -8,13 +9,14 @@ export const Schema4 = ({ sendToParent, display, estEnnonce, position, inclinais
     const [error, setError] = useState(null);
     const [index, setIndex] = useState(0);
     const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
-    const [ennonce, setEnnonce] = useState(null);
+    const [ennonceSchema4, setEnnonceSchema4] = useState(null);
+    const { ennonce, reponseSchema4, setReponseSchema4 } = useContext(ContextReponses);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
 
-                if (estEnnonce === "false") {
+                if (ennonce?.representation === "Schéma réaliste") {
                     const promises = [1, 2].map(i =>
                         fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
                             method: 'GET',
@@ -62,7 +64,7 @@ export const Schema4 = ({ sendToParent, display, estEnnonce, position, inclinais
     }, [position, inclinaison, estEnnonce]);
 
     useEffect(() => {
-        sendToParent({ representation: "Schéma4", choix: listeSchema4selectionnee[index] });
+        setReponseSchema4( listeSchema4selectionnee[index] );
     }, [index, listeSchema4selectionnee]);
 
     const positionSuivante = () => {
@@ -98,12 +100,12 @@ export const Schema4 = ({ sendToParent, display, estEnnonce, position, inclinais
     }
 
     else {
-        if (ennonce !== null) {
+        if (ennonceSchema4 !== null) {
             return (
                 <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
                     <h4 className="font-semibold text-xl">Schéma réaliste</h4>
                     <div className="flex items-center">
-                        <img src={ennonce.image_path} alt={ennonce.image_name} className="mx-4" />
+                        <img src={ennonceSchema4.image_path} alt={ennonceSchema4.image_name} className="mx-4" />
                     </div>
                 </section>
             );
