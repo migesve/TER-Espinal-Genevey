@@ -42,7 +42,6 @@ export const choixEnnonce = (
         position: selectedSet.nom,
         inclinaison: selectedInclinaison.label,
       });
-      setView("Nom");
       break;
     case 1:
       setEnnonce({
@@ -50,7 +49,6 @@ export const choixEnnonce = (
         position: selectedSet.abreviation,
         inclinaison: selectedInclinaison.label,
       });
-      setView("Sigle");
       break;
     case 2:
       setEnnonce({
@@ -64,7 +62,6 @@ export const choixEnnonce = (
               ) % 360,
         inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
       });
-      setView("Schéma très simplifié");
       break;
     case 3:
       setEnnonce({
@@ -78,7 +75,6 @@ export const choixEnnonce = (
               ) % 360,
         inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
       });
-      setView("Schéma simplifié");
       break;
     case 4:
       setEnnonce({
@@ -87,7 +83,6 @@ export const choixEnnonce = (
         position: selectedSet.position_id,
         inclinaison: selectedInclinaison.inclinaison_id,
       });
-      setView("Schéma réaliste");
       break;
     case 5:
       setEnnonce({
@@ -96,11 +91,9 @@ export const choixEnnonce = (
         position: selectedSet.position_id,
         inclinaison: selectedInclinaison.inclinaison_id,
       });
-      setView("Schéma très réaliste");
       break;
     default:
       setEnnonce({ representation: "Nom" });
-      setView("Nom");
       break;
   }
 };

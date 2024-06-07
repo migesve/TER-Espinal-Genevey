@@ -15,7 +15,6 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
   const [difficulte, setDifficulte] = useState(null);
   const navigate = useNavigate();
   const [ennonce, setEnnonce] = useState();
-  const [view, setView] = useState();
   const [indexQuestion] = useState(0);
   const [formData, setFormData] = useState(null);
 
@@ -76,19 +75,17 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
         listeSets,
         listeInclinaisons,
         indexQuestion,
-        setEnnonce,
-        setView
+        setEnnonce
       );
     }
   };
 
   useEffect(() => {
-    if (ennonce && view) {
+    if (ennonce) {
       localStorage.setItem("ennonce", JSON.stringify(ennonce));
-      localStorage.setItem("view", JSON.stringify(view));
-      navigate("/exercice", { state: { ...formData, ennonce, view, difficulte } });
+      navigate("/exercice", { state: { ...formData, ennonce, difficulte } });
     }
-  }, [ennonce, view, navigate, formData]);
+  }, [ennonce, navigate, formData]);
 
   return (
     <FormProvider {...methods}>

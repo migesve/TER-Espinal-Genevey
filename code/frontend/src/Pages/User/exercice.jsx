@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../../Components/Button";
@@ -20,18 +20,21 @@ export function Exercice() {
   const initialState = location.state || {};
   const {
     ennonce: initialEnnonce,
-    view: initialView,
     difficulte: initialDifficulte,
     ...formData
   } = initialState;
 
   const methods = useForm();
+  const ContextReponses = createContext();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [ennonce, setEnnonce] = useState(initialEnnonce);
   const [view, setView] = useState(initialView);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(0);
+
+  const [reponseNom, setReponseNom] = useState(null);
+  const [reponseSigle, setReponseSigle] = useState(null);
   const [reponseSchema1, setReponseSchema1] = useState({
     angle: null,
     inclinaison: null,
@@ -42,8 +45,6 @@ export function Exercice() {
   });
   const [reponseSchema3, setReponseSchema3] = useState(null);
   const [reponseSchema4, setReponseSchema4] = useState(null);
-  const [reponseNom, setReponseNom] = useState(null);
-  const [reponseSigle, setReponseSigle] = useState(null);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
 
@@ -114,7 +115,9 @@ export function Exercice() {
   }, []);
 
   const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
+    setReponseSchema1(JSON.parse(localStorage.getItem("reponseSchema1")));
+    setReponseSchema2(JSON.parse(localStorage.getItem("reponseSchema2")));
+
     if (indexQuestion == 4) {
       // On a fini les questions
     } else {
@@ -126,6 +129,7 @@ export function Exercice() {
         reponseSchema3,
         reponseSchema4,
       };
+
       localStorage.setItem(
         "response" + indexQuestion,
         JSON.stringify(answersValues)
@@ -145,9 +149,35 @@ export function Exercice() {
     }
   });
 
+  useEffect(() => {
+    if (indexQuestion > 0) {
+      const answersValues = {
+        reponseNom,
+        reponseSigle,
+        reponseSchema1,
+        reponseSchema2,
+        reponseSchema3,
+        reponseSchema4,
+      };
+
+      localStorage.setItem(
+        "response" + (indexQuestion - 1),
+        JSON.stringify(answersValues)
+      );
+    }
+  }, [
+    reponseNom,
+    reponseSigle,
+    reponseSchema1,
+    reponseSchema2,
+    reponseSchema3,
+    reponseSchema4,
+    indexQuestion,
+  ]);
+
   return (
     <>
-      <h1>Exercice X</h1>
+      <h1>Exercice</h1>
       <h2>Question {indexQuestion + 1}/5</h2>
       <div className={buttonsArea}>
         {typesRepresentation.map((type) => (
@@ -166,64 +196,44 @@ export function Exercice() {
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
-          <NomPosition
-            indexQuestion={indexQuestion + 2}
-            sendToParent={handleChildClick}
-            display={view === "Nom" ? "flex" : "hidden"}
-            estEnnonce={ennonce?.representation === "Nom" ? "true" : "false"}
-            position={ennonce?.position}
-            inclinaison={ennonce?.inclinaison}
-          />
-          <Sigle
-            indexQuestion={indexQuestion + 3}
-            sendToParent={handleChildClick}
-            display={view === "Sigle" ? "flex" : "hidden"}
-            estEnnonce={ennonce?.representation === "Sigle" ? "true" : "false"}
-            position={ennonce?.position}
-            inclinaison={ennonce?.inclinaison}
-          />
-          <ExerciceContinu
-            estEnnonce={
-              ennonce?.representation === "Schéma très simplifié" ? true : false
-            }
-            sendToParent={handleChildClick}
-            display={view === "Schéma très simplifié" ? "flex" : "hidden"}
-            angle={ennonce?.angle}
-            inclinaison={ennonce?.inclinaison}
-            schema={1}
-          />
-          <ExerciceContinu
-            estEnnonce={
-              ennonce?.representation === "Schéma simplifié" ? true : false
-            }
-            sendToParent={handleChildClick}
-            display={view === "Schéma simplifié" ? "flex" : "hidden"}
-            angle={ennonce?.angle}
-            inclinaison={ennonce?.inclinaison}
-            schema={2}
-          />
-          <Schema3
-            indexQuestion={indexQuestion}
-            sendToParent={handleChildClick}
-            display={view === "Schéma réaliste" ? "flex" : "hidden"}
-            estEnnonce={
-              ennonce?.representation === "Schéma réaliste" ? "true" : "false"
-            }
-            position={ennonce?.position}
-            inclinaison={ennonce?.inclinaison}
-          />
-          <Schema4
-            indexQuestion={indexQuestion + 1}
-            sendToParent={handleChildClick}
-            display={view === "Schéma très réaliste" ? "flex" : "hidden"}
-            estEnnonce={
-              ennonce?.representation === "Schéma très réaliste"
-                ? "true"
-                : "false"
-            }
-            position={ennonce?.position}
-            inclinaison={ennonce?.inclinaison}
-          />
+          <ContextReponses.Provider
+            value={{
+              ennonce,
+              reponseNom,
+              setReponseNom,
+              reponseSigle,
+              setReponseSigle,
+              reponseSchema1,
+              setReponseSchema1,
+              reponseSchema2,
+              setReponseSchema2,
+              reponseSchema3,
+              setReponseSchema3,
+              reponseSchema4,
+              setReponseSchema4,
+            }}
+          >
+            <NomPosition
+              display={view === "Nom" ? "flex" : "hidden"}
+            />
+            <Sigle
+              display={view === "Sigle" ? "flex" : "hidden"}
+            />
+            <ExerciceContinu
+              display={view === "Schéma très simplifié" ? "flex" : "hidden"}
+              schema={1}
+            />
+            <ExerciceContinu
+              display={view === "Schéma simplifié" ? "flex" : "hidden"}
+              schema={2}
+            />
+            <Schema3
+              display={view === "Schéma réaliste" ? "flex" : "hidden"}
+            />
+            <Schema4
+              display={view === "Schéma très réaliste" ? "flex" : "hidden"}
+            />
+          </ContextReponses.Provider>
         </div>
       </div>
       <div className="flex justify-between">

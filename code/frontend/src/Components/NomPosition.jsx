@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Button } from './Button';
+import { useState, useEffect, useContext } from 'react';
 
-export function NomPosition({ sendToParent, display, estEnnonce, position, inclinaison }) {
+export function NomPosition({ display }) {
     const [error, setError] = useState(null);
-    const [ennonce, setEnnonce] = useState('');
+    const [ennonceNom, setEnnonceNom] = useState('');
     const [reponse, setReponse] = useState('');
+    const { ennonce, reponseNom, setReponseNom } = useContext(ContextReponses);
 
     useEffect(() => {
-        setEnnonce(position+' '+inclinaison);
+        setEnnonceNom(position+' '+inclinaison);
         setReponse('');
     }, [position, inclinaison, estEnnonce]);
 
@@ -20,7 +20,7 @@ export function NomPosition({ sendToParent, display, estEnnonce, position, incli
             <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
                 <h4 className="font-semibold text-xl">Nom de la position</h4>
                 <div className="flex items-center">
-                    <p>{ennonce}</p>
+                    <p>{ennonceNom}</p>
                 </div>
             </section>
         );
