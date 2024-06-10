@@ -1,9 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useContext } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { ContextReponses } from "../Pages/User/exercice";
 
-export const FixedRotationKnob = ({ angle, inclinaison }) => {
-  
+export const FixedRotationKnob = () => {
+  const { ennonce } =
+    useContext(ContextReponses);
+
   return (
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none">
@@ -16,21 +19,21 @@ export const FixedRotationKnob = ({ angle, inclinaison }) => {
           src="images/teteNegative.png"
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-30 pointer-events-none"
-          style={{ transform: `rotate(${angle}deg)` }}
+          style={{ transform: `rotate(${ennonce.angle}deg)` }}
         />
         <img
           src="images/fontanelles.png"
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
-            transform: `rotate(${angle}deg) translateY(${-inclinaison}px)`,
+            transform: `rotate(${ennonce.angle}deg) translateY(${-ennonce.inclinaison}px)`,
           }}
         />
         <img
           src="images/tete.png"
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-10 pointer-events-none"
-          style={{ transform: `rotate(${angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner
+          style={{ transform: `rotate(${ennonce.angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner
         />
       </div>
       <div className="relative flex flex-col items-center h-72 mx-auto select-none">
@@ -38,7 +41,7 @@ export const FixedRotationKnob = ({ angle, inclinaison }) => {
         <Slider
           min={-10}
           max={10}
-          value={inclinaison}
+          value={ennonce.inclinaison}
           className="z-50 max-h-[200px]"
           vertical={true}
           disabled={true}

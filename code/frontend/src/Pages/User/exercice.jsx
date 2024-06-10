@@ -2,7 +2,8 @@ import { useEffect, useState, createContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../../Components/Button";
-import { ExerciceContinu } from "../../Components/ExerciceContinu";
+import { Schema1 } from "../../Components/Schema1";
+import { Schema2 } from "../../Components/Schema2";
 import { Schema3 } from "../../Components/Schema3";
 import { Schema4 } from "../../Components/Schema4";
 import { NomPosition } from "../../Components/NomPosition";
@@ -215,11 +216,11 @@ export function Exercice() {
           >
             <NomPosition display={view === "Nom" ? "flex" : "hidden"} />
             <Sigle display={view === "Sigle" ? "flex" : "hidden"} />
-            <ExerciceContinu
+            <Schema1
               display={view === "Schéma très simplifié" ? "flex" : "hidden"}
               schema={1}
             />
-            <ExerciceContinu
+            <Schema2
               display={view === "Schéma simplifié" ? "flex" : "hidden"}
               schema={2}
             />
