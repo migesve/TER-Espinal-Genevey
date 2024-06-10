@@ -9,7 +9,7 @@ export const RotationKnob = ({ schema }) => {
   const radius = 20;
   const { ennonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2 } =
     useContext(ContextReponses);
-  const [angle, setAngle] = useState(ennonce.angle);
+  const [angle, setAngle] = useState(0);
   const [inclinaison, setTranslateY] = useState(ennonce.inclinaison);
 
   const handleMouseDown = (e) => {
