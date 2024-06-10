@@ -15,7 +15,7 @@ export function Schema3({ display }) {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          if (ennonce?.representation === "Schéma réaliste") {
+          if (ennonce?.representation !== "Schéma réaliste") {
             const promises = [1, 2].map((i) =>
               fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
                 method: "GET",
@@ -36,6 +36,7 @@ export function Schema3({ display }) {
             setListeSchema3Pos2(data2.Schemas3);
             setListeSchema3selectionnee(data1.Schemas3);
           } else {
+            console.log(ennonce);
             const response = await fetch(
               `http://localhost:4000/schema3/getByIds/${ennonce.position}/${ennonce.inclinaison}`,
               {
@@ -55,6 +56,10 @@ export function Schema3({ display }) {
             setEnnonceSchema3(
               data.Schemas3[Math.floor(Math.random() * data.Schemas3.length)]
             );
+
+            
+          console.log(data);
+          console.log(ennonceSchema3);
           }
         } catch (err) {
           console.error("Error:", err);
@@ -101,7 +106,7 @@ export function Schema3({ display }) {
         return <div>Error: {error}</div>;
     }
 
-    if (ennonceSchema3 !== null) {
+    if (ennonce.representation  === "Schéma réaliste") {
         return (
             <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
                 <h4 className="font-semibold text-xl">Schéma réaliste</h4>

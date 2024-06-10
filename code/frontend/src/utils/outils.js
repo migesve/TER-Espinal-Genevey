@@ -39,15 +39,15 @@ export const choixEnnonce = (
     case 0:
       setEnnonce({
         representation: "Nom",
-        position: selectedSet.nom,
-        inclinaison: selectedInclinaison.label,
+        position: selectedSet.position_id,
+        inclinaison: selectedInclinaison.inclinaison_id,
       });
       break;
     case 1:
       setEnnonce({
         representation: "Sigle",
-        position: selectedSet.abreviation,
-        inclinaison: selectedInclinaison.label,
+        position: selectedSet.position_id,
+        inclinaison: selectedInclinaison.inclinaison_id,
       });
       break;
     case 2:
@@ -60,7 +60,8 @@ export const choixEnnonce = (
                 selectedSet.angle1,
                 selectedSet.angle1 + 10
               ) % 360,
-        inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
+        position: selectedSet.position_id,
+        inclinaison: selectedInclinaison.inclinaison_id,
       });
       break;
     case 3:
@@ -73,7 +74,8 @@ export const choixEnnonce = (
                 selectedSet.angle1,
                 selectedSet.angle1 + 10
               ) % 360,
-        inclinaison: selectedInclinaison.inclinaison_id == 1 ? 10 : -10,
+        position: selectedSet.position_id,
+        inclinaison: selectedInclinaison.inclinaison_id,
       });
       break;
     case 4:

@@ -14,7 +14,7 @@ import {
   fetchDataSchema4,
 } from "../../utils/fetchData";
 import { choixEnnonce } from "../../utils/outils";
-export const ContextReponses = createContext(); 
+export const ContextReponses = createContext();
 
 export function Exercice() {
   const location = useLocation();
