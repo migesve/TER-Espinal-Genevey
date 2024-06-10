@@ -8,7 +8,6 @@ export function Schema3({ sendToParent, display, estEnnonce, position, inclinais
     const [error, setError] = useState(null);
     const [index, setIndex] = useState(0);
     const [listeSchema3selectionnee, setListeSchema3selectionnee] = useState([]);
-    const [ennonce, setEnnonce] = useState(null);
     const { ennonce, reponseNom, setReponseNom } = useContext(ContextReponses);
 
     useEffect(() => {

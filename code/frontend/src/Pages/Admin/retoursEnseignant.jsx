@@ -93,7 +93,7 @@ export function RetoursEnseignant() {
         }
 
         return (
-            <div className="w-fit m-auto my-10 bg-sky-50">
+            <div className="w-full m-auto my-10 bg-sky-50">
                 {<RetoursCohorte cohorte={view}/>}
             </div>
         );
@@ -107,7 +107,7 @@ export function RetoursEnseignant() {
                 ))}
             </div>
             <h1>Retours</h1>
-            <div className="w-fit m-auto my-10 bg-sky-50">
+            <div className="w-full m-auto my-10 bg-sky-50">
         // The usage of ReactEChartsCore are same with above.
                 {renderData()}
 

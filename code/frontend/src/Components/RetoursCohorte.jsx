@@ -108,33 +108,109 @@ export const RetoursCohorte = ({cohorte}) => {
         setStatRepFacile([(representations[1].faux/representations[0].total)*100,(representations[2].faux/representations[0].total)*100,(representations[3].faux/representations[0].total)*100,(representations[4].faux/representations[0].total)*100,(representations[5].faux/representations[0].total)*100,(representations[6].faux/representations[0].total)*100]);
     }, [dataFacile]);
 
-    const getOption = (labels,donnees,titre) => {
+    useEffect(() => {
+        console.log("dataDifficile : ", dataDifficile);
+        let positions = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 },];
+        let inclinaisons = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }];
+        let representations = [{total:0},{faux:0},{faux:0},{faux:0},{faux:0},{faux:0},{faux:0}];
+        dataDifficile.map((reponse) => {
+            console.log("reponse : ", reponse);
+            if (reponse.corr_nom && reponse.corr_abreviation && reponse.corr_position && reponse.corr_schema1_angle && reponse.corr_schema1_inclinaison && reponse.corr_schema2_angle && reponse.corr_schema2_inclinaison && corr_schema3_id && corr_schema4_id) {
+                positions[reponse.position_id - 1].total++;
+                inclinaisons[reponse.inclinaison_id-1].total++;
+                
+            } else {
+                positions[reponse.position_id - 1].total++;
+                positions[reponse.position_id - 1].faux++;
+                
+                inclinaisons[reponse.inclinaison_id - 1].total++;
+                inclinaisons[reponse.inclinaison_id - 1].faux++;
+
+                if(!reponse.corr_nom){
+                    representations[0].total++;
+                    representations[1].faux++;
+                }
+                if(!reponse.corr_abreviation){
+                    representations[0].total++;
+                    representations[2].faux++;
+                }
+                if(!reponse.corr_schema1_angle||!reponse.corr_schema1_inclinaison){
+                    representations[0].total++;
+                    representations[3].faux++;
+                }
+                if(!reponse.corr_schema2_angle||!reponse.corr_schema2_inclinaison){
+                    representations[0].total++;
+                    representations[4].faux++;
+                }
+                if(!reponse.corr_schema3_id){
+                    representations[0].total++;
+                    representations[5].faux++;
+                }
+                if(!reponse.corr_schema4_id){
+                    representations[0].total++;
+                    representations[6].faux++;
+                }
+
+            }
+
+        });
+        setStatPosDifficile([(positions[0].faux/positions[0].total)*100,(positions[1].faux/positions[1].total)*100,(positions[2].faux/positions[2].total)*100,(positions[3].faux/positions[3].total)*100,(positions[4].faux/positions[4].total)*100,(positions[5].faux/positions[5].total)*100,(positions[6].faux/positions[6].total)*100,(positions[7].faux/positions[7].total)*100]);
+        setStatInclDifficile([(inclinaisons[0].faux/inclinaisons[0].total)*100,(inclinaisons[1].faux/inclinaisons[1].total)*100]);
+        setStatRepDifficile([(representations[1].faux/representations[0].total)*100,(representations[2].faux/representations[0].total)*100,(representations[3].faux/representations[0].total)*100,(representations[4].faux/representations[0].total)*100,(representations[5].faux/representations[0].total)*100,(representations[6].faux/representations[0].total)*100]);
+    }, [dataDifficile]);
+
+    const getOption = (labels,donneesFacile,donneesDifficile,titre) => {
         // Return the ECharts option object here
         return {
             title: {
                 text: titre
             },
-            tooltip: {},
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                type: 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
             xAxis: {
+                type: 'category',
                 data: labels
             },
             yAxis: {},
-            series: [{
-                name: 'Nombre de retours',
+            series: [
+                {
+                name: 'Exercices faciles',
                 type: 'bar',
-                data: donnees
-            }]
+                emphasis: {
+                    focus: 'series'
+                },
+                data: donneesFacile
+                },
+                {
+                name: 'Exercices difficiles',
+                type: 'bar',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: donneesDifficile
+                }
+            ]
         };
     };
 
     return (
         <>
-            <section className="flex flex-col items-center gap-1 p-4 m-5 border border-gray-200">
+            <section className="flex flex-col w-full items-center gap-1 p-4 m-5 border border-gray-200">
                 <h4 className="font-semibold text-xl">Résultats de la cohorte : {cohorte}</h4>
-                <div className='w-full h-4/3'>
+                <div className='w-full'>
                 {statPosFacile && (<ReactEChartsCore
                     echarts={echarts}
-                    option={getOption(positionsLabels,statPosFacile,"Pourcentage d'erreur par position")}
+                    option={getOption(positionsLabels,statPosFacile,statPosDifficile,"Pourcentage d'erreur selon la position")}
                     notMerge={true}
                     lazyUpdate={true}
                     theme={"theme_name"}
@@ -143,9 +219,11 @@ export const RetoursCohorte = ({cohorte}) => {
                     opts={{ renderer: "canvas" }}
                 />)}
                 </div>
+
+                <div className='w-full h-4/3'>
                 {statInclFacile && (<ReactEChartsCore
                     echarts={echarts}
-                    option={getOption(inclinaisonLabels,statInclFacile,"Pourcentage d'erreur selon le flèchiessement")}
+                    option={getOption(inclinaisonLabels,statInclFacile,statInclDifficile,"Pourcentage d'erreur selon le flèchiessement")}
                     notMerge={true}
                     lazyUpdate={true}
                     theme={"theme_name"}
@@ -153,10 +231,12 @@ export const RetoursCohorte = ({cohorte}) => {
                     onEvents={{}}
                     opts={{ renderer: "canvas" }}
                 />)}
+                </div>
 
+                <div className='w-full h-4/3'>
                 {statRepFacile && (<ReactEChartsCore
                     echarts={echarts}
-                    option={getOption(typesRepresentationsFacile,statRepFacile,"Pourcentage des erreurs selon la représentation")}
+                    option={getOption(typesRepresentationsFacile,statRepFacile,statRepDifficile,"Part des représentations dans les erreurs")}
                     notMerge={true}
                     lazyUpdate={true}
                     theme={"theme_name"}
@@ -164,6 +244,7 @@ export const RetoursCohorte = ({cohorte}) => {
                     onEvents={{}}
                     opts={{ renderer: "canvas" }}
                 />)}
+                </div>
             </section>
         </>
     );
