@@ -40,14 +40,18 @@ export const choixEnnonce = (
       setEnnonce({
         representation: "Nom",
         position: selectedSet.position_id,
+        sigle: selectedSet.abreviation,
         inclinaison: selectedInclinaison.inclinaison_id,
+        label: selectedInclinaison.label,
       });
       break;
     case 1:
       setEnnonce({
         representation: "Sigle",
         position: selectedSet.position_id,
+        nom: selectedSet.abreviation,
         inclinaison: selectedInclinaison.inclinaison_id,
+        label: selectedInclinaison.label,
       });
       break;
     case 2:

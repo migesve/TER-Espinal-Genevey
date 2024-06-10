@@ -79,7 +79,7 @@ export function Schema3({ display }) {
     };
 
     const positionPrecedante = () => {
-        setIndex(prevIndex => (prevIndex - 1 + listeSchema3selectionnee.length) % listeSchema3selectionnee.length);
+        setIndex(prevIndex => ((prevIndex - 1 + listeSchema3selectionnee.length) % listeSchema3selectionnee.length));
     };
 
     const inclinaisonSuivante = () => {
@@ -88,6 +88,7 @@ export function Schema3({ display }) {
             if (index >= newList.length || index < 0) {
                 setIndex(0);
             }
+            console.log(index);
             return newList;
         });
     };
@@ -98,6 +99,7 @@ export function Schema3({ display }) {
             if (index >= newList.length || index < 0) {
                 setIndex(0);
             }
+            console.log(index);
             return newList;
         });
     };

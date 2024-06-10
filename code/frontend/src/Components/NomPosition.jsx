@@ -8,7 +8,7 @@ export function NomPosition({ display }) {
     const { ennonce, reponseNom, setReponseNom } = useContext(ContextReponses);
 
     useEffect(() => {
-        setEnnonceNom(ennonce?.position + ' ' + ennonce?.inclinaison);
+        setEnnonceNom(ennonce?.nom + ' ' + ennonce?.label);
         setReponse(''); //pour quoi ?
     }, [ennonce]);
 
