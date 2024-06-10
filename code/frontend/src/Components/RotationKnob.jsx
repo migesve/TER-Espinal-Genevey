@@ -1,13 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { ContextReponses } from '../Pages/User/exercice';
 
-export const RotationKnob = ({ sendToParent, schema }) => {
-  const [angle, setAngle] = useState(0);
+export const RotationKnob = ({ schema }) => {
   const [dragging, setDragging] = useState(false);
-  const [inclinaison, setTranslateY] = useState(0);
   const centerRef = useRef(null);
   const radius = 20;
+  const { ennonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2 } =
+    useContext(ContextReponses);
+  const [angle, setAngle] = useState(0);
+  const [inclinaison, setTranslateY] = useState(ennonce.inclinaison);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -65,7 +68,7 @@ export const RotationKnob = ({ sendToParent, schema }) => {
   useEffect(() => {
 
     const responseKey = schema === 1 ? "reponseSchema1" : "reponseSchema2";
-    const responseValue = { angle, inclinaison};
+    const responseValue = { angle, inclinaison };
     localStorage.setItem(responseKey, JSON.stringify(responseValue));
     //sendToParent({ representation: responseKey, responseValue: responseValue });
   }, [angle, inclinaison]);
