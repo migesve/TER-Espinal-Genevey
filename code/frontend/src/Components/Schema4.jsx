@@ -24,7 +24,9 @@ export function Schema4({ display }) {
               headers: { "Content-Type": "application/json" },
             }).then((response) => {
               if (!response.ok) {
-                throw new Error("Failed to fetch schema4 data");
+                throw new Error(
+                  `Failed to fetch schema4 data: ${response.statusText}`
+                );
               }
               return response.json();
             })
@@ -53,7 +55,7 @@ export function Schema4({ display }) {
             setError(data.status);
             return;
           }
-
+          console.log(data);
           setEnnonceSchema4(
             data.Schemas4[Math.floor(Math.random() * data.Schemas4.length)]
           );
@@ -77,7 +79,7 @@ export function Schema4({ display }) {
     setIndex((prevIndex) => (prevIndex + 1) % listeSchema4selectionnee.length);
   };
 
-  const positionPrecedente = () => {
+  const positionPrecedante = () => {
     setIndex(
       (prevIndex) =>
         (prevIndex - 1 + listeSchema4selectionnee.length) %
@@ -96,7 +98,7 @@ export function Schema4({ display }) {
     });
   };
 
-  const inclinaisonPrecedente = () => {
+  const inclinaisonPrecedante = () => {
     setListeSchema4selectionnee((prevList) => {
       const newList =
         prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1;
@@ -115,7 +117,7 @@ export function Schema4({ display }) {
     return <div>Error: {error}</div>;
   }
 
-  if (ennonce?.representation === "Schéma très réaliste") {
+  if (ennonce.representation === "Schéma très réaliste" && ennonceSchema4) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
@@ -136,45 +138,43 @@ export function Schema4({ display }) {
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
       >
         <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
-        {listeSchema4selectionnee.length > 0 && (
-          <div className="flex items-center">
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                hoverColor="hover:bg-amber-800"
-                color="bg-amber-600"
-                icon={GrUp}
-                onClick={inclinaisonPrecedente}
-              />
-              <p>Inclinaisons</p>
-              <Button
-                hoverColor="hover:bg-amber-800"
-                color="bg-amber-600"
-                icon={GrDown}
-                onClick={inclinaisonSuivante}
-              />
-            </div>
-            <img
-              src={listeSchema4selectionnee[index].image_path}
-              alt={listeSchema4selectionnee[index].image_name}
-              className="mx-4"
+        <div className="flex items-center">
+          <div className="flex flex-col items-center gap-1">
+            <Button
+              hoverColor="hover:bg-amber-800"
+              color="bg-amber-600"
+              icon={GrUp}
+              onClick={inclinaisonPrecedante}
             />
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                hoverColor="hover:bg-amber-800"
-                color="bg-amber-600"
-                icon={GrUp}
-                onClick={positionPrecedente}
-              />
-              <p>Positions</p>
-              <Button
-                hoverColor="hover:bg-amber-800"
-                color="bg-amber-600"
-                icon={GrDown}
-                onClick={positionSuivante}
-              />
-            </div>
+            <p>Inclinaisons</p>
+            <Button
+              hoverColor="hover:bg-amber-800"
+              color="bg-amber-600"
+              icon={GrDown}
+              onClick={inclinaisonSuivante}
+            />
           </div>
-        )}
+          <img
+            src={listeSchema4selectionnee[index].image_path}
+            alt={listeSchema4selectionnee[index].image_name}
+            className="mx-4"
+          />
+          <div className="flex flex-col items-center gap-1">
+            <Button
+              hoverColor="hover:bg-amber-800"
+              color="bg-amber-600"
+              icon={GrUp}
+              onClick={positionPrecedante}
+            />
+            <p>Positions</p>
+            <Button
+              hoverColor="hover:bg-amber-800"
+              color="bg-amber-600"
+              icon={GrDown}
+              onClick={positionSuivante}
+            />
+          </div>
+        </div>
       </section>
     );
   } else {

@@ -29,7 +29,7 @@ export const SelectDifficulte = ({ setDifficulte }) => {
     return (
       <Select
         options={options}
-        placeholder="Difficulté"
+        placeholder="Choisir la difficulté"
         styles = {customStyles}
         onChange={handleChange}
       />

@@ -75,7 +75,8 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
         listeSets,
         listeInclinaisons,
         indexQuestion,
-        setEnnonce
+        setEnnonce,
+        difficulte
       );
     }
   };

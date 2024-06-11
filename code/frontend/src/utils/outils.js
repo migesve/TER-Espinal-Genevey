@@ -9,6 +9,7 @@ export const choixEnnonce = (
   listeQuestionsInclinaisons,
   indexQuestion,
   setEnnonce,
+  difficulte,
   setView
 ) => {
   const tableauPos = JSON.parse(localStorage.getItem("tableauPos"));
@@ -25,7 +26,7 @@ export const choixEnnonce = (
     return;
   }
 
-  const ennonceAleatoire = Math.floor(Math.random() * 6);
+  const ennonceAleatoire = difficulte===1? Math.floor(Math.random() * 6) : Math.floor(Math.random() * 3);
   const selectedSet = listeQuestionsSets[tableauPos[indexQuestion]];
   const selectedInclinaison =
     listeQuestionsInclinaisons[tableauIncl[indexQuestion]];

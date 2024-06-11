@@ -15,6 +15,7 @@ import {
   fetchDataSchema4,
 } from "../../utils/fetchData";
 import { choixEnnonce } from "../../utils/outils";
+import { FaCheck } from "react-icons/fa";
 export const ContextReponses = createContext();
 
 export function Exercice() {
@@ -48,6 +49,7 @@ export function Exercice() {
   const [reponseSchema4, setReponseSchema4] = useState(null);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
+  const [aEteModifie, setAEteModifier] = useState({rep1:false,rep2:false,rep3:false,rep4:false,rep5:false,rep6:false})
 
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
@@ -70,21 +72,27 @@ export function Exercice() {
     switch (data.representation) {
       case "Nom":
         setReponseNom(data.choix);
+        aEteModifie.rep1=true;
         break;
       case "Sigle":
         setReponseSigle(data.choix);
+        aEteModifie.rep2=true;
         break;
       case "Schéma1":
         setReponseSchema1({ angle: data.angle, inclinaison: data.inclinaison });
+        aEteModifie.rep3=true;
         break;
       case "Schéma2":
         setReponseSchema2({ angle: data.angle, inclinaison: data.inclinaison });
+        aEteModifie.rep4=true;
         break;
       case "Schéma3":
         setReponseSchema3(data.choix);
+        aEteModifie.rep5=true;
         break;
       case "Schéma4":
         setReponseSchema4(data.choix);
+        aEteModifie.rep6=true;
         break;
       default:
         break;
@@ -143,6 +151,7 @@ export function Exercice() {
           listeInclinaisons,
           newIndex,
           setEnnonce,
+          difficulte,
           setView
         );
         return newIndex;
@@ -174,6 +183,7 @@ export function Exercice() {
     reponseSchema3,
     reponseSchema4,
     indexQuestion,
+    difficulte
   ]);
 
   return (
@@ -188,9 +198,16 @@ export function Exercice() {
             color={
               ennonce && ennonce.representation === type
                 ? "bg-yellow-500 hover:bg-yellow-600"
-                : "bg-blue-600"
+                : (view && view===type? "bg-blue-800" :"bg-blue-600")
             }
             onClick={() => setView(type)}
+            icon={(type==="Nom"&&aEteModifie.rep1===true
+              ||type==="Sigle"&&aEteModifie.rep2===true
+              ||type==="Schéma très simplifié"&&aEteModifie.rep3===true
+              ||type==="Schéma simplifié"&&aEteModifie.rep4===true
+              ||type==="Schéma réaliste"&&aEteModifie.rep5===true
+              ||type==="Schéma très réaliste"&&aEteModifie.rep6===true
+            )? FaCheck : null}
           />
         ))}
       </div>
