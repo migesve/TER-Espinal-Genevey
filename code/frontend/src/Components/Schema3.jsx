@@ -18,8 +18,6 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
   const reponseSchema3 = context.reponseSchema3 || '';
   const setReponseSchema3 = context.setReponseSchema3 || (() => {});
 
-  
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,9 +44,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
         } else if (ennonce?.retour === true) {
-
-          console.log(answerValues.reponseSchema3.image_path)
-          if (answerValues.reponseSchema3 === undefined) {
+          if (!answerValues.reponseSchema3) {
             answerValues.reponseSchema3 = {
               position_id: ennonce?.position || 1,
               inclinaison_id: ennonce?.inclinaison || 1,
@@ -170,7 +166,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
         </div>
       </section>
     );
-  } else if (ennonce?.retour === true) {
+  } else if (ennonce?.retour === true && answerValues?.reponseSchema3) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
