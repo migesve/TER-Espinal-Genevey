@@ -17,7 +17,24 @@ import {
 import { choixEnnonce } from "../../utils/outils";
 import { useNavigate } from "react-router-dom";
 
-export const ContextReponses = createContext();
+export const ContextReponses = createContext(
+  {
+    ennonce: {},
+    reponseNom: null,
+    setReponseNom: () => {},
+    reponseSigle: null,
+    setReponseSigle: () => {},
+    reponseSchema1: null,
+    setReponseSchema1: () => {},
+    reponseSchema2: null,
+    setReponseSchema2: () => {},
+    reponseSchema3: null,
+    setReponseSchema3: () => {},
+    // reponseSchema4: null,
+    // setReponseSchema4: () => {},
+  
+  }
+);
 
 export function Exercice() {
   const location = useLocation();
@@ -33,7 +50,7 @@ export function Exercice() {
   const methods = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const [ennonce, setEnnonce] = useState(initialEnnonce);
+  const [ennonce, setEnnonce] = useState({...initialEnnonce, retour: false});
   const [view, setView] = useState(initialEnnonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
@@ -115,17 +132,6 @@ export function Exercice() {
       //   JSON.stringify(answersValues)
       // );
 
-      setIndexQuestion((prev) => {
-        const newIndex = prev + 1;
-        choixEnnonce(
-          listeSets,
-          listeInclinaisons,
-          newIndex,
-          setEnnonce,
-          setView
-        );
-        return newIndex;
-      });
     }
   });
 

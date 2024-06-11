@@ -3,16 +3,22 @@ import { GrUp, GrDown } from "react-icons/gr";
 import { Button } from "./Button";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export function Schema3({ display }) {
+export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
   const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
   const [listeSchema3Pos2, setListeSchema3Pos2] = useState([]);
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema3selectionnee, setListeSchema3selectionnee] = useState([]);
   const [ennonceSchema3, setEnnonceSchema3] = useState(null);
-  const { ennonce, reponseSchema3, setReponseSchema3 } =
-    useContext(ContextReponses);
   const [loadingEnnonceSchema3, setLoadingEnnonceSchema3] = useState(true);
+
+  const context = useContext(ContextReponses);
+  const ennonce = ennonceProp || context.ennonce;
+  console.log(ennonce);
+  const reponseSchema3 = context.reponseSchema3 || '';
+  const setReponseSchema3 = context.setReponseSchema3 || (() => {});
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +45,37 @@ export function Schema3({ display }) {
           setListeSchema3Pos1(data1.Schemas3);
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
+        } else if (ennonce?.retour === true) {
+
+          console.log(answerValues.reponseSchema3.image_path)
+          if (answerValues.reponseSchema3 === undefined) {
+            answerValues.reponseSchema3 = {
+              position_id: ennonce?.position || 1,
+              inclinaison_id: ennonce?.inclinaison || 1,
+              image_name: ennonce?.image_name || "",
+              image_path: ennonce?.image_path || "",
+            };
+          }
+          const response = await fetch(
+            `http://localhost:4000/schema3/getByIds/${answerValues.reponseSchema3.position_id}/${answerValues.reponseSchema3.inclinaison_id}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          if (!response.ok) {
+            throw new Error(
+              `Failed to fetch ennonce data: ${response.statusText}`
+            );
+          }
+          const data = await response.json();
+          if (data.status) {
+            setError(data.status);
+            return;
+          }
+          setEnnonceSchema3(
+            data.Schemas3[Math.floor(Math.random() * data.Schemas3.length)]
+          );
         } else {
           const response = await fetch(
             `http://localhost:4000/schema3/getByIds/${ennonce.position}/${ennonce.inclinaison}`,
@@ -128,6 +165,21 @@ export function Schema3({ display }) {
           <img
             src={ennonceSchema3.image_path}
             alt={ennonceSchema3.image_name}
+            className="mx-4"
+          />
+        </div>
+      </section>
+    );
+  } else if (ennonce?.retour === true) {
+    return (
+      <section
+        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+      >
+        <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+        <div className="flex items-center">
+          <img
+            src={answerValues.reponseSchema3.image_path}
+            alt={answerValues.reponseSchema3.image_name}
             className="mx-4"
           />
         </div>

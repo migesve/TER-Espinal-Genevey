@@ -74,7 +74,7 @@
 //   );
 // }
 
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "../../Components/Button";
 import { Schema1 } from "../../Components/Schema1";
@@ -98,6 +98,8 @@ export function RetourExercice() {
     difficulte: initialDifficulte,
   } = initialState;
 
+  console.log(initialAnswersValues);
+  
   const checkNull = (initialAnswersValues) => {
     let ennonce = [];
     for (let key in initialAnswersValues) {
@@ -107,10 +109,12 @@ export function RetourExercice() {
     }
     return ennonce;
   };
-  const ennonce = checkNull(initialAnswersValues)[0];
-  console.log(ennonce);
 
   const [error, setError] = useState(null);
+  const [ennonce, setEnnonce] = useState({
+    representation: checkNull(initialAnswersValues)[0],
+    retour: true,
+  });
   const [view, setView] = useState(ennonce);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
@@ -128,7 +132,7 @@ export function RetourExercice() {
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
 
-  const reponses = JSON.parse(localStorage.getItem("reponseSchema1"));
+  //const reponses = JSON.parse(localStorage.getItem("reponseSchema1"));
 
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
@@ -172,6 +176,12 @@ export function RetourExercice() {
   }, []);
 
   const onSubmit = () => {
+    setIndexQuestion((prev) => {
+      const newIndex = prev + 1;
+      choixEnnonce(listeSets, listeInclinaisons, newIndex, setEnnonce, setView);
+      return newIndex;
+    });
+
     navigate("/retourExercice", {
       state: { indexQuestion, difficulte },
     });
@@ -200,19 +210,37 @@ export function RetourExercice() {
       <div>
         <h3>Reponse</h3>
         <div className="rectangle">
-          <NomPosition display={view === "Nom" ? "flex" : "hidden"} />
-          <Sigle display={view === "Sigle" ? "flex" : "hidden"} />
+          <NomPosition
+            display={view === "Nom" ? "flex" : "hidden"}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
+          />
+          <Sigle
+            display={view === "Sigle" ? "flex" : "hidden"}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
+          />
           <Schema1
             display={view === "Schéma très simplifié" ? "flex" : "hidden"}
             schema={1}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
           />
           <Schema2
             display={view === "Schéma simplifié" ? "flex" : "hidden"}
             schema={2}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
           />
-          <Schema3 display={view === "Schéma réaliste" ? "flex" : "hidden"} />
+          <Schema3
+            display={view === "Schéma réaliste" ? "flex" : "hidden"}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
+          />
           <Schema4
             display={view === "Schéma très réaliste" ? "flex" : "hidden"}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
           />
         </div>
       </div>
