@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { RotationKnob } from "./RotationKnob";
-import { FixedRotationKnob } from "./FixedRotationKnob";
+import { Rotation } from "./Rotation";
+import { FixedRotation } from "./FixedRotation";
 import { ContextReponses } from "../Pages/User/exercice";
 
 export const Schema1 = ({
@@ -13,9 +13,9 @@ export const Schema1 = ({
     <>
       <div className={`${display} flex-col items-center p-4`}>
         {ennonce.representation === "Schéma très simplifié" ? (
-          <FixedRotationKnob />
+          <FixedRotation />
         ) : (
-          <RotationKnob schema={schema} />
+          <Rotation schema={schema} />
         )}
       </div>
     </>
