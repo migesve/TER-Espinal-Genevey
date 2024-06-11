@@ -120,7 +120,7 @@ export function Schema4({ display }) {
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
       >
-        <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+        <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
         <div className="flex items-center">
           <img
             src={ennonceSchema4.image_path}
