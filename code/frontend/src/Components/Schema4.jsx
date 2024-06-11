@@ -143,7 +143,7 @@ export function Schema4({ display }) {
                 hoverColor="hover:bg-amber-800"
                 color="bg-amber-600"
                 icon={GrUp}
-                onClick={inclinaisonPrecedante}
+                onClick={inclinaisonPrecedente}
               />
               <p>Inclinaisons</p>
               <Button
@@ -163,7 +163,7 @@ export function Schema4({ display }) {
                 hoverColor="hover:bg-amber-800"
                 color="bg-amber-600"
                 icon={GrUp}
-                onClick={positionPrecedante}
+                onClick={positionPrecedente}
               />
               <p>Positions</p>
               <Button

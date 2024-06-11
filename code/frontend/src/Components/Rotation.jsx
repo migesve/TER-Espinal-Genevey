@@ -3,7 +3,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { ContextReponses } from '../Pages/User/exercice';
 
-export const RotationKnob = ({ schema }) => {
+export const Rotation = ({ schema }) => {
   const [dragging, setDragging] = useState(false);
   const centerRef = useRef(null);
   const radius = 20;
