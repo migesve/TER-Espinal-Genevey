@@ -78,7 +78,7 @@ export function Schema3({ display }) {
         setIndex(prevIndex => (prevIndex + 1) % listeSchema3selectionnee.length);
     };
 
-    const positionPrecedante = () => {
+    const positionPrecedente = () => {
         setIndex(prevIndex => ((prevIndex - 1 + listeSchema3selectionnee.length) % listeSchema3selectionnee.length));
     };
 
@@ -93,7 +93,7 @@ export function Schema3({ display }) {
         });
     };
 
-    const inclinaisonPrecedante = () => {
+    const inclinaisonPrecedente = () => {
         setListeSchema3selectionnee(prevList => {
             const newList = (prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1);
             if (index >= newList.length || index < 0) {
@@ -124,13 +124,13 @@ export function Schema3({ display }) {
                 {listeSchema3selectionnee.length > 0 && (
                     <div className="flex items-center">
                         <div className="flex flex-col items-center gap-1">
-                            <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonPrecedante} />
+                            <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={inclinaisonPrecedente} />
                             <p>Inclinaisons</p>
                             <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrDown} onClick={inclinaisonSuivante} />
                         </div>
                         <img src={listeSchema3selectionnee[index].image_path} alt={listeSchema3selectionnee[index].image_name} className="mx-4" />
                         <div className="flex flex-col items-center gap-1">
-                            <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionPrecedante} />
+                            <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrUp} onClick={positionPrecedente} />
                             <p>Positions</p>
                             <Button hoverColor="hover:bg-amber-800" color="bg-amber-600" icon={GrDown} onClick={positionSuivante} />
                         </div>

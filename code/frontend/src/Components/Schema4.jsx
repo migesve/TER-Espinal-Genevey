@@ -74,7 +74,7 @@ export function Schema4({ display }) {
     setIndex((prevIndex) => (prevIndex + 1) % listeSchema4selectionnee.length);
   };
 
-  const positionPrecedante = () => {
+  const positionPrecedente = () => {
     setIndex(
       (prevIndex) =>
         (prevIndex - 1 + listeSchema4selectionnee.length) %
@@ -93,7 +93,7 @@ export function Schema4({ display }) {
     });
   };
 
-  const inclinaisonPrecedante = () => {
+  const inclinaisonPrecedente = () => {
     setListeSchema4selectionnee((prevList) => {
       const newList =
         prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1;
@@ -135,7 +135,7 @@ export function Schema4({ display }) {
                   hoverColor="hover:bg-amber-800"
                   color="bg-amber-600"
                   icon={GrUp}
-                  onClick={inclinaisonPrecedante}
+                  onClick={inclinaisonPrecedente}
                 />
                 <p>Inclinaisons</p>
                 <Button
@@ -155,7 +155,7 @@ export function Schema4({ display }) {
                   hoverColor="hover:bg-amber-800"
                   color="bg-amber-600"
                   icon={GrUp}
-                  onClick={positionPrecedante}
+                  onClick={positionPrecedente}
                 />
                 <p>Positions</p>
                 <Button

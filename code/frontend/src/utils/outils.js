@@ -40,7 +40,7 @@ export const choixEnnonce = (
       setEnnonce({
         representation: "Nom",
         position: selectedSet.position_id,
-        sigle: selectedSet.abreviation,
+        nom: selectedSet.nom,
         inclinaison: selectedInclinaison.inclinaison_id,
         label: selectedInclinaison.label,
       });
@@ -49,7 +49,7 @@ export const choixEnnonce = (
       setEnnonce({
         representation: "Sigle",
         position: selectedSet.position_id,
-        nom: selectedSet.abreviation,
+        sigle: selectedSet.abreviation,
         inclinaison: selectedInclinaison.inclinaison_id,
         label: selectedInclinaison.label,
       });
