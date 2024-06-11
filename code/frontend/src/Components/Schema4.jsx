@@ -12,6 +12,7 @@ export function Schema4({ display }) {
   const [ennonceSchema4, setEnnonceSchema4] = useState(null);
   const { ennonce, reponseSchema4, setReponseSchema4 } =
     useContext(ContextReponses);
+  const [loadingEnnonceSchema3, setLoadingEnnonceSchema3] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +61,8 @@ export function Schema4({ display }) {
       } catch (err) {
         console.error("Error:", err);
         setError(err.message);
+      } finally {
+        setLoadingEnnonceSchema3(false);
       }
     };
 
@@ -104,71 +107,77 @@ export function Schema4({ display }) {
     });
   };
 
+  if (loadingEnnonceSchema3) {
+    return <div>Loading...</div>;
+  }
+
   if (error) {
     return <div>Error: {error}</div>;
-  } else {
-    if (ennonce?.representation === "Schéma très réaliste") {
-      return (
-        <section
-          className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
-        >
-          <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+  }
+
+  if (ennonce?.representation === "Schéma très réaliste") {
+    return (
+      <section
+        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+      >
+        <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+        <div className="flex items-center">
+          <img
+            src={ennonceSchema4.image_path}
+            alt={ennonceSchema4.image_name}
+            className="mx-4"
+          />
+        </div>
+      </section>
+    );
+  } else if (listeSchema4selectionnee.length > 0) {
+    return (
+      <section
+        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+      >
+        <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
+        {listeSchema4selectionnee.length > 0 && (
           <div className="flex items-center">
+            <div className="flex flex-col items-center gap-1">
+              <Button
+                hoverColor="hover:bg-amber-800"
+                color="bg-amber-600"
+                icon={GrUp}
+                onClick={inclinaisonPrecedante}
+              />
+              <p>Inclinaisons</p>
+              <Button
+                hoverColor="hover:bg-amber-800"
+                color="bg-amber-600"
+                icon={GrDown}
+                onClick={inclinaisonSuivante}
+              />
+            </div>
             <img
-              src={ennonceSchema4.image_path}
-              alt={ennonceSchema4.image_name}
+              src={listeSchema4selectionnee[index].image_path}
+              alt={listeSchema4selectionnee[index].image_name}
               className="mx-4"
             />
-          </div>
-        </section>
-      );
-    } else {
-      return (
-        <section
-          className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
-        >
-          <h4 className="font-semibold text-xl">Schéma réaliste</h4>
-          {listeSchema4selectionnee.length > 0 && (
-            <div className="flex items-center">
-              <div className="flex flex-col items-center gap-1">
-                <Button
-                  hoverColor="hover:bg-amber-800"
-                  color="bg-amber-600"
-                  icon={GrUp}
-                  onClick={inclinaisonPrecedante}
-                />
-                <p>Inclinaisons</p>
-                <Button
-                  hoverColor="hover:bg-amber-800"
-                  color="bg-amber-600"
-                  icon={GrDown}
-                  onClick={inclinaisonSuivante}
-                />
-              </div>
-              <img
-                src={listeSchema4selectionnee[index].image_path}
-                alt={listeSchema4selectionnee[index].image_name}
-                className="mx-4"
+            <div className="flex flex-col items-center gap-1">
+              <Button
+                hoverColor="hover:bg-amber-800"
+                color="bg-amber-600"
+                icon={GrUp}
+                onClick={positionPrecedante}
               />
-              <div className="flex flex-col items-center gap-1">
-                <Button
-                  hoverColor="hover:bg-amber-800"
-                  color="bg-amber-600"
-                  icon={GrUp}
-                  onClick={positionPrecedante}
-                />
-                <p>Positions</p>
-                <Button
-                  hoverColor="hover:bg-amber-800"
-                  color="bg-amber-600"
-                  icon={GrDown}
-                  onClick={positionSuivante}
-                />
-              </div>
+              <p>Positions</p>
+              <Button
+                hoverColor="hover:bg-amber-800"
+                color="bg-amber-600"
+                icon={GrDown}
+                onClick={positionSuivante}
+              />
             </div>
-          )}
-        </section>
-      );
-    }
+          </div>
+        )}
+      </section>
+    );
+  } else {
+    return <div>No schema available</div>;
   }
 }
