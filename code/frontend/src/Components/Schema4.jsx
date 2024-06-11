@@ -3,16 +3,20 @@ import { GrUp, GrDown } from "react-icons/gr";
 import { Button } from "./Button";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export function Schema4({ display }) {
+export function Schema4({ display, ennonce: ennonceProp }) {
   const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
   const [listeSchema4Pos2, setListeSchema4Pos2] = useState([]);
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
   const [ennonceSchema4, setEnnonceSchema4] = useState(null);
-  const { ennonce, reponseSchema4, setReponseSchema4 } =
-    useContext(ContextReponses);
-  const [loadingEnnonceSchema3, setLoadingEnnonceSchema3] = useState(true);
+  const [loadingEnnonceSchema4, setLoadingEnnonceSchema4] = useState(true);
+
+  const context = useContext(ContextReponses);
+  const ennonce = ennonceProp || context.ennonce;
+  console.log(ennonce);
+  const reponseSchema4 = context.reponseSchema4 || '';
+  const setReponseSchema4 = context.setReponseSchema4|| (() => {});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,7 +113,7 @@ export function Schema4({ display }) {
     });
   };
 
-  if (loadingEnnonceSchema3) {
+  if (loadingEnnonceSchema4) {
     return <div>Loading...</div>;
   }
 
@@ -118,6 +122,21 @@ export function Schema4({ display }) {
   }
 
   if (ennonce.representation === "Schéma très réaliste" && ennonceSchema4) {
+    return (
+      <section
+        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+      >
+        <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
+        <div className="flex items-center">
+          <img
+            src={ennonceSchema4.image_path}
+            alt={ennonceSchema4.image_name}
+            className="mx-4"
+          />
+        </div>
+      </section>
+    );
+  } else if (ennonce?.retour === true) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}

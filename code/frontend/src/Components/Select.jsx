@@ -1,9 +1,3 @@
-import cn from 'classnames'
-import { useFormContext } from "react-hook-form";
-import { findInputError } from '../utils/findInputError'
-import { isFormInvalid } from '../utils/isFormValid'
-import { AnimatePresence, motion } from 'framer-motion'
-import { MdError } from 'react-icons/md'
 import Select from 'react-select'
 
 export const SelectDifficulte = ({ setDifficulte }) => {

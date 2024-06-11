@@ -5,18 +5,37 @@ import { Button } from "../../Components/Button";
 import { Schema1 } from "../../Components/Schema1";
 import { Schema2 } from "../../Components/Schema2";
 import { Schema3 } from "../../Components/Schema3";
-import { Schema4 } from "../../Components/Schema4";
+// import { Schema4 } from "../../Components/Schema4";
 import { NomPosition } from "../../Components/NomPosition";
 import { Sigle } from "../../Components/Sigle";
 import {
   fetchDataPosition,
   fetchDataInclinaison,
-  fetchDataSchema3,
-  fetchDataSchema4,
+  // fetchDataSchema3,
+  // fetchDataSchema4,
 } from "../../utils/fetchData";
 import { choixEnnonce } from "../../utils/outils";
 import { FaCheck } from "react-icons/fa";
-export const ContextReponses = createContext();
+import { useNavigate } from "react-router-dom";
+
+export const ContextReponses = createContext(
+  {
+    ennonce: {},
+    reponseNom: null,
+    setReponseNom: () => {},
+    reponseSigle: null,
+    setReponseSigle: () => {},
+    reponseSchema1: null,
+    setReponseSchema1: () => {},
+    reponseSchema2: null,
+    setReponseSchema2: () => {},
+    reponseSchema3: null,
+    setReponseSchema3: () => {},
+    // reponseSchema4: null,
+    // setReponseSchema4: () => {},
+  
+  }
+);
 
 export function Exercice() {
   const location = useLocation();
@@ -24,16 +43,18 @@ export function Exercice() {
   const {
     ennonce: initialEnnonce,
     difficulte: initialDifficulte,
+    indexQuestion: initialIndexQuestion,
     ...formData
   } = initialState;
 
+  const navigate = useNavigate();
   const methods = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const [ennonce, setEnnonce] = useState(initialEnnonce);
+  const [ennonce, setEnnonce] = useState({...initialEnnonce, retour: false});
   const [view, setView] = useState(initialEnnonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
-  const [indexQuestion, setIndexQuestion] = useState(0);
+  const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
 
   const [reponseNom, setReponseNom] = useState(null);
   const [reponseSigle, setReponseSigle] = useState(null);
@@ -46,7 +67,7 @@ export function Exercice() {
     inclinaison: null,
   });
   const [reponseSchema3, setReponseSchema3] = useState(null);
-  const [reponseSchema4, setReponseSchema4] = useState(null);
+  // const [reponseSchema4, setReponseSchema4] = useState(null);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
   const [aEteModifie, setAEteModifier] = useState({rep1:false,rep2:false,rep3:false,rep4:false,rep5:false,rep6:false})
@@ -54,49 +75,18 @@ export function Exercice() {
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
   if (difficulte == 1) {
-    buttonsArea = "grid md:grid-cols-6 space-x-2";
+    buttonsArea = "grid md:grid-cols-5 space-x-2"; //grid-cols-6 si on est avec 6 representations
     typesRepresentation = [
       "Nom",
       "Sigle",
       "Schéma très simplifié",
       "Schéma simplifié",
       "Schéma réaliste",
-      "Schéma très réaliste",
+      // "Schéma très réaliste",
     ];
   } else {
     buttonsArea = "grid md:grid-cols-3 space-x-2";
     typesRepresentation = ["Nom", "Sigle", "Schéma très simplifié"];
-  }
-
-  function handleChildClick(data) {
-    switch (data.representation) {
-      case "Nom":
-        setReponseNom(data.choix);
-        aEteModifie.rep1=true;
-        break;
-      case "Sigle":
-        setReponseSigle(data.choix);
-        aEteModifie.rep2=true;
-        break;
-      case "Schéma1":
-        setReponseSchema1({ angle: data.angle, inclinaison: data.inclinaison });
-        aEteModifie.rep3=true;
-        break;
-      case "Schéma2":
-        setReponseSchema2({ angle: data.angle, inclinaison: data.inclinaison });
-        aEteModifie.rep4=true;
-        break;
-      case "Schéma3":
-        setReponseSchema3(data.choix);
-        aEteModifie.rep5=true;
-        break;
-      case "Schéma4":
-        setReponseSchema4(data.choix);
-        aEteModifie.rep6=true;
-        break;
-      default:
-        break;
-    }
   }
 
   useEffect(() => {
@@ -136,26 +126,14 @@ export function Exercice() {
         reponseSchema1,
         reponseSchema2,
         reponseSchema3,
-        reponseSchema4,
+        // reponseSchema4,
       };
+      navigate("/retourExercice", { state: { indexQuestion, answersValues,difficulte } });
+      // localStorage.setItem(
+      //   "response" + indexQuestion,
+      //   JSON.stringify(answersValues)
+      // );
 
-      localStorage.setItem(
-        "response" + indexQuestion,
-        JSON.stringify(answersValues)
-      );
-
-      setIndexQuestion((prev) => {
-        const newIndex = prev + 1;
-        choixEnnonce(
-          listeSets,
-          listeInclinaisons,
-          newIndex,
-          setEnnonce,
-          difficulte,
-          setView
-        );
-        return newIndex;
-      });
     }
   });
 
@@ -167,7 +145,7 @@ export function Exercice() {
         reponseSchema1,
         reponseSchema2,
         reponseSchema3,
-        reponseSchema4,
+        // reponseSchema4,
       };
 
       localStorage.setItem(
@@ -181,7 +159,7 @@ export function Exercice() {
     reponseSchema1,
     reponseSchema2,
     reponseSchema3,
-    reponseSchema4,
+    // reponseSchema4,
     indexQuestion,
     difficulte
   ]);
@@ -227,8 +205,8 @@ export function Exercice() {
               setReponseSchema2,
               reponseSchema3,
               setReponseSchema3,
-              reponseSchema4,
-              setReponseSchema4,
+              // reponseSchema4,
+              // setReponseSchema4,
             }}
           >
             <NomPosition display={view === "Nom" ? "flex" : "hidden"} />
@@ -242,9 +220,9 @@ export function Exercice() {
               schema={2}
             />
             <Schema3 display={view === "Schéma réaliste" ? "flex" : "hidden"} />
-            <Schema4
+            {/* <Schema4
               display={view === "Schéma très réaliste" ? "flex" : "hidden"}
-            />
+            /> */}
           </ContextReponses.Provider>
         </div>
       </div>

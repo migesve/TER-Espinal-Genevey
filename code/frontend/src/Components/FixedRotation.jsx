@@ -3,9 +3,10 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export const FixedRotation = () => {
-  const { ennonce } =
-    useContext(ContextReponses);
+export const FixedRotation = ( {ennonce: ennonceProp }) => {
+  const context = useContext(ContextReponses);
+  const ennonce = ennonceProp || context.ennonce;
+  console.log(ennonce);
 
   return (
     <div className="flex justify-between">
@@ -26,7 +27,9 @@ export const FixedRotation = () => {
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
-            transform: `rotate(${ennonce.angle}deg) translateY(${-ennonce.inclinaison}px)`,
+            transform: `rotate(${
+              ennonce.angle
+            }deg) translateY(${-ennonce.inclinaison}px)`,
           }}
         />
         <img

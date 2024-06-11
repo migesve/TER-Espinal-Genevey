@@ -5,14 +5,18 @@ import { ContextReponses } from "../Pages/User/exercice";
 
 export const Schema1 = ({
   display,
-  schema
+  schema,
+  ennonce: ennonceProp,
 }) => {
-  const { ennonce } = useContext(ContextReponses);
-
+  
+  const context = useContext(ContextReponses);
+  const ennonce = ennonceProp || context.ennonce;
+  console.log(ennonce);
+  
   return (
     <>
       <div className={`${display} flex-col items-center p-4`}>
-        {ennonce.representation === "Schéma très simplifié" ? (
+        {ennonce.representation === "Schéma très simplifié" || ennonce?.retour === true ? (
           <FixedRotation />
         ) : (
           <Rotation schema={schema} />

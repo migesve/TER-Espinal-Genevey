@@ -1,11 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import { ContextReponses } from '../Pages/User/exercice';
 
-export function Sigle({ display }) {
+export function Sigle({ display, ennonce: ennonceProp }) {
     const [error, setError] = useState(null);
     const [ennonceSigle, setEnnonceSigle] = useState('');
     const [reponse, setReponse] = useState('');
-    const { ennonce, reponseSigle, setReponseSigle } = useContext(ContextReponses);
+    
+    const context = useContext(ContextReponses);
+    const ennonce = ennonceProp || context.ennonce;
+    console.log(ennonce);
+    const reponseSigle = context.reponseSigle || '';
+    const setReponseSigle = context.setReponseSigle || (() => {});
 
     useEffect(() => {
         setEnnonceSigle(ennonce.sigle+' '+ennonce.label);
@@ -16,7 +21,7 @@ export function Sigle({ display }) {
         return <div>Error: {error}</div>;
     }
 
-    if (ennonce?.representation === "Sigle") {
+    if (ennonce?.representation === "Sigle" || ennonce?.retour === true) {
         return (
             <section className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}>
                 <h4 className="font-semibold text-xl">Sigle de la position</h4>

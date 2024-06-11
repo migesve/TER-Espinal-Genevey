@@ -83,8 +83,7 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
 
   useEffect(() => {
     if (ennonce) {
-      localStorage.setItem("ennonce", JSON.stringify(ennonce));
-      navigate("/exercice", { state: { ...formData, ennonce, difficulte } });
+      navigate("/exercice", { state: { ...formData, ennonce, difficulte, indexQuestion } });
     }
   }, [ennonce, navigate, formData]);
 
@@ -99,7 +98,6 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
         <div className="grid gap-5">
           <SelectDifficulte
             setDifficulte={setDifficulte}
-            className="md:col-span-3"
           />
         </div>
         <div className="mt-5">

@@ -66,12 +66,13 @@ export const Rotation = ({ schema }) => {
   }, [dragging]);
 
   useEffect(() => {
-
-    const responseKey = schema === 1 ? "reponseSchema1" : "reponseSchema2";
     const responseValue = { angle, inclinaison };
-    localStorage.setItem(responseKey, JSON.stringify(responseValue));
-    //sendToParent({ representation: responseKey, responseValue: responseValue });
-  }, [angle, inclinaison]);
+    if (schema === 1) {
+      setReponseSchema1(responseValue);
+    } else {
+      setReponseSchema2(responseValue);
+    }
+  }, [angle, inclinaison, schema, setReponseSchema1, setReponseSchema2]);
 
   const circleX = 50 + radius * Math.cos((angle * Math.PI) / 180);
   const circleY = 50 + radius * Math.sin((angle * Math.PI) / 180);
