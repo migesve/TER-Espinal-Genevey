@@ -88,6 +88,7 @@ export function Exercice() {
   const [schema4EstModifie, setSchema4EstModifie] = useState(0);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
+  const [retourReponse, setRetourReponse] = useState(false);
 
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
@@ -146,13 +147,14 @@ export function Exercice() {
         reponseSchema3,
         // reponseSchema4,
       };
-      navigate("/retourExercice", {
-        state: { indexQuestion, answersValues, difficulte, ennonce },
-      });
+      // navigate("/retourExercice", {
+      //   state: { indexQuestion, answersValues, difficulte, ennonce },
+      // });
       // localStorage.setItem(
       //   "response" + indexQuestion,
       //   JSON.stringify(answersValues)
       // );
+      setRetourReponse(true)
     }
   });
 
