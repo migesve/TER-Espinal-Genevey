@@ -8,14 +8,12 @@ export const FixedRotation = () => {
   const ennonce = context.ennonce;
   console.log(ennonce);
 
-  if (ennonce.retourReponse === false ) {
-    const angle = ennonce.angle;
-    const inclinaison = ennonce.inclinaison;
-  } else {
-    const angle = ennonce.answervalues.angle;
-    const inclinaison = ennonce.answervalues.inclinaison;
-  }
+  let angle, inclinaison;
 
+  if (ennonce.retourReponse === false ) {
+    angle = ennonce.angle;
+    inclinaison = ennonce.inclinaison;
+  } 
   return (
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none">
