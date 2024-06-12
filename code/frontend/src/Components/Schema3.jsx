@@ -23,7 +23,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (ennonce?.representation !== "Schéma réaliste") {
+        if (ennonce?.representation !== "Schéma réaliste" && !ennonce?.retour) {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
               method: "GET",
@@ -45,7 +45,10 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
           setListeSchema3Pos1(data1.Schemas3);
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
+
         } else if (ennonce?.retour === true) {
+
+
           if (!answerValues.reponseSchema3) {
             answerValues.reponseSchema3 = {
               position_id: ennonce?.position || 1,
