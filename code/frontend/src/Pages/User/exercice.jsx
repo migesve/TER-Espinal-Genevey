@@ -137,6 +137,7 @@ export function Exercice() {
     if (indexQuestion == 4) {
       // On a fini les questions
     } else {
+      console.log(ennonce);
       const answersValues = {
         reponseNom,
         reponseSigle,
@@ -145,12 +146,13 @@ export function Exercice() {
         reponseSchema3,
         // reponseSchema4,
       };
-      navigate("/retourExercice", { state: { indexQuestion, answersValues, difficulte } });
+      navigate("/retourExercice", {
+        state: { indexQuestion, answersValues, difficulte, ennonce },
+      });
       // localStorage.setItem(
       //   "response" + indexQuestion,
       //   JSON.stringify(answersValues)
       // );
-
     }
   });
 
@@ -178,7 +180,7 @@ export function Exercice() {
     reponseSchema3,
     // reponseSchema4,
     indexQuestion,
-    difficulte
+    difficulte,
   ]);
 
   return (

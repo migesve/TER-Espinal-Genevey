@@ -96,14 +96,20 @@ export function RetourExercice() {
     indexQuestion: initialIndexQuestion,
     answersValues: initialAnswersValues,
     difficulte: initialDifficulte,
+    ennonce: ennonceOriginale,
   } = initialState;
 
   console.log(initialAnswersValues);
-  
+
   const checkNull = (initialAnswersValues) => {
     let ennonce = [];
     for (let key in initialAnswersValues) {
       if (initialAnswersValues[key] === null) {
+        ennonce.push(key);
+      } else if (
+        initialAnswersValues[key].angle === null &&
+        initialAnswersValues[key].inclinaison === null
+      ) {
         ennonce.push(key);
       }
     }
@@ -112,10 +118,11 @@ export function RetourExercice() {
 
   const [error, setError] = useState(null);
   const [ennonce, setEnnonce] = useState({
-    representation: checkNull(initialAnswersValues)[0],
+    ...ennonceOriginale,
+    representationEnnonce: ennonceOriginale.representation,
     retour: true,
   });
-  const [view, setView] = useState(ennonce);
+  const [view, setView] = useState(ennonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
 
@@ -137,14 +144,14 @@ export function RetourExercice() {
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
   if (difficulte == 1) {
-    buttonsArea = "grid md:grid-cols-6 space-x-2";
+    buttonsArea = "grid md:grid-cols-5 space-x-2";
     typesRepresentation = [
       "Nom",
       "Sigle",
       "Schéma très simplifié",
       "Schéma simplifié",
       "Schéma réaliste",
-      "Schéma très réaliste",
+      // "Schéma très réaliste",
     ];
   } else {
     buttonsArea = "grid md:grid-cols-3 space-x-2";
@@ -191,7 +198,7 @@ export function RetourExercice() {
 
   return (
     <>
-      <h1>Exercice</h1>
+      <h1>Retour Exercice</h1>
       <h2>Question {indexQuestion + 1}/5</h2>
       <div className={buttonsArea}>
         {typesRepresentation.map((type) => (
@@ -199,7 +206,7 @@ export function RetourExercice() {
             key={type}
             text={type}
             color={
-              ennonce && ennonce.representation === type
+              ennonce && ennonce.representationEnnonce === type
                 ? "bg-yellow-500 hover:bg-yellow-600"
                 : "bg-blue-600"
             }
@@ -207,41 +214,82 @@ export function RetourExercice() {
           />
         ))}
       </div>
-      <div>
-        <h3>Reponse</h3>
-        <div className="rectangle">
-          <NomPosition
-            display={view === "Nom" ? "flex" : "hidden"}
-            ennonce={ennonce}
-            answersValues={initialAnswersValues}
-          />
-          <Sigle
-            display={view === "Sigle" ? "flex" : "hidden"}
-            ennonce={ennonce}
-            answersValues={initialAnswersValues}
-          />
-          <Schema1
-            display={view === "Schéma très simplifié" ? "flex" : "hidden"}
-            schema={1}
-            ennonce={ennonce}
-            answersValues={initialAnswersValues}
-          />
-          <Schema2
-            display={view === "Schéma simplifié" ? "flex" : "hidden"}
-            schema={2}
-            ennonce={ennonce}
-            answersValues={initialAnswersValues}
-          />
-          <Schema3
-            display={view === "Schéma réaliste" ? "flex" : "hidden"}
-            ennonce={ennonce}
-            answersValues={initialAnswersValues}
-          />
-          <Schema4
+      <div className="grid gap-5 md:grid-cols-2">
+        <div>
+          <h3>Votre Reponse</h3>
+          <div className="rectangle">
+            <NomPosition
+              display={view === "Nom" ? "flex" : "hidden"}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Sigle
+              display={view === "Sigle" ? "flex" : "hidden"}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Schema1
+              display={view === "Schéma très simplifié" ? "flex" : "hidden"}
+              schema={1}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Schema2
+              display={view === "Schéma simplifié" ? "flex" : "hidden"}
+              schema={2}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Schema3
+              display={view === "Schéma réaliste" ? "flex" : "hidden"}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            {/* <Schema4
             display={view === "Schéma très réaliste" ? "flex" : "hidden"}
             ennonce={ennonce}
             answersValues={initialAnswersValues}
-          />
+            /> */}
+
+          </div>
+        </div>
+        <div>
+          <h3>Correction</h3>
+          <div className="rectangle">
+            <NomPosition
+              display={view === "Nom" ? "flex" : "hidden"}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Sigle
+              display={view === "Sigle" ? "flex" : "hidden"}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Schema1
+              display={view === "Schéma très simplifié" ? "flex" : "hidden"}
+              schema={1}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Schema2
+              display={view === "Schéma simplifié" ? "flex" : "hidden"}
+              schema={2}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            <Schema3
+              display={view === "Schéma réaliste" ? "flex" : "hidden"}
+              ennonce={ennonce}
+              answersValues={initialAnswersValues}
+            />
+            {/* <Schema4
+            display={view === "Schéma très réaliste" ? "flex" : "hidden"}
+            ennonce={ennonce}
+            answersValues={initialAnswersValues}
+            /> */}
+
+          </div>
         </div>
       </div>
       <div className="flex justify-between">
@@ -277,7 +325,7 @@ export function RetourExercice() {
       <div className="flex py-4 justify-end">
         <Button
           onClick={onSubmit}
-          text="Finir Question"
+          text="Prochaine Question"
           color="bg-red-600"
           hoverColor="bg-red-800"
         />
