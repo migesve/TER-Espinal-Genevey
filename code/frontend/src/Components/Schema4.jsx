@@ -70,7 +70,7 @@ export function Schema4({ display, ennonce: ennonceProp }) {
         console.error("Error:", err);
         setError(err.message);
       } finally {
-        setLoadingEnnonceSchema3(false);
+        setLoadingEnnonceSchema4(false);
       }
     };
 
