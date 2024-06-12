@@ -11,6 +11,7 @@ import { Exercice } from "./Pages/User/exercice";
 import { RetourExercice } from "./Pages/User/retourExercice";
 import { FinExercice } from "./Pages/User/finExercice";
 import { RetoursEnseignant } from "./Pages/Admin/retoursEnseignant";
+import { Gestion } from "./Pages/Admin/gestionUtilisateurs";
 
 import { CreerCompte } from "./Pages/creerCompte";
 import { Layout } from "./Layout";
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/saisieSet" element={<SaisieSet />} />
                 <Route path="/sets" element={<Sets />} />
                 <Route path="/retours" element={<RetoursEnseignant />} />
+                <Route path="/gestionUtilisateurs" element={<Gestion />} />
               </Route>
 
               <Route element={<AdminRoutes />}>

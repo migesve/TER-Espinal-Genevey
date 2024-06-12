@@ -91,4 +91,15 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.get('/getNoms', async (req, res) => {
+    try {
+        const listeUsers = await pool.query('SELECT username FROM users');
+        console.log(listeUsers.rows);
+        return res.json(listeUsers.rows);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Erreur du serveur');
+    }
+});
+
 module.exports = router;
