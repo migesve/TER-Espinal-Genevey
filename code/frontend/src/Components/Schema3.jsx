@@ -17,6 +17,8 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
   console.log(ennonce);
   const reponseSchema3 = context.reponseSchema3 || '';
   const setReponseSchema3 = context.setReponseSchema3 || (() => {});
+  const setSchema3EstModifie= context.setSchema3EstModifie || (() => {});
+
 
   
 
@@ -111,6 +113,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
 
   useEffect(() => {
     setReponseSchema3(listeSchema3selectionnee[index]);
+    setSchema3EstModifie((prev)=>prev+1);
   }, [index, listeSchema3selectionnee]);
 
   const positionSuivante = () => {

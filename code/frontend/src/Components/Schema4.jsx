@@ -17,6 +17,8 @@ export function Schema4({ display, ennonce: ennonceProp }) {
   console.log(ennonce);
   const reponseSchema4 = context.reponseSchema4 || '';
   const setReponseSchema4 = context.setReponseSchema4|| (() => {});
+  const setSchema4EstModifie= context.setSchema4EstModifie || (() => {});
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +79,7 @@ export function Schema4({ display, ennonce: ennonceProp }) {
 
   useEffect(() => {
     setReponseSchema4(listeSchema4selectionnee[index]);
+    setSchema4EstModifie((prev)=>prev+1);
   }, [index, listeSchema4selectionnee]);
 
   const positionSuivante = () => {

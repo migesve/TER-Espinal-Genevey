@@ -11,6 +11,7 @@ export function Sigle({ display, ennonce: ennonceProp }) {
     console.log(ennonce);
     const reponseSigle = context.reponseSigle || '';
     const setReponseSigle = context.setReponseSigle || (() => {});
+    const setSigleEstModifie= context.setSigleEstModifie || (() => {});
 
     useEffect(() => {
         setEnnonceSigle(ennonce.sigle+' '+ennonce.label);
@@ -40,6 +41,7 @@ export function Sigle({ display, ennonce: ennonceProp }) {
                             onChange={e => {
                                 setReponse(e.target.value);
                                 setReponseSigle(e.target.value);
+                                setSigleEstModifie(true);
                                 }
                             }
                             />

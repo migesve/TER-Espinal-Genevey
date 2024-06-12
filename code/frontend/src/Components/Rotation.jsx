@@ -7,7 +7,7 @@ export const Rotation = ({ schema }) => {
   const [dragging, setDragging] = useState(false);
   const centerRef = useRef(null);
   const radius = 20;
-  const { ennonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2 } =
+  const { ennonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2, setSchema1EstModifie, setSchema2EstModifie } =
     useContext(ContextReponses);
   const [angle, setAngle] = useState(0);
   const [inclinaison, setTranslateY] = useState(ennonce.inclinaison);
@@ -69,8 +69,10 @@ export const Rotation = ({ schema }) => {
     const responseValue = { angle, inclinaison };
     if (schema === 1) {
       setReponseSchema1(responseValue);
+      setSchema1EstModifie((prev)=>prev+1);
     } else {
       setReponseSchema2(responseValue);
+      setSchema2EstModifie((prev)=>prev+1);
     }
   }, [angle, inclinaison, schema, setReponseSchema1, setReponseSchema2]);
 

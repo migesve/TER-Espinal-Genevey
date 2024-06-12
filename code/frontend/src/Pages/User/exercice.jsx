@@ -22,18 +22,30 @@ export const ContextReponses = createContext(
   {
     ennonce: {},
     reponseNom: null,
-    setReponseNom: () => {},
+    setReponseNom: () => { },
     reponseSigle: null,
-    setReponseSigle: () => {},
+    setReponseSigle: () => { },
     reponseSchema1: null,
-    setReponseSchema1: () => {},
+    setReponseSchema1: () => { },
     reponseSchema2: null,
-    setReponseSchema2: () => {},
+    setReponseSchema2: () => { },
     reponseSchema3: null,
-    setReponseSchema3: () => {},
+    setReponseSchema3: () => { },
     // reponseSchema4: null,
     // setReponseSchema4: () => {},
-  
+    nomEstModifie: false,
+    setNomEstModifie: () => { },
+    sigleEstModifie: false,
+    setSigleEstModifie: () => { },
+    schema1EstModifie: false,
+    setSchema1EstModifie: () => { },
+    schema2EstModifie: false,
+    setSchema2EstModifie: () => { },
+    schema3EstModifie: false,
+    setSchema3EstModifie: () => { },
+    schema4EstModifie: false,
+    setSchema4EstModifie: () => { },
+
   }
 );
 
@@ -51,7 +63,7 @@ export function Exercice() {
   const methods = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-  const [ennonce, setEnnonce] = useState({...initialEnnonce, retour: false});
+  const [ennonce, setEnnonce] = useState({ ...initialEnnonce, retour: false });
   const [view, setView] = useState(initialEnnonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
@@ -68,9 +80,14 @@ export function Exercice() {
   });
   const [reponseSchema3, setReponseSchema3] = useState(null);
   // const [reponseSchema4, setReponseSchema4] = useState(null);
+  const [nomEstModifie, setNomEstModifie] = useState(false);
+  const [sigleEstModifie, setSigleEstModifie] = useState(false);
+  const [schema1EstModifie, setSchema1EstModifie] = useState(0);
+  const [schema2EstModifie, setSchema2EstModifie] = useState(0);
+  const [schema3EstModifie, setSchema3EstModifie] = useState(0);
+  const [schema4EstModifie, setSchema4EstModifie] = useState(0);
   const [listeSets, setListeSets] = useState([]);
   const [listeInclinaisons, setListeInclinaisons] = useState([]);
-  const [aEteModifie, setAEteModifier] = useState({rep1:false,rep2:false,rep3:false,rep4:false,rep5:false,rep6:false})
 
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
@@ -128,7 +145,7 @@ export function Exercice() {
         reponseSchema3,
         // reponseSchema4,
       };
-      navigate("/retourExercice", { state: { indexQuestion, answersValues,difficulte } });
+      navigate("/retourExercice", { state: { indexQuestion, answersValues, difficulte } });
       // localStorage.setItem(
       //   "response" + indexQuestion,
       //   JSON.stringify(answersValues)
@@ -168,31 +185,7 @@ export function Exercice() {
     <>
       <h1>Exercice</h1>
       <h2>Question {indexQuestion + 1}/5</h2>
-      <div className={buttonsArea}>
-        {typesRepresentation.map((type) => (
-          <Button
-            key={type}
-            text={type}
-            color={
-              ennonce && ennonce.representation === type
-                ? "bg-yellow-500 hover:bg-yellow-600"
-                : (view && view===type? "bg-blue-800" :"bg-blue-600")
-            }
-            onClick={() => setView(type)}
-            icon={(type==="Nom"&&aEteModifie.rep1===true
-              ||type==="Sigle"&&aEteModifie.rep2===true
-              ||type==="Schéma très simplifié"&&aEteModifie.rep3===true
-              ||type==="Schéma simplifié"&&aEteModifie.rep4===true
-              ||type==="Schéma réaliste"&&aEteModifie.rep5===true
-              ||type==="Schéma très réaliste"&&aEteModifie.rep6===true
-            )? FaCheck : null}
-          />
-        ))}
-      </div>
-      <div>
-        <h3>Reponse</h3>
-        <div className="rectangle">
-          <ContextReponses.Provider
+      <ContextReponses.Provider
             value={{
               ennonce,
               reponseNom,
@@ -207,8 +200,45 @@ export function Exercice() {
               setReponseSchema3,
               // reponseSchema4,
               // setReponseSchema4,
+              sigleEstModifie,
+              setSigleEstModifie,
+              nomEstModifie,
+              setNomEstModifie,
+              schema1EstModifie,
+              setSchema1EstModifie,
+              schema2EstModifie,
+              setSchema2EstModifie,
+              schema3EstModifie,
+              setSchema3EstModifie,
+              schema4EstModifie,
+              setSchema4EstModifie,
             }}
           >
+      <div className={buttonsArea}>
+        {typesRepresentation.map((type) => (
+          <Button
+            key={type}
+            text={type}
+            color={
+              ennonce && ennonce.representation === type
+                ? "bg-yellow-500 hover:bg-yellow-600"
+                : (view && view === type ? "bg-blue-800" : "bg-blue-600")
+            }
+            onClick={() => setView(type)}
+            icon={(type === "Nom" && nomEstModifie === true
+              || type === "Sigle" && sigleEstModifie === true
+              || type === "Schéma très simplifié" && schema1EstModifie >= 2
+              || type === "Schéma simplifié" && schema2EstModifie >= 2
+              || type === "Schéma réaliste" && schema3EstModifie >= 3
+              || type === "Schéma très réaliste" && schema4EstModifie >= 3
+            ) ? FaCheck : null}
+          />
+        ))}
+      </div>
+      <div>
+        <h3>Reponse</h3>
+        <div className="rectangle">
+          
             <NomPosition display={view === "Nom" ? "flex" : "hidden"} />
             <Sigle display={view === "Sigle" ? "flex" : "hidden"} />
             <Schema1
@@ -223,18 +253,19 @@ export function Exercice() {
             {/* <Schema4
               display={view === "Schéma très réaliste" ? "flex" : "hidden"}
             /> */}
-          </ContextReponses.Provider>
+          
         </div>
       </div>
+      
       <div className="flex justify-between">
         <Button
           onClick={() => {
             setView(
               typesRepresentation[
-                (typesRepresentation.indexOf(view) -
-                  1 +
-                  typesRepresentation.length) %
-                  typesRepresentation.length
+              (typesRepresentation.indexOf(view) -
+                1 +
+                typesRepresentation.length) %
+              typesRepresentation.length
               ]
             );
           }}
@@ -246,8 +277,8 @@ export function Exercice() {
           onClick={() => {
             setView(
               typesRepresentation[
-                (typesRepresentation.indexOf(view) + 1) %
-                  typesRepresentation.length
+              (typesRepresentation.indexOf(view) + 1) %
+              typesRepresentation.length
               ]
             );
           }}
@@ -264,6 +295,7 @@ export function Exercice() {
           hoverColor="bg-red-800"
         />
       </div>
+    </ContextReponses.Provider>
     </>
   );
 }

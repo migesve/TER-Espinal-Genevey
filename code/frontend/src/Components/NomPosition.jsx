@@ -11,6 +11,7 @@ export function NomPosition({ display, ennonce: ennonceProp }) {
     console.log(ennonce);
     const reponseNom = context.reponseNom || '';
     const setReponseNom = context.setReponseNom || (() => {});
+    const setNomEstModifie= context.setNomEstModifie || (() => {});
 
     useEffect(() => {
         setEnnonceNom(ennonce?.nom + ' ' + ennonce?.label);
@@ -45,6 +46,7 @@ export function NomPosition({ display, ennonce: ennonceProp }) {
               onChange={(e) => {
                 setReponse(e.target.value);
                 setReponseNom(e.target.value);
+                setNomEstModifie(true);
               }}
             />
           </div>
