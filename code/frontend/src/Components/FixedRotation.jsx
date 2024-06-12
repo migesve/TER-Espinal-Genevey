@@ -3,10 +3,18 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export const FixedRotation = ( {ennonce: ennonceProp }) => {
+export const FixedRotation = () => {
   const context = useContext(ContextReponses);
-  const ennonce = ennonceProp || context.ennonce;
+  const ennonce = context.ennonce;
   console.log(ennonce);
+
+  if (ennonce.retourReponse === false ) {
+    const angle = ennonce.angle;
+    const inclinaison = ennonce.inclinaison;
+  } else {
+    const angle = ennonce.answervalues.angle;
+    const inclinaison = ennonce.answervalues.inclinaison;
+  }
 
   return (
     <div className="flex justify-between">
@@ -20,7 +28,7 @@ export const FixedRotation = ( {ennonce: ennonceProp }) => {
           src="images/teteNegative.png"
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-30 pointer-events-none"
-          style={{ transform: `rotate(${ennonce.angle}deg)` }}
+          style={{ transform: `rotate(${angle}deg)` }}
         />
         <img
           src="images/fontanelles.png"
@@ -28,15 +36,15 @@ export const FixedRotation = ( {ennonce: ennonceProp }) => {
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
             transform: `rotate(${
-              ennonce.angle
-            }deg) translateY(${-ennonce.inclinaison}px)`,
+              angle
+            }deg) translateY(${-inclinaison}px)`,
           }}
         />
         <img
           src="images/tete.png"
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-10 pointer-events-none"
-          style={{ transform: `rotate(${ennonce.angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner
+          style={{ transform: `rotate(${angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner
         />
       </div>
       <div className="relative flex flex-col items-center h-72 mx-auto select-none">
@@ -44,7 +52,7 @@ export const FixedRotation = ( {ennonce: ennonceProp }) => {
         <Slider
           min={-10}
           max={10}
-          value={ennonce.inclinaison}
+          value={inclinaison}
           className="z-50 max-h-[200px]"
           vertical={true}
           disabled={true}
