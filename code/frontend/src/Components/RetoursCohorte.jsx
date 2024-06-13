@@ -206,11 +206,11 @@ export const RetoursCohorte = ({cohorte}) => {
     return (
         <>
             <section className="flex flex-col w-full items-center gap-1 p-4 m-5 border border-gray-200">
-                <h4 className="font-semibold text-xl">Résultats de la cohorte : {cohorte}</h4>
+                <h4 className="font-bold text-3xl text-black">Résultats de la cohorte : {cohorte}</h4>
                 <div className='w-full'>
                 {statPosFacile && (<ReactEChartsCore
                     echarts={echarts}
-                    option={getOption(positionsLabels,statPosFacile,statPosDifficile,"Pourcentage d'erreur selon la position")}
+                    option={getOption(positionsLabels,statPosFacile,statPosDifficile,"Pourcentage d'erreur selon la position et la difficulté")}
                     notMerge={true}
                     lazyUpdate={true}
                     theme={"theme_name"}
@@ -223,7 +223,7 @@ export const RetoursCohorte = ({cohorte}) => {
                 <div className='w-full h-4/3'>
                 {statInclFacile && (<ReactEChartsCore
                     echarts={echarts}
-                    option={getOption(inclinaisonLabels,statInclFacile,statInclDifficile,"Pourcentage d'erreur selon le flèchiessement")}
+                    option={getOption(inclinaisonLabels,statInclFacile,statInclDifficile,"Pourcentage d'erreur selon le flèchiessement et la difficulté")}
                     notMerge={true}
                     lazyUpdate={true}
                     theme={"theme_name"}
@@ -236,7 +236,7 @@ export const RetoursCohorte = ({cohorte}) => {
                 <div className='w-full h-4/3'>
                 {statRepFacile && (<ReactEChartsCore
                     echarts={echarts}
-                    option={getOption(typesRepresentationsFacile,statRepFacile,statRepDifficile,"Part des représentations dans les erreurs")}
+                    option={getOption(typesRepresentationsFacile,statRepFacile,statRepDifficile,"Parts des représentations dans les erreurs selon la difficulté")}
                     notMerge={true}
                     lazyUpdate={true}
                     theme={"theme_name"}

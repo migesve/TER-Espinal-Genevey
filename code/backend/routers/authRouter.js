@@ -91,15 +91,35 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.get('/getNoms', async (req, res) => {
-    try {
-        const listeUsers = await pool.query('SELECT username FROM users');
-        console.log(listeUsers.rows);
-        return res.json(listeUsers.rows);
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send('Erreur du serveur');
+router.route('/getNoms').get(async (req, res) => {
+
+    const listeUsers = await pool.query('SELECT username, statut FROM users ORDER BY username ASC');
+    if (listeUsers.rowCount > 0) {
+        return res.json({ Succes: true, users: listeUsers });
+    } else {
+        return res.json({ Succes: false, status: "Aucun utilisateur" });
     }
+
+});
+
+router.route('/changerStatut').put(async (req, res) => {
+
+    const { username, statut } = req.body;
+
+    // Validation des entrées
+    if (!username || !statut) {
+        return res.status(400).json({ success: false, status: "Paramètres manquants" });
+    }
+
+    // Mise à jour du statut dans la base de données
+    const updateStatut = await pool.query('UPDATE users SET statut = $1 WHERE username = $2 RETURNING username,statut', [statut, username]);
+
+    if (updateStatut.rowCount > 0) {
+        return res.status(200).json({ success: true, status: "Statut modifié", user: updateStatut.rows[0]});
+    } else {
+        return res.status(404).json({ success: false, status: "Utilisateur non trouvé" });
+    }
+
 });
 
 module.exports = router;

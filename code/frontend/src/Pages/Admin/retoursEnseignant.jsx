@@ -64,24 +64,7 @@ export function RetoursEnseignant() {
         setView(cohorte);
     }
 
-    const getOption = () => {
-        // Return the ECharts option object here
-        return {
-            title: {
-                text: 'Retours Enseignant'
-            },
-            tooltip: {},
-            xAxis: {
-                data: ["A", "B", "C", "D", "E", "F"]
-            },
-            yAxis: {},
-            series: [{
-                name: 'Nombre de retours',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-        };
-    };
+    
 
     const renderData = () => {
         if (loading) {
@@ -106,7 +89,7 @@ export function RetoursEnseignant() {
                     <Button key={cohorte.cohorte} onClick={() => onClick(cohorte.cohorte)} text={cohorte.cohorte} />
                 ))}
             </div>
-            <h1>Retours</h1>
+            <h1>Statistiques</h1>
             <div className="w-full m-auto my-10 bg-sky-50">
         // The usage of ReactEChartsCore are same with above.
                 {renderData()}
