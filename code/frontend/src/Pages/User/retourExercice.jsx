@@ -101,20 +101,20 @@ export function RetourExercice() {
 
   console.log(initialAnswersValues);
 
-  const checkNull = (initialAnswersValues) => {
-    let ennonce = [];
-    for (let key in initialAnswersValues) {
-      if (initialAnswersValues[key] === null) {
-        ennonce.push(key);
-      } else if (
-        initialAnswersValues[key].angle === null &&
-        initialAnswersValues[key].inclinaison === null
-      ) {
-        ennonce.push(key);
-      }
-    }
-    return ennonce;
-  };
+  // const checkNull = (initialAnswersValues) => {
+  //   let ennonce = [];
+  //   for (let key in initialAnswersValues) {
+  //     if (initialAnswersValues[key] === null) {
+  //       ennonce.push(key);
+  //     } else if (
+  //       initialAnswersValues[key].angle === null &&
+  //       initialAnswersValues[key].inclinaison === null
+  //     ) {
+  //       ennonce.push(key);
+  //     }
+  //   }
+  //   return ennonce;
+  // };
 
   const [error, setError] = useState(null);
   const [ennonce, setEnnonce] = useState({

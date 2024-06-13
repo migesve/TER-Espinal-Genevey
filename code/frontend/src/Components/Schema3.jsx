@@ -23,7 +23,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (ennonce?.representation !== "Schéma réaliste") {
+        if (ennonce?.representation !== "Schéma réaliste" && !ennonce?.retour) {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
               method: "GET",
@@ -45,9 +45,12 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
           setListeSchema3Pos1(data1.Schemas3);
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
+
         } else if (ennonce?.retour === true) {
-          if (!answerValues.reponseSchema3) {
-            answerValues.reponseSchema3 = {
+
+
+          if (!ennonce.answerValues.reponseSchema3) {
+            ennonce.answerValues.reponseSchema3 = {
               position_id: ennonce?.position || 1,
               inclinaison_id: ennonce?.inclinaison || 1,
               image_name: ennonce?.image_name || "",
@@ -55,7 +58,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
             };
           }
           const response = await fetch(
-            `http://localhost:4000/schema3/getByIds/${answerValues.reponseSchema3.position_id}/${answerValues.reponseSchema3.inclinaison_id}`,
+            `http://localhost:4000/schema3/getByIds/${ennonce.answerValues.reponseSchema3.position_id}/${ennonce.answerValues.reponseSchema3.inclinaison_id}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -169,7 +172,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
         </div>
       </section>
     );
-  } else if (ennonce?.retour === true && answerValues?.reponseSchema3) {
+  } else if (ennonce?.retour === true && ennonce.answerValues?.reponseSchema3) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
@@ -177,8 +180,8 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
         <h4 className="font-semibold text-xl">Schéma réaliste</h4>
         <div className="flex items-center">
           <img
-            src={answerValues.reponseSchema3.image_path}
-            alt={answerValues.reponseSchema3.image_name}
+            src={ennonce.answerValues.reponseSchema3.image_path}
+            alt={ennonce.answerValues.reponseSchema3.image_name}
             className="mx-4"
           />
         </div>
