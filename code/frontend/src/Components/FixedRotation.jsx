@@ -3,17 +3,28 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export const FixedRotation = () => {
+export const FixedRotation = ({ schema, type }) => {
   const context = useContext(ContextReponses);
   const ennonce = context.ennonce;
   console.log(ennonce);
 
   let angle, inclinaison;
 
-  if (ennonce.retourReponse === false ) {
-    angle = ennonce.angle;
-    inclinaison = ennonce.inclinaison;
-  } 
+  const responseSchema = ennonce?.answerValues?.[`reponseSchema${schema}`];
+
+  if (
+    type === "reponse" &&
+    responseSchema &&
+    responseSchema.angle !== null &&
+    responseSchema.inclinaison !== null
+  ) {
+    angle = responseSchema.angle;
+    inclinaison = responseSchema.inclinaison;
+  } else {
+    angle = ennonce?.angle ?? 0; // Default value if ennonce or ennonce.angle is undefined
+    inclinaison = ennonce?.inclinaison ?? 0; // Default value if ennonce or ennonce.inclinaison is undefined
+  }
+
   return (
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none">
@@ -33,9 +44,7 @@ export const FixedRotation = () => {
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
-            transform: `rotate(${
-              angle
-            }deg) translateY(${-inclinaison}px)`,
+            transform: `rotate(${angle}deg) translateY(${-inclinaison}px)`,
           }}
         />
         <img
