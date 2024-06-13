@@ -207,7 +207,7 @@ export const RetoursCohorte = ({cohorte}) => {
         <>
             <section className="flex flex-col w-full items-center gap-1 p-4 m-5 border border-gray-200">
                 <h4 className="font-bold text-3xl text-black">Résultats de la cohorte : {cohorte}</h4>
-                <div className='w-full'>
+                <div className='w-full my-12'>
                 {statPosFacile && (<ReactEChartsCore
                     echarts={echarts}
                     option={getOption(positionsLabels,statPosFacile,statPosDifficile,"Pourcentage d'erreur selon la position et la difficulté")}
@@ -220,7 +220,7 @@ export const RetoursCohorte = ({cohorte}) => {
                 />)}
                 </div>
 
-                <div className='w-full h-4/3'>
+                <div className='w-full h-4/3 my-12'>
                 {statInclFacile && (<ReactEChartsCore
                     echarts={echarts}
                     option={getOption(inclinaisonLabels,statInclFacile,statInclDifficile,"Pourcentage d'erreur selon le flèchiessement et la difficulté")}
@@ -233,7 +233,7 @@ export const RetoursCohorte = ({cohorte}) => {
                 />)}
                 </div>
 
-                <div className='w-full h-4/3'>
+                <div className='w-full h-4/3 my-12'>
                 {statRepFacile && (<ReactEChartsCore
                     echarts={echarts}
                     option={getOption(typesRepresentationsFacile,statRepFacile,statRepDifficile,"Parts des représentations dans les erreurs selon la difficulté")}
