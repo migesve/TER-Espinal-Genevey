@@ -10,7 +10,7 @@ export const FixedRotation = ({ schema, type }) => {
 
   let angle, inclinaison;
 
-  const responseSchema = ennonce?.answerValues?.[`reponseSchema${schema}`];
+  const responseSchema = ennonce?.answersValues?.[`reponseSchema${schema}`];
 
   if (
     type === "reponse" &&

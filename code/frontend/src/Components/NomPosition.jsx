@@ -13,7 +13,7 @@ export function NomPosition({ display, type }) {
   const setReponseNom = context.setReponseNom || (() => {});
   const setNomEstModifie = context.setNomEstModifie || (() => {});
 
-  const responseNom = ennonce?.answerValues?.reponseNom;
+  const responseNom = ennonce?.answersValues?.reponseNom;
 
   useEffect(() => {
     if (ennonce?.retour && type === "reponse") {
