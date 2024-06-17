@@ -9,7 +9,6 @@ CREATE TABLE users(
     
 );
 
-INSERT INTO users (username, passhash, email, statut, cohorte) VALUES ('AdminRoot', 'rootroot', 'test@test.com', 'Admin', 'Admin');
 
 CREATE TABLE sets (
     position_id SERIAL PRIMARY KEY,
