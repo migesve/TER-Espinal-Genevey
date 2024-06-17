@@ -162,15 +162,20 @@ router.route("/changerStatut").put(async (req, res) => {
   }
 });
 
-router.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return res.status(500).json({ LoggedIn: false, status: "Logout failed" });
+router.post('/logout', (req, res) => {
+    if (req.session.user) {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error destroying session:', err);
+                return res.status(500).json({ LoggedIn: false, status: 'Logout failed' });
+            }
+            res.clearCookie('sid'); // 
+            return res.json({ LoggedIn: false, status: 'Logged out successfully' });
+        });
+    } else {
+        return res.status(400).json({ LoggedIn: false, status: 'No active session' });
     }
-    res.clearCookie("connect.sid"); // replace 'connect.sid' with your session cookie name if different
-    return res.json({ LoggedIn: false, status: "Logged out successfully" });
-  });
 });
+
 
 module.exports = router;
