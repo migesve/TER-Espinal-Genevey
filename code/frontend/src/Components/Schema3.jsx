@@ -22,7 +22,10 @@ export function Schema3({ display, type }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (ennonce?.representation !== "Schéma en vue antérieure" && !ennonce?.retour) {
+        if (
+          ennonce?.representation !== "Schéma en vue antérieure" &&
+          !ennonce?.retour
+        ) {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
               method: "GET",
@@ -161,20 +164,29 @@ export function Schema3({ display, type }) {
     return <div>Error: {error}</div>;
   }
 
-  if ((ennonce?.representation === "Schéma en vue antérieure" && ennonceSchema3)||ennonce?.retour) {
+  if (
+    (ennonce?.representation === "Schéma en vue antérieure" &&
+      ennonceSchema3) ||
+    ennonce?.retour
+  ) {
     return (
-      <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5`}
-      >
+      <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
-          {ennonceSchema3 && (
+          <div className="relative w-96 h-96 mx-auto ">
             <img
-              src={ennonceSchema3.image_path}
-              alt={ennonceSchema3.image_name}
-              className="mx-4"
+              src="src/images/schema3/bassinSchema3.PNG"
+              alt="Bassin"
+              className="absolute mx-4 h-52"
             />
-          )}
+            {ennonceSchema3 && (
+              <img
+                src={ennonceSchema3.image_path}
+                alt={ennonceSchema3.image_name}
+                className="absolute mx-4 h-52"
+              />
+            )}
+          </div>
         </div>
       </section>
     );
@@ -183,26 +195,29 @@ export function Schema3({ display, type }) {
     ennonce?.answersValues?.reponseSchema3
   ) {
     return (
-      <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5`}
-      >
+      <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
-          {ennonce.answersValues.reponseSchema3.image_path && (
+          <div className="relative w-96 h-96 mx-auto ">
             <img
-              src={ennonce.answersValues.reponseSchema3.image_path}
-              alt={ennonce.answersValues.reponseSchema3.image_name}
-              className="mx-4"
+              src="src/images/schema3/bassinSchema3.PNG"
+              alt="Bassin"
+              className="absolute mx-4 h-52"
             />
-          )}
+            {ennonce.answersValues.reponseSchema3.image_path && (
+              <img
+                src={ennonce.answersValues.reponseSchema3.image_path}
+                alt={ennonce.answersValues.reponseSchema3.image_name}
+                className="absolute mx-4 h-52"
+              />
+            )}
+          </div>
         </div>
       </section>
     );
   } else if (listeSchema3selectionnee.length > 0) {
     return (
-      <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5`}
-      >
+      <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
           <div className="flex flex-col items-center gap-1">
