@@ -168,11 +168,13 @@ export function Schema3({ display, type }) {
       >
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
-          <img
-            src={ennonceSchema3.image_path}
-            alt={ennonceSchema3.image_name}
-            className="mx-4"
-          />
+          {ennonceSchema3 && (
+            <img
+              src={ennonceSchema3.image_path}
+              alt={ennonceSchema3.image_name}
+              className="mx-4"
+            />
+          )}
         </div>
       </section>
     );
@@ -186,11 +188,13 @@ export function Schema3({ display, type }) {
       >
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
-          <img
-            src={ennonce.answersValues.reponseSchema3.image_path}
-            alt={ennonce.answersValues.reponseSchema3.image_name}
-            className="mx-4"
-          />
+          {ennonce.answersValues.reponseSchema3.image_path && (
+            <img
+              src={ennonce.answersValues.reponseSchema3.image_path}
+              alt={ennonce.answersValues.reponseSchema3.image_name}
+              className="mx-4"
+            />
+          )}
         </div>
       </section>
     );
@@ -222,11 +226,13 @@ export function Schema3({ display, type }) {
               alt="Bassin"
               className="absolute mx-4 h-96"
             />
-            <img
-              src={listeSchema3selectionnee[index].image_path}
-              alt={listeSchema3selectionnee[index].image_name}
-              className="absolute mx-4 h-96"
-            />
+            {listeSchema3selectionnee[index]?.image_path && (
+              <img
+                src={listeSchema3selectionnee[index].image_path}
+                alt={listeSchema3selectionnee[index].image_name}
+                className="absolute mx-4 h-96"
+              />
+            )}
           </div>
           <div className="flex flex-col items-center gap-1">
             <Button
