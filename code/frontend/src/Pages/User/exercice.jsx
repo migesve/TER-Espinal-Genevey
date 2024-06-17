@@ -143,14 +143,14 @@ export function Exercice() {
       if (indexQuestion == 4) {
         // On a fini les questions
       } else {
-        setAnswersValues({
-          reponseNom: reponseNom,
-          reponseSigle: reponseSigle,
-          reponseSchema1: reponseSchema1,
-          reponseSchema2: reponseSchema2,
-          reponseSchema3: reponseSchema3,
-          // reponseSchema4,
-        });
+        // setAnswersValues({
+        //   reponseNom: reponseNom,
+        //   reponseSigle: reponseSigle,
+        //   reponseSchema1: reponseSchema1,
+        //   reponseSchema2: reponseSchema2,
+        //   reponseSchema3: reponseSchema3,
+        //   // reponseSchema4,
+        // });
         // navigate("/retourExercice", {
         //   state: { indexQuestion, answersValues, difficulte, ennonce },
         // });
@@ -159,7 +159,11 @@ export function Exercice() {
         //   JSON.stringify(answersValues)
         // );
         setRetourReponse(true);
-        setEnnonce({...initialEnnonce, retour: true, answersValues: answersValues});
+        setEnnonce({
+          ...initialEnnonce,
+          retour: true,
+          answersValues: answersValues,
+        });
         console.log(ennonce);
       }
     } else {
@@ -169,7 +173,7 @@ export function Exercice() {
   });
 
   useEffect(() => {
-    if (indexQuestion > 0) {
+    if (indexQuestion >= 0) {
       setAnswersValues({
         reponseNom: reponseNom,
         reponseSigle: reponseSigle,
@@ -264,18 +268,27 @@ export function Exercice() {
           <div>
             <h3>Reponse</h3>
             <div className="rectangle">
-              <NomPosition display={view === "Nom" ? "flex" : "hidden"} />
-              <Sigle display={view === "Sigle" ? "flex" : "hidden"} />
+              <NomPosition
+                display={view === "Nom" ? "flex" : "hidden"}
+                type="reponse"
+              />
+              <Sigle
+                display={view === "Sigle" ? "flex" : "hidden"}
+                type="reponse"
+              />
               <Schema1
                 display={view === "Schéma très simplifié" ? "flex" : "hidden"}
                 schema={1}
+                type="reponse"
               />
               <Schema2
                 display={view === "Schéma simplifié" ? "flex" : "hidden"}
                 schema={2}
+                type="reponse"
               />
               <Schema3
                 display={view === "Schéma réaliste" ? "flex" : "hidden"}
+                type="reponse"
               />
               {/* <Schema4
               display={view === "Schéma très réaliste" ? "flex" : "hidden"}
@@ -287,35 +300,28 @@ export function Exercice() {
             <div className="rectangle">
               <NomPosition
                 display={view === "Nom" ? "flex" : "hidden"}
-                ennonce={ennonce}
-                answersValues={answersValues}
+                type="retour"
               />
               <Sigle
                 display={view === "Sigle" ? "flex" : "hidden"}
-                ennonce={ennonce}
-                answersValues={answersValues}
+                type="retour"
               />
               <Schema1
                 display={view === "Schéma très simplifié" ? "flex" : "hidden"}
                 schema={1}
-                ennonce={ennonce}
-                answersValues={answersValues}
+                type="retour"
               />
               <Schema2
                 display={view === "Schéma simplifié" ? "flex" : "hidden"}
                 schema={2}
-                ennonce={ennonce}
-                answersValues={answersValues}
+                type="retour"
               />
               <Schema3
                 display={view === "Schéma réaliste" ? "flex" : "hidden"}
-                ennonce={ennonce}
-                answersValues={answersValues}
+                type="retour"
               />
               {/* <Schema4
             display={view === "Schéma très réaliste" ? "flex" : "hidden"}
-            ennonce={ennonce}
-            answersValues={answersValues}
             /> */}
             </div>
           </div>

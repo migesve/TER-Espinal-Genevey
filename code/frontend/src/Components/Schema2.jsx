@@ -3,21 +3,17 @@ import { Rotation } from "./Rotation";
 import { FixedRotation } from "./FixedRotation";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export const Schema2 = ({
-  display,
-  schema,
-  ennonce: ennonceProp,
-}) => {
-  
+export const Schema2 = ({ display, schema, type }) => {
   const context = useContext(ContextReponses);
-  const ennonce = ennonceProp || context.ennonce;
+  const ennonce = context.ennonce;
   console.log(ennonce);
-  
+
   return (
     <>
       <div className={`${display} flex-col items-center p-4`}>
-        {ennonce.representation === "Schéma simplifié" || ennonce?.retour === true ? (
-          <FixedRotation />
+        {ennonce.representation === "Schéma simplifié" ||
+        ennonce?.retour === true ? (
+          <FixedRotation schema={schema} type={type} />
         ) : (
           <Rotation schema={schema} />
         )}

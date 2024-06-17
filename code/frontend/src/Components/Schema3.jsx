@@ -3,7 +3,7 @@ import { GrUp, GrDown } from "react-icons/gr";
 import { Button } from "./Button";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
+export function Schema3({ display, type }) {
   const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
   const [listeSchema3Pos2, setListeSchema3Pos2] = useState([]);
   const [error, setError] = useState(null);
@@ -13,12 +13,11 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
   const [loadingEnnonceSchema3, setLoadingEnnonceSchema3] = useState(true);
 
   const context = useContext(ContextReponses);
-  const ennonce = ennonceProp || context.ennonce;
+  const ennonce = context.ennonce;
   console.log(ennonce);
   const reponseSchema3 = context.reponseSchema3 || '';
   const setReponseSchema3 = context.setReponseSchema3 || (() => {});
   const setSchema3EstModifie= context.setSchema3EstModifie || (() => {});
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,11 +45,12 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
 
-        } else if (ennonce?.retour === true) {
-
-
-          if (!ennonce.answerValues.reponseSchema3) {
-            ennonce.answerValues.reponseSchema3 = {
+        } else if (ennonce?.retour && type === "reponse") {
+          if (!ennonce.answersValues) {
+            ennonce.answersValues = {};
+          }
+          if (!ennonce.answersValues.reponseSchema3) {
+            ennonce.answersValues.reponseSchema3 = {
               position_id: ennonce?.position || 1,
               inclinaison_id: ennonce?.inclinaison || 1,
               image_name: ennonce?.image_name || "",
@@ -58,7 +58,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
             };
           }
           const response = await fetch(
-            `http://localhost:4000/schema3/getByIds/${ennonce.answerValues.reponseSchema3.position_id}/${ennonce.answerValues.reponseSchema3.inclinaison_id}`,
+            `http://localhost:4000/schema3/getByIds/${ennonce.answersValues.reponseSchema3.position_id}/${ennonce.answersValues.reponseSchema3.inclinaison_id}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -108,12 +108,12 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
     };
 
     fetchData();
-  }, [ennonce?.position, ennonce?.inclinaison, ennonce]);
+  }, [ennonce?.position, ennonce?.inclinaison, ennonce, type]);
 
   useEffect(() => {
     setReponseSchema3(listeSchema3selectionnee[index]);
-    setSchema3EstModifie((prev)=>prev+1);
-  }, [index, listeSchema3selectionnee]);
+    setSchema3EstModifie((prev) => prev + 1);
+  }, [index, listeSchema3selectionnee, setReponseSchema3, setSchema3EstModifie]);
 
   const positionSuivante = () => {
     setIndex((prevIndex) => (prevIndex + 1) % listeSchema3selectionnee.length);
@@ -157,7 +157,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
     return <div>Error: {error}</div>;
   }
 
-  if (ennonce.representation === "Schéma réaliste" && ennonceSchema3) {
+  if (ennonce?.representation === "Schéma réaliste" && ennonceSchema3) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
@@ -172,7 +172,7 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
         </div>
       </section>
     );
-  } else if (ennonce?.retour === true && ennonce.answerValues?.reponseSchema3) {
+  } else if (ennonce?.retour === true && ennonce?.answersValues?.reponseSchema3) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
@@ -180,8 +180,8 @@ export function Schema3({ display, ennonce: ennonceProp, answerValues }) {
         <h4 className="font-semibold text-xl">Schéma réaliste</h4>
         <div className="flex items-center">
           <img
-            src={ennonce.answerValues.reponseSchema3.image_path}
-            alt={ennonce.answerValues.reponseSchema3.image_name}
+            src={ennonce.answersValues.reponseSchema3.image_path}
+            alt={ennonce.answersValues.reponseSchema3.image_name}
             className="mx-4"
           />
         </div>
