@@ -13,7 +13,7 @@ export function Sigle({ display, type }) {
   const setReponseSigle = context.setReponseSigle || (() => {});
   const setSigleEstModifie = context.setSigleEstModifie || (() => {});
 
-  const responseSigle = ennonce?.answerValues?.responseSigle;
+  const responseSigle = ennonce?.answersValues?.responseSigle;
 
   useEffect(() => {
     if (ennonce?.retour && type === "reponse") {
@@ -31,7 +31,7 @@ export function Sigle({ display, type }) {
   if (ennonce?.representation === "Sigle" || ennonce?.retour) {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Sigle de la position</h4>
         <div className="flex items-center">
@@ -42,7 +42,7 @@ export function Sigle({ display, type }) {
   } else {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Sigle de la position</h4>
         <div className="flex items-center">

@@ -14,31 +14,27 @@ import { RetoursEnseignant } from "./Pages/Admin/retoursEnseignant";
 import { Gestion } from "./Pages/Admin/gestionUtilisateurs";
 
 import { CreerCompte } from "./Pages/creerCompte";
+import { LoginPage } from "./Pages/login";
 import { Layout } from "./Layout";
 import PrivateRoutes from "./Components/PrivateRoutes";
 import ProfesseurRoutes from "./Components/ProfesseurRoutes";
 import AdminRoutes from "./Components/AdminRoutes";
 import UserContext from "./Components/AccountContext";
 
-import { Schema3 } from "./Components/Schema3";
-import { Schema4 } from "./Components/Schema4";
-
 function App() {
-  
   return (
     <UserContext>
       <Router>
         <Routes>
-          <Route element={<Layout />} >
+          <Route element={<Layout />}>
             <Route path="/creerCompte" element={<CreerCompte />} />
+            <Route path="/login" element={<LoginPage />} />
 
             <Route element={<PrivateRoutes />}>
               <Route path="/exercices" element={<Exercices />} />
               <Route path="/exercice" element={<Exercice />} />
               <Route path="/retourExercice" element={<RetourExercice />} />
               <Route path="/finExercice" element={<FinExercice />} />
-              <Route path="/schema3" element={<Schema3 />} />
-              <Route path="/schema4" element={<Schema4 />} />
 
               <Route element={<ProfesseurRoutes />}>
                 <Route path="/saisieSet" element={<SaisieSet />} />
@@ -47,9 +43,7 @@ function App() {
                 <Route path="/gestionUtilisateurs" element={<Gestion />} />
               </Route>
 
-              <Route element={<AdminRoutes />}>
-                
-              </Route>
+              <Route element={<AdminRoutes />}></Route>
             </Route>
             <Route path="/" element={<Home />} />
             <Route path="*" element={<Home />} />
@@ -60,4 +54,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

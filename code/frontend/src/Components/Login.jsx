@@ -51,7 +51,7 @@ export const Login = () => {
           setError(data.status);
         } else if (data.LoggedIn) {
           setSuccess(true);
-          navigate("/sets");
+          navigate("/home");
         }
       });
   });
@@ -64,9 +64,9 @@ export const Login = () => {
         autoComplete="off"
         className="container w-96 m-auto my-10"
       >
+        <h1>Login</h1>
         <p className="text-red-500">{error}</p>
         <div className="grid gap-5">
-          <h3 className="flex">Login</h3>
           <Input {...email_validation} />
           <Input {...password_validation} />
         </div>
@@ -77,8 +77,11 @@ export const Login = () => {
               Conexion Réussie
             </p>
           )}
-          <Button onClick={onSubmit} text="Login" icon={GrLogin}/>
-          <Button onClick={() => navigate("/creerCompte")} text="Créer un compte" />
+          <Button onClick={onSubmit} text="Login" icon={GrLogin} />
+          <Button
+            onClick={() => navigate("/creerCompte")}
+            text="Créer un compte"
+          />
         </div>
       </form>
     </FormProvider>
