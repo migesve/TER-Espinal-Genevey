@@ -35,72 +35,43 @@ export const choixEnnonce = (
     console.error("Invalid selectedSet ou selectedInclinaison");
     return;
   }
-
+  const objet = {
+    position: selectedSet.position_id,
+    nom: selectedSet.nom,
+    inclinaison: selectedInclinaison.inclinaison_id,
+    label: selectedInclinaison.label,
+    sigle: selectedSet.abreviation,
+    angle:
+      selectedSet.angle2 - selectedSet.angle1 >= 11
+        ? getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78)
+          : getRandomIntInclusive(
+            selectedSet.angle1,
+            selectedSet.angle1 + 10
+          ) % 360,
+    
+  }; 
   switch (ennonceAleatoire) {
     case 0:
-      setEnnonce({
-        representation: "Nom",
-        position: selectedSet.position_id,
-        nom: selectedSet.nom,
-        inclinaison: selectedInclinaison.inclinaison_id,
-        label: selectedInclinaison.label,
-      });
+      objet.representation= "Nom";
       break;
     case 1:
-      setEnnonce({
-        representation: "Sigle",
-        position: selectedSet.position_id,
-        sigle: selectedSet.abreviation,
-        inclinaison: selectedInclinaison.inclinaison_id,
-        label: selectedInclinaison.label,
-      });
+      objet.representation= "Sigle";
       break;
     case 2:
-      setEnnonce({
-        representation: "Schéma très simplifié",
-        angle:
-          selectedSet.angle2 - selectedSet.angle1 >= 11
-            ? getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78)
-            : getRandomIntInclusive(
-                selectedSet.angle1,
-                selectedSet.angle1 + 10
-              ) % 360,
-        position: selectedSet.position_id,
-        inclinaison: selectedInclinaison.inclinaison_id,
-      });
+      objet.representation= "Schéma très simplifié";
       break;
     case 3:
-      setEnnonce({
-        representation: "Schéma simplifié",
-        angle:
-          selectedSet.angle2 - selectedSet.angle1 >= 11
-            ? getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78)
-            : getRandomIntInclusive(
-                selectedSet.angle1,
-                selectedSet.angle1 + 10
-              ) % 360,
-        position: selectedSet.position_id,
-        inclinaison: selectedInclinaison.inclinaison_id,
-      });
+      objet.representation= "Schéma simplifié";
       break;
     case 4:
-      setEnnonce({
-        representation: "Schéma réaliste",
-        angle: null,
-        position: selectedSet.position_id,
-        inclinaison: selectedInclinaison.inclinaison_id,
-      });
+      objet.representation= "Schéma réaliste";
       break;
     case 5:
-      setEnnonce({
-        representation: "Schéma très réaliste",
-        angle: null,
-        position: selectedSet.position_id,
-        inclinaison: selectedInclinaison.inclinaison_id,
-      });
+      objet.representation= "Schéma très réaliste"
       break;
     default:
-      setEnnonce({ representation: "Nom" });
+      objet.representation= "Nom";
       break;
   }
+  setEnnonce(objet);
 };

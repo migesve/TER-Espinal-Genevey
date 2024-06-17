@@ -157,7 +157,7 @@ export function Schema3({ display, type }) {
     return <div>Error: {error}</div>;
   }
 
-  if (ennonce?.representation === "Schéma réaliste" && ennonceSchema3) {
+  if ((ennonce?.representation === "Schéma réaliste" && ennonceSchema3)||ennonce?.retour) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}

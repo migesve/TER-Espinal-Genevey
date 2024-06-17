@@ -248,10 +248,10 @@ export function Exercice() {
               icon={
                 (type === "Nom" && nomEstModifie === true) ||
                 (type === "Sigle" && sigleEstModifie === true) ||
-                (type === "Schéma très simplifié" && schema1EstModifie >= 2) ||
-                (type === "Schéma simplifié" && schema2EstModifie >= 2) ||
-                (type === "Schéma réaliste" && schema3EstModifie >= 3) ||
-                (type === "Schéma très réaliste" && schema4EstModifie >= 3)
+                (type === "Schéma très simplifié" && schema1EstModifie >= 3) ||
+                (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
+                (type === "Schéma réaliste" && schema3EstModifie >= 5) ||
+                (type === "Schéma très réaliste" && schema4EstModifie >= 5)
                   ? FaCheck
                   : null
               }

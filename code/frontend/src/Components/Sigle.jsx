@@ -13,7 +13,7 @@ export function Sigle({ display, type }) {
   const setReponseSigle = context.setReponseSigle || (() => {});
   const setSigleEstModifie = context.setSigleEstModifie || (() => {});
 
-  const responseSigle = ennonce?.answerValues?.responseSigle;
+  const responseSigle = ennonce?.answersValues?.reponseSigle;
 
   useEffect(() => {
     if (ennonce?.retour && type === "reponse") {
@@ -48,7 +48,7 @@ export function Sigle({ display, type }) {
         <div className="flex items-center">
           <input
             className="mx-4"
-            value={reponseSigle}
+            value={reponseSigle || ""}
             onChange={(e) => {
               setReponse(e.target.value);
               setReponseSigle(e.target.value);
