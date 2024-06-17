@@ -15,9 +15,9 @@ export function Schema3({ display, type }) {
   const context = useContext(ContextReponses);
   const ennonce = context.ennonce;
   console.log(ennonce);
-  const reponseSchema3 = context.reponseSchema3 || '';
+  const reponseSchema3 = context.reponseSchema3 || "";
   const setReponseSchema3 = context.setReponseSchema3 || (() => {});
-  const setSchema3EstModifie= context.setSchema3EstModifie || (() => {});
+  const setSchema3EstModifie = context.setSchema3EstModifie || (() => {});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +44,6 @@ export function Schema3({ display, type }) {
           setListeSchema3Pos1(data1.Schemas3);
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
-
         } else if (ennonce?.retour && type === "reponse") {
           if (!ennonce.answersValues) {
             ennonce.answersValues = {};
@@ -113,7 +112,12 @@ export function Schema3({ display, type }) {
   useEffect(() => {
     setReponseSchema3(listeSchema3selectionnee[index]);
     setSchema3EstModifie((prev) => prev + 1);
-  }, [index, listeSchema3selectionnee, setReponseSchema3, setSchema3EstModifie]);
+  }, [
+    index,
+    listeSchema3selectionnee,
+    setReponseSchema3,
+    setSchema3EstModifie,
+  ]);
 
   const positionSuivante = () => {
     setIndex((prevIndex) => (prevIndex + 1) % listeSchema3selectionnee.length);
@@ -160,7 +164,7 @@ export function Schema3({ display, type }) {
   if ((ennonce?.representation === "Schéma réaliste" && ennonceSchema3)||ennonce?.retour) {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Schéma réaliste</h4>
         <div className="flex items-center">
@@ -172,10 +176,13 @@ export function Schema3({ display, type }) {
         </div>
       </section>
     );
-  } else if (ennonce?.retour === true && ennonce?.answersValues?.reponseSchema3) {
+  } else if (
+    ennonce?.retour === true &&
+    ennonce?.answersValues?.reponseSchema3
+  ) {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Schéma réaliste</h4>
         <div className="flex items-center">
@@ -190,7 +197,7 @@ export function Schema3({ display, type }) {
   } else if (listeSchema3selectionnee.length > 0) {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Schéma réaliste</h4>
         <div className="flex items-center">
@@ -209,11 +216,18 @@ export function Schema3({ display, type }) {
               onClick={inclinaisonSuivante}
             />
           </div>
-          <img
-            src={listeSchema3selectionnee[index].image_path}
-            alt={listeSchema3selectionnee[index].image_name}
-            className="mx-4"
-          />
+          <div className="relative w-96 h-96 mx-auto ">
+            <img
+              src="src/images/schema3/bassinSchema3.PNG"
+              alt="Bassin"
+              className="absolute mx-4 h-96"
+            />
+            <img
+              src={listeSchema3selectionnee[index].image_path}
+              alt={listeSchema3selectionnee[index].image_name}
+              className="absolute mx-4 h-96"
+            />
+          </div>
           <div className="flex flex-col items-center gap-1">
             <Button
               hoverColor="hover:bg-amber-800"

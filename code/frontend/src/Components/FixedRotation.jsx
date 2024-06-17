@@ -33,8 +33,8 @@ export const FixedRotation = ({ schema, type }) => {
     angle = responseSchema.angle;
     inclinaison = responseSchema.inclinaison;
   } else {
-    angle = ennonce?.angle ?? 0; // Default value if ennonce or ennonce.angle is undefined
-    inclinaison = ennonce?.inclinaison ?? 0; // Default value if ennonce or ennonce.inclinaison is undefined
+    angle = ennonce?.angle; 
+    inclinaison = ennonce?.inclinaison; 
   }
 
   return (

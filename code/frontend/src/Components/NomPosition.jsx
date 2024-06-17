@@ -19,7 +19,7 @@ export function NomPosition({ display, type }) {
     if (ennonce?.retour && type === "reponse") {
       setEnnonceNom(responseNom);
     } else {
-      setEnnonceNom(ennonce.nom + " " + ennonce.label);
+      setEnnonceNom(ennonce.nom + " " + ennonce.label );
       setReponse("");
     }
   }, [ennonce]);
@@ -31,7 +31,7 @@ export function NomPosition({ display, type }) {
   if (ennonce?.representation === "Nom" || ennonce?.retour) {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Nom de la position</h4>
         <div className="flex items-center">
@@ -42,7 +42,7 @@ export function NomPosition({ display, type }) {
   } else {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
+        className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Nom de la position</h4>
         <div className="flex items-center">
