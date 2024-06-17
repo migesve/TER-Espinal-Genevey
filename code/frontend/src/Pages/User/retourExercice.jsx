@@ -150,7 +150,7 @@ export function RetourExercice() {
       "Sigle",
       "Schéma très simplifié",
       "Schéma simplifié",
-      "Schéma réaliste",
+      "Schéma en vue antérieure",
       // "Schéma très réaliste",
     ];
   } else {
@@ -241,7 +241,7 @@ export function RetourExercice() {
               answersValues={initialAnswersValues}
             />
             <Schema3
-              display={view === "Schéma réaliste" ? "flex" : "hidden"}
+              display={view === "Schéma en vue antérieure" ? "flex" : "hidden"}
               ennonce={ennonce}
               answersValues={initialAnswersValues}
             />
@@ -279,7 +279,7 @@ export function RetourExercice() {
               answersValues={initialAnswersValues}
             />
             <Schema3
-              display={view === "Schéma réaliste" ? "flex" : "hidden"}
+              display={view === "Schéma en vue antérieure" ? "flex" : "hidden"}
               ennonce={ennonce}
               answersValues={initialAnswersValues}
             />

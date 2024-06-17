@@ -22,7 +22,7 @@ export function Schema3({ display, type }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (ennonce?.representation !== "Schéma réaliste" && !ennonce?.retour) {
+        if (ennonce?.representation !== "Schéma en vue antérieure" && !ennonce?.retour) {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
               method: "GET",
@@ -161,12 +161,12 @@ export function Schema3({ display, type }) {
     return <div>Error: {error}</div>;
   }
 
-  if ((ennonce?.representation === "Schéma réaliste" && ennonceSchema3)||ennonce?.retour) {
+  if ((ennonce?.representation === "Schéma en vue antérieure" && ennonceSchema3)||ennonce?.retour) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
-        <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+        <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
           <img
             src={ennonceSchema3.image_path}
@@ -184,7 +184,7 @@ export function Schema3({ display, type }) {
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
-        <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+        <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
           <img
             src={ennonce.answersValues.reponseSchema3.image_path}
@@ -199,7 +199,7 @@ export function Schema3({ display, type }) {
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
-        <h4 className="font-semibold text-xl">Schéma réaliste</h4>
+        <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
           <div className="flex flex-col items-center gap-1">
             <Button

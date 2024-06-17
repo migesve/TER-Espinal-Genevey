@@ -104,7 +104,7 @@ export function Exercice() {
       "Sigle",
       "Schéma très simplifié",
       "Schéma simplifié",
-      "Schéma réaliste",
+      "Schéma en vue antérieure",
       // "Schéma très réaliste",
     ];
   } else {
@@ -250,7 +250,7 @@ export function Exercice() {
                 (type === "Sigle" && sigleEstModifie === true) ||
                 (type === "Schéma très simplifié" && schema1EstModifie >= 3) ||
                 (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
-                (type === "Schéma réaliste" && schema3EstModifie >= 5) ||
+                (type === "Schéma en vue antérieure" && schema3EstModifie >= 5) ||
                 (type === "Schéma très réaliste" && schema4EstModifie >= 5)
                   ? FaCheck
                   : null
@@ -287,7 +287,7 @@ export function Exercice() {
                 type="reponse"
               />
               <Schema3
-                display={view === "Schéma réaliste" ? "flex" : "hidden"}
+                display={view === "Schéma en vue antérieure" ? "flex" : "hidden"}
                 type="reponse"
               />
               {/* <Schema4
@@ -317,7 +317,7 @@ export function Exercice() {
                 type="retour"
               />
               <Schema3
-                display={view === "Schéma réaliste" ? "flex" : "hidden"}
+                display={view === "Schéma en vue antérieure" ? "flex" : "hidden"}
                 type="retour"
               />
               {/* <Schema4

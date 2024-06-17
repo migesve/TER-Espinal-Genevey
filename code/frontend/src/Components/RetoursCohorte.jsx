@@ -26,7 +26,7 @@ export const RetoursCohorte = ({cohorte}) => {
 
     const positionsLabels = ["OS", "OIDP", "OIDT", "OIDA", "OP", "OIGA", "OIGT", "OIGP"];
     const inclinaisonLabels = ["peu flèchie", "fortement flèchie"];
-    const typesRepresentationsFacile = ["nom", "sigle", "schéma très simplifié", "schéma simplifié", "schéma réaliste", "schéma très réaliste"];
+    const typesRepresentationsFacile = ["nom", "sigle", "schéma très simplifié", "schéma simplifié", "Schéma en vue antérieure", "schéma très réaliste"];
     const typesRepresentationsdifficile = ["nom", "sigle", "schéma très simplifié"];
 
     useEffect(() => {
