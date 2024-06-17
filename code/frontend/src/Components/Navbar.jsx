@@ -4,13 +4,11 @@ import { AccountContext } from "./AccountContext";
 
 export function Navbar() {
   const { user } = useContext(AccountContext);
-  console.log(user);
 
-  if (user.statut && user.statut === "étudiant") {
+  if (user.statut !== null && user.statut === "étudiant") {
     const navItems = [
       { id: 1, text: "Home", path: "/" },
       { id: 2, text: "Exercices", path: "/exercices" },
-      { id: 3, text: "Creer Compte", path: "/creerCompte" },
     ];
 
     return (
@@ -44,7 +42,7 @@ export function Navbar() {
         text: "Gestion des ustilisateurs",
         path: "/gestionUtilisateurs",
       },
-      { id: 8, text: "Log Out", path: "/logout" },
+      { id: 8, text: "Log Out", path: "/login" },
     ];
 
     return (

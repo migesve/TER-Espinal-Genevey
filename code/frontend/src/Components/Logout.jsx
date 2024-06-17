@@ -10,7 +10,7 @@ export const Logout = () => {
   const handleLogout = () => {
     fetch("http://localhost:4000/auth/logout", {
       method: "POST",
-      credentials: "include",
+      credentials: "include", 
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,10 +21,14 @@ export const Logout = () => {
         }
         return response.json();
       })
-      .then(() => {
-        setUser(null);
-        localStorage.removeItem("user");
-        navigate("/login");
+      .then((data) => {
+        if (data.LoggedIn === false) {
+          setUser(null);
+          localStorage.removeItem("user");
+          navigate("/login");
+        } else {
+          console.error("Logout failed:", data.status);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -34,7 +38,7 @@ export const Logout = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-96 p-5 rounded shadow">
-        <h3 className="text-center text-lg font-semibold">Tu es sur de faire logout?</h3>
+        <h3 className="text-center text-lg font-semibold">Are you sure you want to log out?</h3>
         <div className="mt-5 flex justify-around">
           <Button onClick={handleLogout} text="Logout" />
           <Button onClick={() => navigate("/home")} text="Cancel" />
