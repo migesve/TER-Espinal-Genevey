@@ -19,7 +19,7 @@ export function NomPosition({ display, type }) {
     if (ennonce?.retour && type === "reponse") {
       setEnnonceNom(responseNom);
     } else {
-      setEnnonceNom(ennonce.nom + " " + ennonce.label);
+      setEnnonceNom(ennonce.nom + " " + ennonce.label );
       setReponse("");
     }
   }, [ennonce]);
