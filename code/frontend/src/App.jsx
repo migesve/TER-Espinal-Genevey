@@ -8,7 +8,6 @@ import { Sets } from "./Pages/Admin/sets";
 
 import { Exercices } from "./Pages/User/exercices";
 import { Exercice } from "./Pages/User/exercice";
-import { RetourExercice } from "./Pages/User/retourExercice";
 import { FinExercice } from "./Pages/User/finExercice";
 import { RetoursEnseignant } from "./Pages/Admin/retoursEnseignant";
 import { Gestion } from "./Pages/Admin/gestionUtilisateurs";
@@ -33,7 +32,6 @@ function App() {
             <Route element={<PrivateRoutes />}>
               <Route path="/exercices" element={<Exercices />} />
               <Route path="/exercice" element={<Exercice />} />
-              <Route path="/retourExercice" element={<RetourExercice />} />
               <Route path="/finExercice" element={<FinExercice />} />
 
               <Route element={<ProfesseurRoutes />}>
