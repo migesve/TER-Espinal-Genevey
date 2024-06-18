@@ -4,7 +4,7 @@ const formSchemaReponse = Yup.object().shape({
     user_id: Yup.number().integer().required("user_id requis").min(0, "user_id doit être suppérieur ou égale à 0"),
     position_id: Yup.number().integer().required("position_id requis").min(0, "position_id doit être suppérieur ou égale à 0"),
     inclinaison_id: Yup.number().integer().required("inclinaison_id requis").min(0, "inclinaison_id doit être suppérieur ou égale à 0"),
-    ennonce: Yup.string().required("Ennoncé requis").min(6, "L'ennoncé doit contenir au moins 6 caractères").max(60, "L'ennoncé doit contenir au plus 60 caractères"),  
+    enonce: Yup.string().required("Ennoncé requis").min(6, "L'ennoncé doit contenir au moins 6 caractères").max(60, "L'ennoncé doit contenir au plus 60 caractères"),  
     nom: Yup.string().required("Nom répondu requis").min(6, "Le nom répondu doit contenir au moins 6 caractères").max(60, "Le nom de la position doit contenir au plus 60 caractères"),  
     abreviation: Yup.string().required("Abréviation répondue requise").min(1, "L'abréviation répondue doit contenir au moins 1 caractères").max(10, "L'abréviation répondue doit contenir au plus 10 caractères"),
     schema1_angle: Yup.number().integer().required("angle du schema1 répondu requis").min(0, "l'angle du schema1 répondu doit être suppérieur ou égale à 0").max(360, "L'angle répondu du schema1 doit être inférieur ou égale à 360"),
