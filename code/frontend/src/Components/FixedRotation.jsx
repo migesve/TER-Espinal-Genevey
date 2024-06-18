@@ -32,16 +32,19 @@ export const FixedRotation = ({ schema, type }) => {
     angle = responseSchema.angle;
     inclinaison = responseSchema.inclinaison;
   } else {
-    angle = enonce?.angle; 
-    inclinaison = enonce?.inclinaison; 
-    console.log("inclisaine", inclinaison);
+    angle = enonce?.angle;
+    if (enonce?.inclinaison === 0) {
+      inclinaison = -10;
+    } else {
+      inclinaison = 10;
+    }
   }
 
   return (
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none">
         <img
-          src= {bassin}
+          src={bassin}
           alt="Bassin"
           className={
             bassin === "simple"
@@ -50,13 +53,13 @@ export const FixedRotation = ({ schema, type }) => {
           }
         />
         <img
-          src= {teteNegative}
+          src={teteNegative}
           alt="Tete Negative"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-30 pointer-events-none"
           style={{ transform: `rotate(${angle}deg)` }}
         />
         <img
-          src= {fontanelles}
+          src={fontanelles}
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
@@ -64,7 +67,7 @@ export const FixedRotation = ({ schema, type }) => {
           }}
         />
         <img
-          src= {tete}
+          src={tete}
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-10 pointer-events-none"
           style={{ transform: `rotate(${angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner

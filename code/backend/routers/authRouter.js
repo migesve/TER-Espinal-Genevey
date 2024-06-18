@@ -15,6 +15,7 @@ router
         username: req.session.user.username,
         statut: req.session.user.statut,
         cohorte: req.session.user.cohorte,
+        id: req.session.user.id,
       });
     } else {
       res.json({ LoggedIn: false });
@@ -47,6 +48,7 @@ router
             username: potentialLogin.rows[0].username,
             statut: potentialLogin.rows[0].statut,
             cohorte: potentialLogin.rows[0].cohorte,
+            id: potentialLogin.rows[0].id,
           });
         } else {
           return res.json({
@@ -105,6 +107,7 @@ router.post("/register", async (req, res) => {
           username: req.body.username,
           statut: newUserQuery.rows[0].statut,
           cohorte: newUserQuery.rows[0].cohorte,
+          id: newUserQuery.rows[0].id,
         });
       } else {
         return res.json({ LoggedIn: false, status: "Email déjà utilisé" });

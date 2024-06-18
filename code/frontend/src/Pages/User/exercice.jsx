@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../../Components/Button";
@@ -17,6 +17,7 @@ import {
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { choixEnonce } from "../../utils/outils";
+import { AccountContext } from "../../Components/AccountContext";
 
 export const ContextReponses = createContext({
   enonce: {},
@@ -47,6 +48,7 @@ export const ContextReponses = createContext({
 });
 
 export function Exercice() {
+  const { user } = useContext(AccountContext);
   const location = useLocation();
   const initialState = location.state || {};
   const {
@@ -136,7 +138,7 @@ export function Exercice() {
     fetchData();
   }, []);
 
-  const onSubmit = methods.handleSubmit((data) => {
+  const onSubmit = methods.handleSubmit(async (data) => {
     if (!retourReponse) {
       setRetourReponse(true);
       setEnonce({
@@ -144,7 +146,67 @@ export function Exercice() {
         retour: true,
         answersValues: answersValues,
       });
+
       // envoyer dans la base de données
+      try {
+        const response = await fetch("http://localhost:4000/reponses/upload", {
+          method: "POST",
+          credentials: "include", // to allow cookies
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            position_id: enonce.position,
+            inclinaison_id: enonce.inclinaison,
+            enonce: enonce.representation,
+            nom: reponseNom,
+            abreviation: reponseSigle,
+            schema1_angle: reponseSchema1.angle,
+            schema1_inclinaison: reponseSchema1.inclinaison,
+            schema2_angle: reponseSchema2.angle,
+            schema2_inclinaison: reponseSchema2.inclinaison,
+            schema3_id: reponseSchema3,
+            // schema4_id: "",
+            corr_nom: "",
+            corr_abreviation: "",
+            corr_schema1_angle: "",
+            corr_schema1_inclinaison: "",
+            corr_schema2_angle: "",
+            corr_schema2_inclinaison: "",
+            corr_schema3_id: "",
+            // corr_schema4_id: "",
+            dificulte: 1,
+            remarque_nom: "",
+            remarque_abreviation: "",
+            remarque_schema1_angle: "",
+            remarque_schema1_inclinaison: "",
+            remarque_schema2_angle: "",
+            remarque_schema2_inclinaison: "",
+            remarque_schema3_id: "",
+            // remarque_schema4_id: "",
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.error || errorData.status || "An error occurred");
+          return;
+        }
+
+        const responseData = await response.json();
+        console.log("Success:", responseData);
+
+        if (responseData.LoggedIn) {
+          setSuccess(true);
+          //navigate('/');
+        } else {
+          setError(responseData.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setError("An unexpected error occurred");
+      }
     } else {
       if (indexQuestion >= 4) {
         // On a fini les questions
@@ -164,7 +226,6 @@ export function Exercice() {
         setReponseSchema2(null);
         setReponseSchema3(null);
         // setReponseSchema4(null);
-        setView(enonce.representation);
         setNomEstModifie(false);
         setSigleEstModifie(false);
         setSchema1EstModifie(0);
@@ -201,6 +262,12 @@ export function Exercice() {
     indexQuestion,
     difficulte,
   ]);
+
+  useEffect(() => {
+    if (enonce && enonce.representation && !retourReponse) {
+      setView(enonce.representation);
+    }
+  }, [enonce]);
 
   return (
     <>

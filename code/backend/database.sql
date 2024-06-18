@@ -53,7 +53,7 @@ CREATE TABLE reponses (
     user_id SMALLINT NOT NULL,
     position_id SMALLINT NOT NULL,
     inclinaison_id SMALLINT NOT NULL,
-    ennonce SMALLINT NOT NULL,
+    enonce SMALLINT NOT NULL,
     nom VARCHAR(60) NOT NULL,
     abreviation VARCHAR(10) NOT NULL,
     schema1_angle SMALLINT NOT NULL,
