@@ -5,10 +5,11 @@ import { AccountContext } from "./AccountContext";
 export function Navbar() {
   const { user } = useContext(AccountContext);
 
-  if (user.statut !== null && user.statut === "étudiant") {
+  if (user && user.statut !== null && user.statut === "étudiant") {
     const navItems = [
       { id: 1, text: "Home", path: "/" },
       { id: 2, text: "Exercices", path: "/exercices" },
+      { id: 3, text: "Logout", path: "/logout" },
     ];
 
     return (
@@ -26,6 +27,7 @@ export function Navbar() {
     );
     // null
   } else if (
+    user &&
     user.statut &&
     (user.statut === "Professeur" || user.statut === "Admin")
   ) {
@@ -34,7 +36,6 @@ export function Navbar() {
       { id: 1, text: "Home", path: "/" },
       { id: 2, text: "Saisir Nouveau Set", path: "/saisieSet" },
       { id: 3, text: "Exercices", path: "/exercices" },
-      { id: 4, text: "Creer Compte", path: "/creerCompte" },
       { id: 5, text: "Sets", path: "/sets" },
       { id: 6, text: "Statistiques", path: "/retours" },
       {
@@ -42,7 +43,7 @@ export function Navbar() {
         text: "Gestion des ustilisateurs",
         path: "/gestionUtilisateurs",
       },
-      { id: 8, text: "Log Out", path: "/login" },
+      { id: 8, text: "Logout", path: "/logout" },
     ];
 
     return (
@@ -62,14 +63,21 @@ export function Navbar() {
     );
   } else {
     // outsider
+    const navItems = [
+      { id: 1, text: "Home", path: "/" },
+      { id: 2, text: "Login", path: "/login" },
+      { id: 3, text: "Créer compte", path: "/creerCompte" },
+    ];
     return (
       <div className="inset-x-0 top-0 bg-white flex justify-between items-center h-18 mx-auto px-4 text-white z-50">
         <ul className="md:flex">
-          <Link to="/login">
-            <li className="p-4 hover:bg-blue-600 rounded-md m-2 cursor-pointer duration-100 hover:text-white">
-              Login ou créer un compte
-            </li>
-          </Link>
+          {navItems.map((item) => (
+            <Link key={item.id} to={item.path}>
+              <li className="p-4 hover:bg-blue-600 rounded-md m-2 cursor-pointer duration-100 hover:text-white">
+                {item.text}
+              </li>
+            </Link>
+          ))}
         </ul>
       </div>
     );
