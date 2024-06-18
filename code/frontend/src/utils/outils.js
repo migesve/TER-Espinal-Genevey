@@ -4,11 +4,11 @@ export function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const choixEnnonce = (
+export const choixEnonce = (
   listeQuestionsSets,
   listeQuestionsInclinaisons,
   indexQuestion,
-  setEnnonce,
+  setEnonce,
   difficulte,
   setView
 ) => {
@@ -26,7 +26,7 @@ export const choixEnnonce = (
     return;
   }
 
-  const ennonceAleatoire = difficulte===1? Math.floor(Math.random() * 6) : Math.floor(Math.random() * 3);
+  const enonceAleatoire = difficulte===1? Math.floor(Math.random() * 6) : Math.floor(Math.random() * 3);
   const selectedSet = listeQuestionsSets[tableauPos[indexQuestion]];
   const selectedInclinaison =
     listeQuestionsInclinaisons[tableauIncl[indexQuestion]];
@@ -50,7 +50,7 @@ export const choixEnnonce = (
           ) % 360,
     
   }; 
-  switch (ennonceAleatoire) {
+  switch (enonceAleatoire) {
     case 0:
       objet.representation= "Nom";
       break;
@@ -73,5 +73,5 @@ export const choixEnnonce = (
       objet.representation= "Nom";
       break;
   }
-  setEnnonce(objet);
+  setEnonce(objet);
 };

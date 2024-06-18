@@ -3,39 +3,39 @@ import { ContextReponses } from "../Pages/User/exercice";
 
 export function NomPosition({ display, type }) {
   const [error, setError] = useState(null);
-  const [ennonceNom, setEnnonceNom] = useState("");
+  const [enonceNom, setEnonceNom] = useState("");
   const [reponse, setReponse] = useState("");
 
   const context = useContext(ContextReponses);
-  const ennonce = context.ennonce;
-  console.log(ennonce);
+  const enonce = context.enonce;
+  console.log(enonce);
   const reponseNom = context.reponseNom || "";
   const setReponseNom = context.setReponseNom || (() => {});
   const setNomEstModifie = context.setNomEstModifie || (() => {});
 
-  const responseNom = ennonce?.answersValues?.reponseNom;
+  const responseNom = enonce?.answersValues?.reponseNom;
 
   useEffect(() => {
-    if (ennonce?.retour && type === "reponse") {
-      setEnnonceNom(responseNom);
+    if (enonce?.retour && type === "reponse") {
+      setEnonceNom(responseNom);
     } else {
-      setEnnonceNom(ennonce.nom + " " + ennonce.label );
+      setEnonceNom(enonce.nom + " " + enonce.label );
       setReponse("");
     }
-  }, [ennonce]);
+  }, [enonce]);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  if (ennonce?.representation === "Nom" || ennonce?.retour) {
+  if (enonce?.representation === "Nom" || enonce?.retour) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5`}
       >
         <h4 className="font-semibold text-xl">Nom de la position</h4>
         <div className="flex items-center">
-          <p>{ennonceNom}</p>
+          <p>{enonceNom}</p>
         </div>
       </section>
     );

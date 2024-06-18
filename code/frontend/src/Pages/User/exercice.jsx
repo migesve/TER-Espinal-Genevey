@@ -14,12 +14,12 @@ import {
   // fetchDataSchema3,
   // fetchDataSchema4,
 } from "../../utils/fetchData";
-import { choixEnnonce } from "../../utils/outils";
+import { choixenonce } from "../../utils/outils";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export const ContextReponses = createContext({
-  ennonce: {},
+  enonce: {},
   reponseNom: null,
   setReponseNom: () => {},
   reponseSigle: null,
@@ -50,7 +50,7 @@ export function Exercice() {
   const location = useLocation();
   const initialState = location.state || {};
   const {
-    ennonce: initialEnnonce,
+    enonce: initialenonce,
     difficulte: initialDifficulte,
     indexQuestion: initialIndexQuestion,
     ...formData
@@ -61,8 +61,8 @@ export function Exercice() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [retourReponse, setRetourReponse] = useState(false);
-  const [ennonce, setEnnonce] = useState({ ...initialEnnonce });
-  const [view, setView] = useState(initialEnnonce.representation);
+  const [enonce, setenonce] = useState({ ...initialenonce });
+  const [view, setView] = useState(initialenonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
 
@@ -152,19 +152,19 @@ export function Exercice() {
         //   // reponseSchema4,
         // });
         // navigate("/retourExercice", {
-        //   state: { indexQuestion, answersValues, difficulte, ennonce },
+        //   state: { indexQuestion, answersValues, difficulte, enonce },
         // });
         // localStorage.setItem(
         //   "response" + indexQuestion,
         //   JSON.stringify(answersValues)
         // );
         setRetourReponse(true);
-        setEnnonce({
-          ...initialEnnonce,
+        setenonce({
+          ...initialenonce,
           retour: true,
           answersValues: answersValues,
         });
-        console.log(ennonce);
+        console.log(enonce);
       }
     } else {
       setIndexQuestion(indexQuestion + 1);
@@ -205,7 +205,7 @@ export function Exercice() {
       <h2>Question {indexQuestion + 1}/5</h2>
       <ContextReponses.Provider
         value={{
-          ennonce,
+          enonce,
           reponseNom,
           setReponseNom,
           reponseSigle,
@@ -238,7 +238,7 @@ export function Exercice() {
               key={type}
               text={type}
               color={
-                ennonce && ennonce.representation === type
+                enonce && enonce.representation === type
                   ? "bg-yellow-500 hover:bg-yellow-600"
                   : view && view === type
                   ? "bg-blue-800"

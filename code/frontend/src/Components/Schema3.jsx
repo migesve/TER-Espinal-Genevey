@@ -9,12 +9,12 @@ export function Schema3({ display, type }) {
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema3selectionnee, setListeSchema3selectionnee] = useState([]);
-  const [ennonceSchema3, setEnnonceSchema3] = useState(null);
-  const [loadingEnnonceSchema3, setLoadingEnnonceSchema3] = useState(true);
+  const [enonceSchema3, setEnonceSchema3] = useState(null);
+  const [loadingEnonceSchema3, setLoadingEnonceSchema3] = useState(true);
 
   const context = useContext(ContextReponses);
-  const ennonce = context.ennonce;
-  console.log(ennonce);
+  const enonce = context.enonce;
+  console.log(enonce);
   const reponseSchema3 = context.reponseSchema3 || "";
   const setReponseSchema3 = context.setReponseSchema3 || (() => {});
   const setSchema3EstModifie = context.setSchema3EstModifie || (() => {});
@@ -23,8 +23,8 @@ export function Schema3({ display, type }) {
     const fetchData = async () => {
       try {
         if (
-          ennonce?.representation !== "Schéma en vue antérieure" &&
-          !ennonce?.retour
+          enonce?.representation !== "Schéma en vue antérieure" &&
+          !enonce?.retour
         ) {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
@@ -47,20 +47,20 @@ export function Schema3({ display, type }) {
           setListeSchema3Pos1(data1.Schemas3);
           setListeSchema3Pos2(data2.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
-        } else if (ennonce?.retour && type === "reponse") {
-          if (!ennonce.answersValues) {
-            ennonce.answersValues = {};
+        } else if (enonce?.retour && type === "reponse") {
+          if (!enonce.answersValues) {
+            enonce.answersValues = {};
           }
-          if (!ennonce.answersValues.reponseSchema3) {
-            ennonce.answersValues.reponseSchema3 = {
-              position_id: ennonce?.position || 1,
-              inclinaison_id: ennonce?.inclinaison || 1,
-              image_name: ennonce?.image_name || "",
-              image_path: ennonce?.image_path || "",
+          if (!enonce.answersValues.reponseSchema3) {
+            enonce.answersValues.reponseSchema3 = {
+              position_id: enonce?.position || 1,
+              inclinaison_id: enonce?.inclinaison || 1,
+              image_name: enonce?.image_name || "",
+              image_path: enonce?.image_path || "",
             };
           }
           const response = await fetch(
-            `http://localhost:4000/schema3/getByIds/${ennonce.answersValues.reponseSchema3.position_id}/${ennonce.answersValues.reponseSchema3.inclinaison_id}`,
+            `http://localhost:4000/schema3/getByIds/${enonce.answersValues.reponseSchema3.position_id}/${enonce.answersValues.reponseSchema3.inclinaison_id}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ export function Schema3({ display, type }) {
           );
           if (!response.ok) {
             throw new Error(
-              `Failed to fetch ennonce data: ${response.statusText}`
+              `Failed to fetch enonce data: ${response.statusText}`
             );
           }
           const data = await response.json();
@@ -76,12 +76,12 @@ export function Schema3({ display, type }) {
             setError(data.status);
             return;
           }
-          setEnnonceSchema3(
+          setEnonceSchema3(
             data.Schemas3[Math.floor(Math.random() * data.Schemas3.length)]
           );
         } else {
           const response = await fetch(
-            `http://localhost:4000/schema3/getByIds/${ennonce.position}/${ennonce.inclinaison}`,
+            `http://localhost:4000/schema3/getByIds/${enonce.position}/${enonce.inclinaison}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -89,7 +89,7 @@ export function Schema3({ display, type }) {
           );
           if (!response.ok) {
             throw new Error(
-              `Failed to fetch ennonce data: ${response.statusText}`
+              `Failed to fetch enonce data: ${response.statusText}`
             );
           }
           const data = await response.json();
@@ -97,7 +97,7 @@ export function Schema3({ display, type }) {
             setError(data.status);
             return;
           }
-          setEnnonceSchema3(
+          setEnonceSchema3(
             data.Schemas3[Math.floor(Math.random() * data.Schemas3.length)]
           );
         }
@@ -105,12 +105,12 @@ export function Schema3({ display, type }) {
         console.error("Error:", err);
         setError(err.message);
       } finally {
-        setLoadingEnnonceSchema3(false);
+        setLoadingEnonceSchema3(false);
       }
     };
 
     fetchData();
-  }, [ennonce?.position, ennonce?.inclinaison, ennonce, type]);
+  }, [enonce?.position, enonce?.inclinaison, enonce, type]);
 
   useEffect(() => {
     setReponseSchema3(listeSchema3selectionnee[index]);
@@ -156,7 +156,7 @@ export function Schema3({ display, type }) {
     });
   };
 
-  if (loadingEnnonceSchema3) {
+  if (loadingEnonceSchema3) {
     return <div>Loading...</div>;
   }
 
@@ -165,9 +165,9 @@ export function Schema3({ display, type }) {
   }
 
   if (
-    (ennonce?.representation === "Schéma en vue antérieure" &&
-      ennonceSchema3) ||
-    ennonce?.retour
+    (enonce?.representation === "Schéma en vue antérieure" &&
+      enonceSchema3) ||
+    enonce?.retour
   ) {
     return (
       <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
@@ -179,10 +179,10 @@ export function Schema3({ display, type }) {
               alt="Bassin"
               className="absolute mx-4 h-52"
             />
-            {ennonceSchema3 && (
+            {enonceSchema3 && (
               <img
-                src={ennonceSchema3.image_path}
-                alt={ennonceSchema3.image_name}
+                src={enonceSchema3.image_path}
+                alt={enonceSchema3.image_name}
                 className="absolute mx-4 h-52"
               />
             )}
@@ -191,8 +191,8 @@ export function Schema3({ display, type }) {
       </section>
     );
   } else if (
-    ennonce?.retour === true &&
-    ennonce?.answersValues?.reponseSchema3
+    enonce?.retour === true &&
+    enonce?.answersValues?.reponseSchema3
   ) {
     return (
       <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
@@ -204,10 +204,10 @@ export function Schema3({ display, type }) {
               alt="Bassin"
               className="absolute mx-4 h-52"
             />
-            {ennonce.answersValues.reponseSchema3.image_path && (
+            {enonce.answersValues.reponseSchema3.image_path && (
               <img
-                src={ennonce.answersValues.reponseSchema3.image_path}
-                alt={ennonce.answersValues.reponseSchema3.image_name}
+                src={enonce.answersValues.reponseSchema3.image_path}
+                alt={enonce.answersValues.reponseSchema3.image_name}
                 className="absolute mx-4 h-52"
               />
             )}

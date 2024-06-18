@@ -3,18 +3,18 @@ import { GrUp, GrDown } from "react-icons/gr";
 import { Button } from "./Button";
 import { ContextReponses } from "../Pages/User/exercice";
 
-export function Schema4({ display, ennonce: ennonceProp }) {
+export function Schema4({ display, enonce: enonceProp }) {
   const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
   const [listeSchema4Pos2, setListeSchema4Pos2] = useState([]);
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
-  const [ennonceSchema4, setEnnonceSchema4] = useState(null);
-  const [loadingEnnonceSchema4, setLoadingEnnonceSchema4] = useState(true);
+  const [enonceSchema4, setEnonceSchema4] = useState(null);
+  const [loadingEnonceSchema4, setLoadingEnonceSchema4] = useState(true);
 
   const context = useContext(ContextReponses);
-  const ennonce = ennonceProp || context.ennonce;
-  console.log(ennonce);
+  const enonce = enonceProp || context.enonce;
+  console.log(enonce);
   const reponseSchema4 = context.reponseSchema4 || '';
   const setReponseSchema4 = context.setReponseSchema4|| (() => {});
   const setSchema4EstModifie= context.setSchema4EstModifie || (() => {});
@@ -23,7 +23,7 @@ export function Schema4({ display, ennonce: ennonceProp }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (ennonce?.representation !== "Schéma très réaliste") {
+        if (enonce?.representation !== "Schéma très réaliste") {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
               method: "GET",
@@ -47,14 +47,14 @@ export function Schema4({ display, ennonce: ennonceProp }) {
           setListeSchema4selectionnee(data1.Schemas4);
         } else {
           const response = await fetch(
-            `http://localhost:4000/schema4/getByIds/${ennonce.position}/${ennonce.inclinaison}`,
+            `http://localhost:4000/schema4/getByIds/${enonce.position}/${enonce.inclinaison}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
             }
           );
           if (!response.ok) {
-            throw new Error("Failed to fetch ennonce data");
+            throw new Error("Failed to fetch enonce data");
           }
           const data = await response.json();
           if (data.status) {
@@ -62,7 +62,7 @@ export function Schema4({ display, ennonce: ennonceProp }) {
             return;
           }
           console.log(data);
-          setEnnonceSchema4(
+          setEnonceSchema4(
             data.Schemas4[Math.floor(Math.random() * data.Schemas4.length)]
           );
         }
@@ -70,12 +70,12 @@ export function Schema4({ display, ennonce: ennonceProp }) {
         console.error("Error:", err);
         setError(err.message);
       } finally {
-        setLoadingEnnonceSchema4(false);
+        setLoadingEnonceSchema4(false);
       }
     };
 
     fetchData();
-  }, [ennonce?.position, ennonce?.inclinaison, ennonce]);
+  }, [enonce?.position, enonce?.inclinaison, enonce]);
 
   useEffect(() => {
     setReponseSchema4(listeSchema4selectionnee[index]);
@@ -116,7 +116,7 @@ export function Schema4({ display, ennonce: ennonceProp }) {
     });
   };
 
-  if (loadingEnnonceSchema4) {
+  if (loadingEnonceSchema4) {
     return <div>Loading...</div>;
   }
 
@@ -124,7 +124,7 @@ export function Schema4({ display, ennonce: ennonceProp }) {
     return <div>Error: {error}</div>;
   }
 
-  if (ennonce.representation === "Schéma très réaliste" && ennonceSchema4) {
+  if (enonce.representation === "Schéma très réaliste" && enonceSchema4) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
@@ -132,14 +132,14 @@ export function Schema4({ display, ennonce: ennonceProp }) {
         <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
         <div className="flex items-center">
           <img
-            src={ennonceSchema4.image_path}
-            alt={ennonceSchema4.image_name}
+            src={enonceSchema4.image_path}
+            alt={enonceSchema4.image_name}
             className="mx-4"
           />
         </div>
       </section>
     );
-  } else if (ennonce?.retour === true) {
+  } else if (enonce?.retour === true) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
@@ -147,8 +147,8 @@ export function Schema4({ display, ennonce: ennonceProp }) {
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center">
           <img
-            src={ennonceSchema4.image_path}
-            alt={ennonceSchema4.image_name}
+            src={enonceSchema4.image_path}
+            alt={enonceSchema4.image_name}
             className="mx-4"
           />
         </div>

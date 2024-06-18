@@ -7,14 +7,14 @@ import { BsFillCheckSquareFill } from "react-icons/bs";
 import { Button } from "./Button";
 import { useNavigate } from "react-router-dom";
 import { fetchDataSchema3, fetchDataSchema4 } from "../utils/fetchData";
-import { choixEnnonce } from "../utils/outils";
+import { choixEnonce } from "../utils/outils";
 
 export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
   const methods = useForm();
   const [success, setSuccess] = useState(false);
   const [difficulte, setDifficulte] = useState(null);
   const navigate = useNavigate();
-  const [ennonce, setEnnonce] = useState();
+  const [enonce, setEnonce] = useState();
   const [indexQuestion] = useState(0);
   const [formData, setFormData] = useState(null);
 
@@ -71,21 +71,21 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
       newIncl.length > 0 &&
       listeInclinaisons.length > 0
     ) {
-      choixEnnonce(
+      choixEnonce(
         listeSets,
         listeInclinaisons,
         indexQuestion,
-        setEnnonce,
+        setEnonce,
         difficulte
       );
     }
   };
 
   useEffect(() => {
-    if (ennonce) {
-      navigate("/exercice", { state: { ...formData, ennonce, difficulte, indexQuestion } });
+    if (enonce) {
+      navigate("/exercice", { state: { ...formData, enonce, difficulte, indexQuestion } });
     }
-  }, [ennonce, navigate, formData]);
+  }, [enonce, navigate, formData]);
 
   return (
     <FormProvider {...methods}>
