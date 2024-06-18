@@ -14,7 +14,6 @@ import {
   // fetchDataSchema3,
   // fetchDataSchema4,
 } from "../../utils/fetchData";
-import { choixenonce } from "../../utils/outils";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
