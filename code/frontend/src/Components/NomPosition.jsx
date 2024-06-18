@@ -8,7 +8,6 @@ export function NomPosition({ display, type }) {
 
   const context = useContext(ContextReponses);
   const enonce = context.enonce;
-  console.log(enonce);
   const reponseNom = context.reponseNom || "";
   const setReponseNom = context.setReponseNom || (() => {});
   const setNomEstModifie = context.setNomEstModifie || (() => {});

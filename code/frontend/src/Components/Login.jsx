@@ -37,7 +37,6 @@ export const Login = () => {
         if (!response || !response.ok || response.status >= 400) {
           return;
         }
-        console.log("Success:", response);
         return response.json();
       })
       .then((data) => {

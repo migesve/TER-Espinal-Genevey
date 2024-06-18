@@ -14,7 +14,6 @@ export function Schema3({ display, type }) {
 
   const context = useContext(ContextReponses);
   const enonce = context.enonce;
-  console.log(enonce);
   const reponseSchema3 = context.reponseSchema3 || "";
   const setReponseSchema3 = context.setReponseSchema3 || (() => {});
   const setSchema3EstModifie = context.setSchema3EstModifie || (() => {});

@@ -41,7 +41,7 @@ export const Logout = () => {
         <h3 className="text-center text-lg font-semibold">Are you sure you want to log out?</h3>
         <div className="mt-5 flex justify-around">
           <Button onClick={handleLogout} text="Logout" />
-          <Button onClick={() => navigate("/home")} text="Cancel" />
+          <Button onClick={() => navigate("/home")} text="Annuler" />
         </div>
       </div>
     </div>

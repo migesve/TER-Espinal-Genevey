@@ -9,12 +9,11 @@ export function Schema4({ display, enonce: enonceProp }) {
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
-  const [enonceSchema4, setEnonceSchema4] = useState(null);
-  const [loadingEnonceSchema4, setLoadingEnonceSchema4] = useState(true);
+  const [enonceSchema4, setEnnonceSchema4] = useState(null);
+  const [loadingEnnonceSchema4, setLoadingEnnonceSchema4] = useState(true);
 
   const context = useContext(ContextReponses);
   const enonce = enonceProp || context.enonce;
-  console.log(enonce);
   const reponseSchema4 = context.reponseSchema4 || '';
   const setReponseSchema4 = context.setReponseSchema4|| (() => {});
   const setSchema4EstModifie= context.setSchema4EstModifie || (() => {});
@@ -62,7 +61,7 @@ export function Schema4({ display, enonce: enonceProp }) {
             return;
           }
           console.log(data);
-          setEnonceSchema4(
+          setEnnonceSchema4(
             data.Schemas4[Math.floor(Math.random() * data.Schemas4.length)]
           );
         }
@@ -70,7 +69,7 @@ export function Schema4({ display, enonce: enonceProp }) {
         console.error("Error:", err);
         setError(err.message);
       } finally {
-        setLoadingEnonceSchema4(false);
+        setLoadingEnnonceSchema4(false);
       }
     };
 
@@ -116,7 +115,7 @@ export function Schema4({ display, enonce: enonceProp }) {
     });
   };
 
-  if (loadingEnonceSchema4) {
+  if (loadingEnnonceSchema4) {
     return <div>Loading...</div>;
   }
 

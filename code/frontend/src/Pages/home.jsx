@@ -5,7 +5,6 @@ export function Home() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   let content = null;
-  console.log(user);
   if (user && user.LoggedIn && (user.statut === "professeur" || user.statut === "Admin")) {
     content = "Bienvenue Professeur";
   } else if (user && user.LoggedIn && user.statut === "étudiant") {

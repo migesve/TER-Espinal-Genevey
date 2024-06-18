@@ -6,7 +6,6 @@ import { ContextReponses } from "../Pages/User/exercice";
 export const Schema2 = ({ display, schema, type }) => {
   const context = useContext(ContextReponses);
   const enonce = context.enonce;
-  console.log(enonce);
 
   return (
     <>

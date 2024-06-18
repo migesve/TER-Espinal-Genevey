@@ -59,9 +59,6 @@ export const FormCreerExercice = ({ listeSets, listeInclinaisons }) => {
       }
     }
 
-    console.log("NewPos : ", newPos);
-    console.log("NewIncl : ", newIncl);
-
     localStorage.setItem("tableauPos", JSON.stringify(newPos));
     localStorage.setItem("tableauIncl", JSON.stringify(newIncl));
 

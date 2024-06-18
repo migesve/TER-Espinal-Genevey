@@ -6,7 +6,6 @@ import { ContextReponses } from "../Pages/User/exercice";
 export const FixedRotation = ({ schema, type }) => {
   const context = useContext(ContextReponses);
   const enonce = context.enonce;
-  console.log(enonce);
 
   let angle, inclinaison, bassin, tete, fontanelles, teteNegative;
 
@@ -35,6 +34,7 @@ export const FixedRotation = ({ schema, type }) => {
   } else {
     angle = enonce?.angle; 
     inclinaison = enonce?.inclinaison; 
+    console.log("inclisaine", inclinaison);
   }
 
   return (

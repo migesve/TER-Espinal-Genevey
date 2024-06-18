@@ -8,7 +8,6 @@ export function Sigle({ display, type }) {
 
   const context = useContext(ContextReponses);
   const enonce = context.enonce;
-  console.log(enonce);
   const reponseSigle = context.reponseSigle || "";
   const setReponseSigle = context.setReponseSigle || (() => {});
   const setSigleEstModifie = context.setSigleEstModifie || (() => {});

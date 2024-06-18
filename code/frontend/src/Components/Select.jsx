@@ -16,7 +16,6 @@ export const SelectDifficulte = ({ setDifficulte }) => {
   ]
 
   const handleChange = (selectedOption) => {
-    console.log(selectedOption);
     setDifficulte(selectedOption.value);
   }
   

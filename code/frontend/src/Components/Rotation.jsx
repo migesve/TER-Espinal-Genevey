@@ -90,13 +90,11 @@ export const Rotation = ({ schema }) => {
     tete = "images/tete.png";
     fontanelles = "images/fontanelles.png";
     teteNegative = "images/teteNegative.png";
-    console.log("schema 2");
   } else {
     bassin = "simple";
     tete = "images/teteSimple.png";
     fontanelles = "images/fontanellesSimple.png";
     teteNegative = "images/teteNegativeSimple.png";
-    console.log("schema 1");
   }
 
   return (
