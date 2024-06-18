@@ -14,12 +14,12 @@ import {
   // fetchDataSchema3,
   // fetchDataSchema4,
 } from "../../utils/fetchData";
-import { choixEnnonce } from "../../utils/outils";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { choixEnonce } from "../../utils/outils";
 
 export const ContextReponses = createContext({
-  ennonce: {},
+  enonce: {},
   reponseNom: null,
   setReponseNom: () => {},
   reponseSigle: null,
@@ -50,7 +50,7 @@ export function Exercice() {
   const location = useLocation();
   const initialState = location.state || {};
   const {
-    ennonce: initialEnnonce,
+    enonce: initialEnonce,
     difficulte: initialDifficulte,
     indexQuestion: initialIndexQuestion,
     ...formData
@@ -61,8 +61,8 @@ export function Exercice() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [retourReponse, setRetourReponse] = useState(false);
-  const [ennonce, setEnnonce] = useState({ ...initialEnnonce });
-  const [view, setView] = useState(initialEnnonce.representation);
+  const [enonce, setEnonce] = useState({ ...initialEnonce });
+  const [view, setView] = useState(initialEnonce.representation);
   const [difficulte, setDifficulte] = useState(initialDifficulte);
   const [indexQuestion, setIndexQuestion] = useState(initialIndexQuestion);
 
@@ -137,38 +137,41 @@ export function Exercice() {
   }, []);
 
   const onSubmit = methods.handleSubmit((data) => {
-    setReponseSchema1(JSON.parse(localStorage.getItem("reponseSchema1")));
-    setReponseSchema2(JSON.parse(localStorage.getItem("reponseSchema2")));
     if (!retourReponse) {
-      if (indexQuestion == 4) {
+      setRetourReponse(true);
+      setEnonce({
+        ...initialEnonce,
+        retour: true,
+        answersValues: answersValues,
+      });
+      // envoyer dans la base de données
+    } else {
+      if (indexQuestion >= 4) {
         // On a fini les questions
       } else {
-        // setAnswersValues({
-        //   reponseNom: reponseNom,
-        //   reponseSigle: reponseSigle,
-        //   reponseSchema1: reponseSchema1,
-        //   reponseSchema2: reponseSchema2,
-        //   reponseSchema3: reponseSchema3,
-        //   // reponseSchema4,
-        // });
-        // navigate("/retourExercice", {
-        //   state: { indexQuestion, answersValues, difficulte, ennonce },
-        // });
-        // localStorage.setItem(
-        //   "response" + indexQuestion,
-        //   JSON.stringify(answersValues)
-        // );
-        setRetourReponse(true);
-        setEnnonce({
-          ...initialEnnonce,
-          retour: true,
-          answersValues: answersValues,
-        });
-        console.log(ennonce);
+        setIndexQuestion(indexQuestion + 1);
+        setRetourReponse(false);
+        choixEnonce(
+          listeSets,
+          listeInclinaisons,
+          indexQuestion,
+          setEnonce,
+          difficulte
+        );
+        setReponseNom(null);
+        setReponseSigle(null);
+        setReponseSchema1(null);
+        setReponseSchema2(null);
+        setReponseSchema3(null);
+        // setReponseSchema4(null);
+        setView(enonce.representation);
+        setNomEstModifie(false);
+        setSigleEstModifie(false);
+        setSchema1EstModifie(0);
+        setSchema2EstModifie(0);
+        setSchema3EstModifie(0);
+        setSchema4EstModifie(0);
       }
-    } else {
-      setIndexQuestion(indexQuestion + 1);
-      setRetourReponse(false);
     }
   });
 
@@ -183,10 +186,10 @@ export function Exercice() {
         // reponseSchema4,
       });
 
-      localStorage.setItem(
-        "response" + (indexQuestion - 1),
-        JSON.stringify(answersValues)
-      ); // changer pour stocker en BD
+      // localStorage.setItem(
+      //   "response" + (indexQuestion - 1),
+      //   JSON.stringify(answersValues)
+      // ); // changer pour stocker en BD
     }
   }, [
     reponseNom,
@@ -205,7 +208,7 @@ export function Exercice() {
       <h2>Question {indexQuestion + 1}/5</h2>
       <ContextReponses.Provider
         value={{
-          ennonce,
+          enonce,
           reponseNom,
           setReponseNom,
           reponseSigle,
@@ -238,7 +241,7 @@ export function Exercice() {
               key={type}
               text={type}
               color={
-                ennonce && ennonce.representation === type
+                enonce && enonce.representation === type
                   ? "bg-yellow-500 hover:bg-yellow-600"
                   : view && view === type
                   ? "bg-blue-800"
@@ -250,7 +253,8 @@ export function Exercice() {
                 (type === "Sigle" && sigleEstModifie === true) ||
                 (type === "Schéma très simplifié" && schema1EstModifie >= 3) ||
                 (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
-                (type === "Schéma en vue antérieure" && schema3EstModifie >= 5) ||
+                (type === "Schéma en vue antérieure" &&
+                  schema3EstModifie >= 5) ||
                 (type === "Schéma très réaliste" && schema4EstModifie >= 5)
                   ? FaCheck
                   : null
@@ -287,7 +291,9 @@ export function Exercice() {
                 type="reponse"
               />
               <Schema3
-                display={view === "Schéma en vue antérieure" ? "flex" : "hidden"}
+                display={
+                  view === "Schéma en vue antérieure" ? "flex" : "hidden"
+                }
                 type="reponse"
               />
               {/* <Schema4
@@ -317,7 +323,9 @@ export function Exercice() {
                 type="retour"
               />
               <Schema3
-                display={view === "Schéma en vue antérieure" ? "flex" : "hidden"}
+                display={
+                  view === "Schéma en vue antérieure" ? "flex" : "hidden"
+                }
                 type="retour"
               />
               {/* <Schema4

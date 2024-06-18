@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AccountContext } from "./AccountContext";
-import { Button } from "./Button";
+import { AccountContext } from "../Components/AccountContext";
+import { Button } from "../Components/Button";
 
 export const Logout = () => {
   const { setUser } = useContext(AccountContext);
@@ -25,7 +25,7 @@ export const Logout = () => {
         if (data.LoggedIn === false) {
           setUser(null);
           localStorage.removeItem("user");
-          navigate("/login");
+          navigate("/home");
         } else {
           console.error("Logout failed:", data.status);
         }
@@ -41,7 +41,7 @@ export const Logout = () => {
         <h3 className="text-center text-lg font-semibold">Are you sure you want to log out?</h3>
         <div className="mt-5 flex justify-around">
           <Button onClick={handleLogout} text="Logout" />
-          <Button onClick={() => navigate("/home")} text="Cancel" />
+          <Button onClick={() => navigate("/home")} text="Annuler" />
         </div>
       </div>
     </div>

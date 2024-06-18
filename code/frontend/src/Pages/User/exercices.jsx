@@ -15,7 +15,7 @@ export function Exercices() {
       try {
         const setsData = await fetchDataPosition();
         if (setsData.status) {
-          setError(setsData.status); // Corrected the variable name here
+          setError(setsData.status); 
         } else {
           setListeSets(setsData);
         }

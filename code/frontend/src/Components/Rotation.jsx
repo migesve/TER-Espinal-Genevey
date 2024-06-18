@@ -7,10 +7,10 @@ export const Rotation = ({ schema }) => {
   const [dragging, setDragging] = useState(false);
   const centerRef = useRef(null);
   const radius = 20;
-  const { ennonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2, setSchema1EstModifie, setSchema2EstModifie } =
+  const { enonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2, setSchema1EstModifie, setSchema2EstModifie } =
     useContext(ContextReponses);
   const [angle, setAngle] = useState(0);
-  const [inclinaison, setTranslateY] = useState(ennonce.inclinaison);
+  const [inclinaison, setTranslateY] = useState(enonce.inclinaison);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -90,13 +90,11 @@ export const Rotation = ({ schema }) => {
     tete = "images/tete.png";
     fontanelles = "images/fontanelles.png";
     teteNegative = "images/teteNegative.png";
-    console.log("schema 2");
   } else {
     bassin = "simple";
     tete = "images/teteSimple.png";
     fontanelles = "images/fontanellesSimple.png";
     teteNegative = "images/teteNegativeSimple.png";
-    console.log("schema 1");
   }
 
   return (

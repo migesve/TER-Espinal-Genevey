@@ -14,6 +14,7 @@ import { Gestion } from "./Pages/Admin/gestionUtilisateurs";
 
 import { CreerCompte } from "./Pages/creerCompte";
 import { LoginPage } from "./Pages/login";
+import { Logout } from "./Pages/logout";
 import { Layout } from "./Layout";
 import PrivateRoutes from "./Components/PrivateRoutes";
 import ProfesseurRoutes from "./Components/ProfesseurRoutes";
@@ -28,6 +29,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/creerCompte" element={<CreerCompte />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/logout" element={<Logout />} />
 
             <Route element={<PrivateRoutes />}>
               <Route path="/exercices" element={<Exercices />} />

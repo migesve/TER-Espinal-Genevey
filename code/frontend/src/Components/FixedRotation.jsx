@@ -5,12 +5,11 @@ import { ContextReponses } from "../Pages/User/exercice";
 
 export const FixedRotation = ({ schema, type }) => {
   const context = useContext(ContextReponses);
-  const ennonce = context.ennonce;
-  console.log(ennonce);
+  const enonce = context.enonce;
 
   let angle, inclinaison, bassin, tete, fontanelles, teteNegative;
 
-  const responseSchema = ennonce?.answersValues?.[`reponseSchema${schema}`];
+  const responseSchema = enonce?.answersValues?.[`reponseSchema${schema}`];
 
   if (schema == 2) {
     bassin = "images/bassin.png";
@@ -33,8 +32,9 @@ export const FixedRotation = ({ schema, type }) => {
     angle = responseSchema.angle;
     inclinaison = responseSchema.inclinaison;
   } else {
-    angle = ennonce?.angle; 
-    inclinaison = ennonce?.inclinaison; 
+    angle = enonce?.angle; 
+    inclinaison = enonce?.inclinaison; 
+    console.log("inclisaine", inclinaison);
   }
 
   return (
