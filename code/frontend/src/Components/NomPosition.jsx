@@ -19,6 +19,7 @@ export function NomPosition({ display, type }) {
       setEnonceNom(responseNom);
     } else {
       setEnonceNom(enonce.nom + " " + enonce.label );
+      setReponseNom("enonce");
       setReponse("");
     }
   }, [enonce]);
@@ -47,7 +48,7 @@ export function NomPosition({ display, type }) {
         <div className="flex items-center">
           <input
             className="mx-4"
-            value={reponseNom || ""}
+            value={reponse || ""}
             onChange={(e) => {
               setReponse(e.target.value);
               setReponseNom(e.target.value);

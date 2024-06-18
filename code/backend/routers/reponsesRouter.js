@@ -111,7 +111,7 @@ router.post("/upload", async (req, res) => {
         req.body.schema2_angle,
         req.body.schema2_inclinaison,
         req.body.schema3_id,
-        // req.body.schema4_id,
+        req.body.schema4_id,
         req.body.corr_nom,
         req.body.corr_abreviation,
         req.body.corr_schema1_angle,
@@ -119,8 +119,8 @@ router.post("/upload", async (req, res) => {
         req.body.corr_schema2_angle,
         req.body.corr_schema2_inclinaison,
         req.body.corr_schema3_id,
-        // req.body.corr_schema4_id,
-        req.body.dificulte,
+        req.body.corr_schema4_id,
+        req.body.difficulte,
         req.body.remarque_nom,
         req.body.remarque_abreviation,
         req.body.remarque_schema1_angle,
@@ -128,7 +128,7 @@ router.post("/upload", async (req, res) => {
         req.body.remarque_schema2_angle,
         req.body.remarque_schema2_inclinaison,
         req.body.remarque_schema3_id,
-        // req.body.remarque_schema4_id,
+        req.body.remarque_schema4_id,
       ]
     );
 

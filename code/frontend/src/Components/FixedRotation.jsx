@@ -33,7 +33,7 @@ export const FixedRotation = ({ schema, type }) => {
     inclinaison = responseSchema.inclinaison;
   } else {
     angle = enonce?.angle;
-    if (enonce?.inclinaison === 0) {
+    if (enonce?.inclinaison === 1) {
       inclinaison = -10;
     } else {
       inclinaison = 10;

@@ -20,6 +20,7 @@ export function Sigle({ display, type }) {
     } else {
       setEnonceSigle(enonce.sigle + " " + enonce.label);
       setReponse("");
+      setReponseSigle("enonce");
     }
   }, [enonce]);
 
@@ -47,7 +48,7 @@ export function Sigle({ display, type }) {
         <div className="flex items-center">
           <input
             className="mx-4"
-            value={reponseSigle || ""}
+            value={reponse || ""}
             onChange={(e) => {
               setReponse(e.target.value);
               setReponseSigle(e.target.value);
