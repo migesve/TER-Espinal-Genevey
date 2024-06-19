@@ -144,7 +144,7 @@ export const Rotation = ({ schema }) => {
         </svg>
       </div>
       <div className="relative flex flex-col items-center h-72 mx-auto select-none">
-        <div className="mb-2">Bien flechi</div>
+        <div className="mb-2">Inclinaison</div>
         <Slider
           min={-10}
           max={10}
@@ -158,7 +158,7 @@ export const Rotation = ({ schema }) => {
             ringColor: "#f00", // a verifier
           }}
         />
-        <div className="mt-2">Pas flechi</div>
+        {/* <div className="mt-2">Pas flechi</div> */}
       </div>
     </div>
   );

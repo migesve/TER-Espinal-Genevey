@@ -73,8 +73,8 @@ export const FixedRotation = ({ schema, type }) => {
           style={{ transform: `rotate(${angle}deg)` }} // scaleY(${translateY}) pour modifier la taille de la tete et la faire tourner
         />
       </div>
-      <div className="relative flex flex-col items-center h-72 mx-auto select-none">
-        <div className="mb-2">Bien flechi</div>
+      {/* <div className="relative flex flex-col items-center h-72 mx-auto select-none">
+        <div className="mb-2">Inclinaison</div>
         <Slider
           min={-10}
           max={10}
@@ -84,7 +84,7 @@ export const FixedRotation = ({ schema, type }) => {
           disabled={true}
         />
         <div className="mt-2">Pas flechi</div>
-      </div>
+      </div> */}
     </div>
   );
 };

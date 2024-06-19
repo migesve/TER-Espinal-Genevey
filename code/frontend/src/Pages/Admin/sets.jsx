@@ -79,7 +79,7 @@ export function Sets() {
         <Button onClick={ () => navigate('/saisieSet') } text="Créer un set" />
         {/* <Button onClick={ () => navigate('/creerExercice') } text="Créer un exercice" /> */}
       </div>
-      <h1>Sets existents</h1>
+      <h1>Sets existants</h1>
       {renderDataGrid()}
     </>
   );

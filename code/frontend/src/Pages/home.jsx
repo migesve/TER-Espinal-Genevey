@@ -68,7 +68,7 @@ export function Home() {
   }
   return (
     <>
-      <h1>Maieutique</h1>
+      <h1>Maïeutique</h1>
       <h2>App pour apprendre les positions de la tête</h2>
       <div className="flex mx-auto p-4 justify-center">{content}</div>
     </>

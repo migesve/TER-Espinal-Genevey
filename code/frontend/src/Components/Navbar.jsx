@@ -16,7 +16,6 @@ export function Navbar() {
   } else if (user && user.statut && (user.statut === "Professeur" || user.statut === "Admin")) {
     navItems = [
       { id: 1, text: "Home", path: "/" },
-      { id: 2, text: "Saisir Nouveau Set", path: "/saisieSet" },
       { id: 3, text: "Exercices", path: "/exercices" },
       { id: 5, text: "Sets", path: "/sets" },
       { id: 6, text: "Statistiques", path: "/retours" },
