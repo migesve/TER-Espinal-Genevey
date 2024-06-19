@@ -47,8 +47,9 @@ export function NomPosition({ display, type }) {
         <h4 className="font-semibold text-xl">Nom de la position</h4>
         <div className="flex items-center">
           <input
-            className="mx-4"
+            className="p-5 font-medium rounded-md w-full border border-slate-300 placeholder:opacity-60"
             value={reponse || ""}
+            placeholder="Entrez le nom complet de la position"
             onChange={(e) => {
               setReponse(e.target.value);
               setReponseNom(e.target.value);

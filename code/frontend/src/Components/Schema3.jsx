@@ -169,20 +169,20 @@ export function Schema3({ display, type }) {
     enonce?.retour
   ) {
     return (
-      <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
+      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
-        <div className="flex items-center">
-          <div className="relative w-96 h-96 mx-auto ">
+        <div className="flex items-center justify-center">
+          <div className="relative mx-auto w-96 h-96 flex justify-center items-center">
             <img
               src="src/images/schema3/bassinSchema3.PNG"
               alt="Bassin"
-              className="absolute mx-4 h-52"
+              className="absolute h-52"
             />
             {enonceSchema3 && (
               <img
                 src={enonceSchema3.image_path}
                 alt={enonceSchema3.image_name}
-                className="absolute mx-4 h-52"
+                className="absolute h-52"
               />
             )}
           </div>
@@ -194,20 +194,20 @@ export function Schema3({ display, type }) {
     enonce?.answersValues?.reponseSchema3
   ) {
     return (
-      <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
+      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
-        <div className="flex items-center">
-          <div className="relative w-96 h-96 mx-auto ">
+        <div className="flex items-center justify-center">
+          <div className="relative mx-auto w-96 h-96 flex justify-center items-center">
             <img
               src="src/images/schema3/bassinSchema3.PNG"
               alt="Bassin"
-              className="absolute mx-4 h-52"
+              className="absolute h-52"
             />
             {enonce.answersValues.reponseSchema3.image_path && (
               <img
                 src={enonce.answersValues.reponseSchema3.image_path}
                 alt={enonce.answersValues.reponseSchema3.image_name}
-                className="absolute mx-4 h-52"
+                className="absolute h-52"
               />
             )}
           </div>
@@ -216,9 +216,9 @@ export function Schema3({ display, type }) {
     );
   } else if (listeSchema3selectionnee.length > 0) {
     return (
-      <section className={`${display} flex-col items-center gap-1 p-4 m-5`}>
+      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <div className="flex flex-col items-center gap-1">
             <Button
               hoverColor="hover:bg-amber-800"
@@ -234,17 +234,17 @@ export function Schema3({ display, type }) {
               onClick={inclinaisonSuivante}
             />
           </div>
-          <div className="relative w-96 h-96 mx-auto ">
+          <div className="relative w-96 h-96 flex justify-center items-center">
             <img
               src="src/images/schema3/bassinSchema3.PNG"
               alt="Bassin"
-              className="absolute mx-4 h-96"
+              className="absolute h-96"
             />
             {listeSchema3selectionnee[index]?.image_path && (
               <img
                 src={listeSchema3selectionnee[index].image_path}
                 alt={listeSchema3selectionnee[index].image_name}
-                className="absolute mx-4 h-96"
+                className="absolute h-96"
               />
             )}
           </div>

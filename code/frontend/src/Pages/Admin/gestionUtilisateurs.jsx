@@ -54,8 +54,6 @@ export function Gestion() {
       }
   
       const result = await response.json();
-      console.log(`Changing role of ${username} to ${statut}`);
-      console.log(result.status,result); // Log or handle the success message
       data[data.findIndex((row) => row.username === username)].statut = statut;
       const element=document.querySelector(`div #${username+"P"}`);
       const btn1=document.querySelector(`#${username+"BtnE"}`);

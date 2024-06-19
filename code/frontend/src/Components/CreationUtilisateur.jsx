@@ -24,7 +24,6 @@ export const CreationUtilisateur = () => {
   const [success, setSuccess] = useState(false);
 
   const onSubmit = methods.handleSubmit(async (data) => {
-    console.log(data);
     try {
       const response = await fetch("http://localhost:4000/auth/register", {
         method: "POST",
@@ -43,7 +42,6 @@ export const CreationUtilisateur = () => {
       }
 
       const responseData = await response.json();
-      console.log("Success:", responseData);
       localStorage.setItem("user", JSON.stringify({ ...data }));
       setUser({ ...responseData });
       

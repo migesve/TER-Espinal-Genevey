@@ -100,7 +100,7 @@ export function Exercice() {
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
   if (difficulte == 1) {
-    buttonsArea = "grid md:grid-cols-5 space-x-2"; //grid-cols-6 si on est avec 6 representations
+    buttonsArea = "grid p-4 md:grid-cols-5 space-x-2"; //grid-cols-6 si on est avec 6 representations
     typesRepresentation = [
       "Nom",
       "Sigle",
@@ -195,7 +195,6 @@ export function Exercice() {
         }
 
         const responseData = await response.json();
-        console.log("Success:", responseData);
 
         if (responseData.LoggedIn) {
           setSuccess(true);
@@ -402,7 +401,7 @@ export function Exercice() {
           </div>
         </div>
 
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <Button
             onClick={() => {
               setView(
@@ -431,7 +430,7 @@ export function Exercice() {
             color="bg-green-600"
             hoverColor="hover:bg-green-800"
           />
-        </div>
+        </div> */}
         <div className="flex py-4 justify-end">
           <Button
             onClick={onSubmit}

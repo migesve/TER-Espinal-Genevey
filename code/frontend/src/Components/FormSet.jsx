@@ -21,7 +21,6 @@ export const FormSet = () => {
   const [success, setSuccess] = useState(false)
 
   const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
     methods.reset()
     setSuccess(true)
   })

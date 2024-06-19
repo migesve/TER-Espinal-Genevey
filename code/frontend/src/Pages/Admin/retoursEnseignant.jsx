@@ -33,7 +33,6 @@ export function RetoursEnseignant() {
                 if (reponsesData.status) {
                     setError(reponsesData.status);
                 } else {
-                    console.log("reponsesData : ", reponsesData);
                     setData(reponsesData);
                 }
 
@@ -41,7 +40,6 @@ export function RetoursEnseignant() {
                 if (cohorteListe.status) {
                     setError(cohorteListe.status);
                 } else {
-                    console.log("cohorteListe : ", cohorteListe);
                     setCohortes(cohorteListe);
                     setView(cohorteListe[0].cohorte);
                 }
@@ -56,9 +54,6 @@ export function RetoursEnseignant() {
         fetchData();
 
     }, []);
-
-    console.log("data : ", data);
-    console.log("cohortes : ", cohortes);
 
     const onClick = (cohorte) => {
         setView(cohorte);

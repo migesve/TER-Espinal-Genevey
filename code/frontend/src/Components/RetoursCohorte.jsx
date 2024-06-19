@@ -32,13 +32,11 @@ export const RetoursCohorte = ({cohorte}) => {
     useEffect(() => {
         const fetchData = async () => {
             try{
-                console.log("cohorte : ", cohorte);
 
                 const reponsesDataFacile = await fetchDataReponsesCohorte(cohorte, 1);
                 if (reponsesDataFacile.status) {
                     setError(reponsesDataFacile.status);
                 } else {
-                    console.log("reponsesDataFacile : ", reponsesDataFacile);
                     setDataFacile(reponsesDataFacile);
                 }
                 
@@ -46,7 +44,6 @@ export const RetoursCohorte = ({cohorte}) => {
                 if (reponsesDataDifficile.status) {
                     setError(reponsesDataDifficile.status);
                 } else {
-                    console.log("reponsesDataDifficile : ", reponsesDataDifficile);
                     setDataDifficile(reponsesDataDifficile);
                 }
             } catch (err) {
@@ -58,12 +55,10 @@ export const RetoursCohorte = ({cohorte}) => {
     }, []);
 
     useEffect(() => {
-        console.log("dataFacile : ", dataFacile);
         let positions = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 },];
         let inclinaisons = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }];
         let representations = [{total:0},{faux:0},{faux:0},{faux:0},{faux:0},{faux:0},{faux:0}];
         dataFacile.map((reponse) => {
-            console.log("reponse : ", reponse);
             if (reponse.corr_nom && reponse.corr_abreviation && reponse.corr_position && reponse.corr_schema1_angle && reponse.corr_schema1_inclinaison && reponse.corr_schema2_angle && reponse.corr_schema2_inclinaison && corr_schema3_id && corr_schema4_id) {
                 positions[reponse.position_id - 1].total++;
                 inclinaisons[reponse.inclinaison_id-1].total++;
@@ -109,12 +104,10 @@ export const RetoursCohorte = ({cohorte}) => {
     }, [dataFacile]);
 
     useEffect(() => {
-        console.log("dataDifficile : ", dataDifficile);
         let positions = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 },];
         let inclinaisons = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }];
         let representations = [{total:0},{faux:0},{faux:0},{faux:0},{faux:0},{faux:0},{faux:0}];
         dataDifficile.map((reponse) => {
-            console.log("reponse : ", reponse);
             if (reponse.corr_nom && reponse.corr_abreviation && reponse.corr_position && reponse.corr_schema1_angle && reponse.corr_schema1_inclinaison && reponse.corr_schema2_angle && reponse.corr_schema2_inclinaison && corr_schema3_id && corr_schema4_id) {
                 positions[reponse.position_id - 1].total++;
                 inclinaisons[reponse.inclinaison_id-1].total++;

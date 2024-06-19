@@ -60,7 +60,6 @@ export function Schema4({ display, enonce: enonceProp }) {
             setError(data.status);
             return;
           }
-          console.log(data);
           setEnnonceSchema4(
             data.Schemas4[Math.floor(Math.random() * data.Schemas4.length)]
           );
