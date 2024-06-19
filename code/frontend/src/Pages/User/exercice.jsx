@@ -146,6 +146,9 @@ export function Exercice() {
         retour: true,
         answersValues: answersValues,
       });
+      console.log("answersValues", answersValues);
+      console.log("enonce", enonce);
+      console.log("user", user);
 
       // envoyer dans la base de données
       try {

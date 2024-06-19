@@ -97,9 +97,8 @@ router.post("/upload", async (req, res) => {
     await validateFormReponse(req, res);
 
     const newReponse = await pool.query(
-      "INSERT INTO reponses (user_id, position_id, inclinaison_id, enonce, nom, abreviation, schema1_angle, schema1_inclinaison, schema2_angle, schema2_inclinaison, schema3_id, schema4_id, corr_nom, corr_abreviation, corr_schema1_angle, corr_schema1_inclinaison, corr_schema2_angle, corr_schema2_inclinaison, corr_schema3_id, corr_schema4_id, remarque_nom, remarque_abreviation, remarque_schema1_angle, remarque_schema1_inclinaison, remarque_schema2_angle, remarque_schema2_inclinaison, remarque_schema3_id, remarque_schema4_id, dificulte) VALUES ($1, $2, $3, $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29) RETURNING *",
+      "INSERT INTO reponses (user_id, position_id, inclinaison_id, enonce, nom, abreviation, schema1_angle, schema1_inclinaison, schema2_angle, schema2_inclinaison, schema3_id, schema4_id, corr_nom, corr_abreviation, corr_schema1_angle, corr_schema1_inclinaison, corr_schema2_angle, corr_schema2_inclinaison, corr_schema3_id, corr_schema4_id, difficulte, remarque_nom, remarque_abreviation, remarque_schema1_angle, remarque_schema1_inclinaison, remarque_schema2_angle, remarque_schema2_inclinaison, remarque_schema3_id, remarque_schema4_id) VALUES ($1, $2, $3, $4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29) RETURNING *",
       [
-        ,
         req.body.user_id,
         req.body.position_id,
         req.body.inclinaison_id,
@@ -131,10 +130,16 @@ router.post("/upload", async (req, res) => {
         req.body.remarque_schema4_id,
       ]
     );
-
-    return res.json({ Succes: true, reponse: newReponse.rows[0] });
+    console.log("Nouvelle réponse ajoutée !");
+    if (!res.headersSent) {
+      return res.json({ Succes: true, reponse: newReponse.rows[0] });
+    }
   } catch (error) {
-    return res.json({ Succes: false, status: error.message });
+    if (!res.headersSent) {
+      return res.json({ Succes: false, status: error.message });
+    }else {
+      console.error("Headers already sent. Error: ", error.message);
+    }
   }
 });
 

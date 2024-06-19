@@ -4,7 +4,7 @@ const formSchemaReponse = Yup.object().shape({
     user_id: Yup.number().integer().required("user_id requis").min(0, "user_id doit être suppérieur ou égale à 0"),
     position_id: Yup.number().integer().required("position_id requis").min(0, "position_id doit être suppérieur ou égale à 0"),
     inclinaison_id: Yup.number().integer().required("inclinaison_id requis").min(0, "inclinaison_id doit être suppérieur ou égale à 0"),
-    enonce: Yup.string().required("Ennoncé requis").min(6, "L'ennoncé doit contenir au moins 6 caractères").max(60, "L'ennoncé doit contenir au plus 60 caractères"),  
+    enonce: Yup.string().required("Ennoncé requis").min(1, "L'ennoncé doit contenir au moins 1 caractères").max(60, "L'ennoncé doit contenir au plus 60 caractères"),  
     nom: Yup.string().required("Nom répondu requis").min(0, "Le nom répondu doit contenir au moins 6 caractères").max(60, "Le nom de la position doit contenir au plus 60 caractères"),  
     abreviation: Yup.string().required("Abréviation répondue requise").min(1, "L'abréviation répondue doit contenir au moins 1 caractères").max(10, "L'abréviation répondue doit contenir au plus 10 caractères"),
     schema1_angle: Yup.number().integer().required("angle du schema1 répondu requis").min(0, "l'angle du schema1 répondu doit être suppérieur ou égale à 0").max(361, "L'angle répondu du schema1 doit être inférieur ou égale à 360"),
@@ -21,6 +21,7 @@ const formSchemaReponse = Yup.object().shape({
     corr_schema2_inclinaison: Yup.boolean(),
     corr_schema3_id: Yup.boolean(),
     corr_schema4_id: Yup.boolean(),
+    difficulte: Yup.number().integer().required("La difficulté de la réponse est requise").min(0, "La difficulté doit être 1(facile) ou 2(difficile)").max(3, "La difficulté doit être 1(facile) ou 2(difficile)"),
     remarque_nom: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),  
     remarque_abreviation: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
     remarque_schema1_angle: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
@@ -28,8 +29,7 @@ const formSchemaReponse = Yup.object().shape({
     remarque_schema2_angle: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
     remarque_schema2_inclinaison: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
     remarque_schema3_id: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
-    remarque_schema4_id: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères"),
-    difficulte: Yup.number().integer().required("La difficulté de la réponse est requise").min(1, "La difficulté doit être 1(facile) ou 2(difficile)").max(2, "La difficulté doit être 1(facile) ou 2(difficile)")
+    remarque_schema4_id: Yup.string().max(250, "La remarque doit contenir au plus 60 caractères")
 });
 
 const validateFormReponse = async (req, res, next) => {

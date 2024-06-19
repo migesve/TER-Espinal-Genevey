@@ -11,7 +11,6 @@ router
             'SELECT * FROM schema4',
             []
         );
-        console.log(listeSchema4.rows);
 
         if (listeSchema4.rowCount > 0) {
             return res.json({ Succes: true, schemas4: listeSchema4.rows });
@@ -36,7 +35,6 @@ router
                 'SELECT * FROM schema4 WHERE position_id = $1 AND inclinaison_id = $2',
                 [req.params.position_id, req.params.inclinaison_id]
             );
-            console.log(listeSchema4.rows);
 
             if (listeSchema4.rowCount > 0) {
                 return res.json({ Succes: true, Schemas4: listeSchema4.rows });
@@ -66,7 +64,6 @@ router
                 'SELECT * FROM schema4 WHERE inclinaison_id = $1 ORDER BY position_id ASC',
                 [req.params.inclinaison_id]
             );
-            console.log(listeSchema4.rows);
 
             if (listeSchema4.rowCount > 0) {
                 return res.json({ Succes: true, Schemas4: listeSchema4.rows });
