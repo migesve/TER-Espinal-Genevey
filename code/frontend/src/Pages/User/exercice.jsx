@@ -154,59 +154,59 @@ export function Exercice() {
 
       // envoyer dans la base de données
       // try {
-      //   const response = await fetch("http://localhost:4000/reponses/upload", {
-      //     method: "POST",
-      //     credentials: "include", // to allow cookies
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       user_id: user.id,
-      //       position_id: enonce.position,
-      //       inclinaison_id: enonce.inclinaison,
-      //       enonce: enonce.representation,
-      //       nom: reponseNom,
-      //       abreviation: reponseSigle,
-      //       schema1_angle: Math.round(reponseSchema1.angle),
-      //       schema1_inclinaison: 1, 
-      //       schema2_angle: Math.round(reponseSchema2.angle),
-      //       schema2_inclinaison: 1, // a verifier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //       schema3_id: reponseSchema3.schema3_id,
-      //       schema4_id: 1,
-      //       corr_nom: true,
-      //       corr_abreviation: true,
-      //       corr_schema1_angle: true,
-      //       corr_schema1_inclinaison: true,
-      //       corr_schema2_angle: true,
-      //       corr_schema2_inclinaison: true,
-      //       corr_schema3_id: true,
-      //       corr_schema4_id: true,
-      //       difficulte: 1,
-      //       remarque_nom: "",
-      //       remarque_abreviation: "",
-      //       remarque_schema1_angle: "",
-      //       remarque_schema1_inclinaison: "",
-      //       remarque_schema2_angle: "",
-      //       remarque_schema2_inclinaison: "",
-      //       remarque_schema3_id: "",
-      //       remarque_schema4_id: "",
-      //     }),
-      //   });
+        const response = await fetch("http://localhost:4000/reponses/upload", {
+          method: "POST",
+          credentials: "include", // to allow cookies
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            position_id: enonce.position,
+            inclinaison_id: enonce.inclinaison,
+            enonce: enonce.representation,
+            nom: reponseNom,
+            abreviation: reponseSigle,
+            schema1_angle: Math.round(reponseSchema1.angle),
+            schema1_inclinaison: 1, 
+            schema2_angle: Math.round(reponseSchema2.angle),
+            schema2_inclinaison: 1, // a verifier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            schema3_id: reponseSchema3.schema3_id,
+            schema4_id: 1,
+            corr_nom: true,
+            corr_abreviation: true,
+            corr_schema1_angle: true,
+            corr_schema1_inclinaison: true,
+            corr_schema2_angle: true,
+            corr_schema2_inclinaison: true,
+            corr_schema3_id: true,
+            corr_schema4_id: true,
+            difficulte: 1,
+            remarque_nom: "",
+            remarque_abreviation: "",
+            remarque_schema1_angle: "",
+            remarque_schema1_inclinaison: "",
+            remarque_schema2_angle: "",
+            remarque_schema2_inclinaison: "",
+            remarque_schema3_id: "",
+            remarque_schema4_id: "",
+          }),
+        });
 
-      //   if (!response.ok) {
-      //     const errorData = await response.json();
-      //     setError(errorData.error || errorData.status || "An error occurred");
-      //     return;
-      //   }
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.error || errorData.status || "An error occurred");
+          return;
+        }
 
-      //   const responseData = await response.json();
+        const responseData = await response.json();
 
-      //   if (responseData.LoggedIn) {
-      //     setSuccess(true);
-      //     //navigate('/');
-      //   } else {
-      //     setError(responseData.status);
-      //   }
+        if (responseData.LoggedIn) {
+          setSuccess(true);
+          //navigate('/');
+        } else {
+          setError(responseData.status);
+        }
       // } catch (error) {
       //   console.error("Error:", error);
       //   setError("An unexpected error occurred");
