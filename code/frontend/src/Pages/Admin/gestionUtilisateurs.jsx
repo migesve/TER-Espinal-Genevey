@@ -63,20 +63,7 @@ export function Gestion() {
         row.username === username ? { ...row, statut } : row
       );
       setData(updatedData);
-  
-      const element = document.querySelector(`div #${username+"P"}`);
-      const btn1 = document.querySelector(`#${username+"BtnE"}`);
-      const btn2 = document.querySelector(`#${username+"BtnA"}`);
-      element.innerHTML = `<strong>${result.user.statut}</strong>`;
-      
-      if (statut === "Professeur") {
-        btn1 && btn1.remove();
-      }
-      if (statut === "Admin") {
-        btn1 && btn1.remove();
-        btn2 && btn2.remove();
-      }
-  
+ 
       setError(null);
     } catch (error) {
       console.error('Error:', error);
