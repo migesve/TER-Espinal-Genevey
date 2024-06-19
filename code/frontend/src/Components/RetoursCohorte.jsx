@@ -52,7 +52,7 @@ export const RetoursCohorte = ({cohorte}) => {
             }
         };
         fetchData();
-    }, []);
+    }, [cohorte]);
 
     useEffect(() => {
         let positions = [{ faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 }, { faux: 0, total: 0 },];
