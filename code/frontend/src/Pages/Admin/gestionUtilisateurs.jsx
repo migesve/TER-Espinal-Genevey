@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "../../Components/Button";
 import { useNavigate } from 'react-router-dom';
 import { AccountContext } from "../../Components/AccountContext";
@@ -27,7 +26,13 @@ export function Gestion() {
         }
 
         const donnees = await response.json();
-        setData(donnees.users.rows);
+        console.log('Fetched data:', donnees); // Log the fetched data for debugging
+
+        if (donnees && Array.isArray(donnees.users)) {
+          setData(donnees.users);
+        } else {
+          setError('Invalid data structure');
+        }
       } catch (err) {
         console.error('Error fetching data:', err);
         setError('An unexpected error occurred');
@@ -54,25 +59,25 @@ export function Gestion() {
       }
   
       const result = await response.json();
-      data[data.findIndex((row) => row.username === username)].statut = statut;
-      const element=document.querySelector(`div #${username+"P"}`);
-      const btn1=document.querySelector(`#${username+"BtnE"}`);
-      const btn2=document.querySelector(`#${username+"BtnA"}`);
-      element.innerHTML=`<strong>${result.user.statut}</strong>`;
+      const updatedData = data.map((row) => 
+        row.username === username ? { ...row, statut } : row
+      );
+      setData(updatedData);
+  
+      const element = document.querySelector(`div #${username+"P"}`);
+      const btn1 = document.querySelector(`#${username+"BtnE"}`);
+      const btn2 = document.querySelector(`#${username+"BtnA"}`);
+      element.innerHTML = `<strong>${result.user.statut}</strong>`;
       
-      if(statut=="Professeur"){
-        btn1.remove();
+      if (statut === "Professeur") {
+        btn1 && btn1.remove();
       }
-      if(statut=="Admin"){
-        if(btn1){
-          btn1.remove();
-        }
-        btn2.remove();
+      if (statut === "Admin") {
+        btn1 && btn1.remove();
+        btn2 && btn2.remove();
       }
   
-      // Optionally clear the error and show success message
       setError(null);
-      // You can also add a state to show success message or update UI accordingly
     } catch (error) {
       console.error('Error:', error);
       setError('An unexpected error occurred');
@@ -94,16 +99,16 @@ export function Gestion() {
         {data.map((row) => (
           <div key={row.username} id={row.username} className='flex items-center mb-4 p-2 bg-white shadow-md rounded-lg justify-between'>
             <div>
-            <p className="w-fit self-center text-2xl font-semibold text-black"><strong>{row.username}</strong></p>
-            <p id={row.username+"P"} className=" w-fit self-center text-lg font-semibold text-black"><strong>{row.statut}</strong></p>
+              <p className="w-fit self-center text-lg text-black">{row.username}</p>
+              <p id={row.username+"P"} className="w-fit self-center text-black">{row.statut}</p>
             </div>
             <div className='flex space-x-3'>
-            {(['Admin', 'Professeur'].includes(user.statut) && row.statut=="étudiant") && (
-              <Button id={row.username+"BtnE"} onClick={() => onsubmit(row.username, "Professeur")} text="Passer Enseignent" />
-            )}
-            {(user.statut === "Admin" && ["étudiant","Professeur"].includes(row.statut)&&row.statut!=="Admin") && (
-              <Button id={row.username+"BtnA"} onClick={() => onsubmit(row.username, "Admin")} text="Passer Administrateur" />
-            )}
+              {(['Admin', 'Professeur'].includes(user.statut) && row.statut === "étudiant") && (
+                <Button id={row.username+"BtnE"} onClick={() => onsubmit(row.username, "Professeur")} text="Passer Enseignant" />
+              )}
+              {(user.statut === "Admin" && ["étudiant","Professeur"].includes(row.statut) && row.statut !== "Admin") && (
+                <Button id={row.username+"BtnA"} onClick={() => onsubmit(row.username, "Admin")} text="Passer Administrateur" />
+              )}
             </div>
           </div>
         ))}
@@ -113,7 +118,6 @@ export function Gestion() {
 
   return (
     <>
-      
       <h1>Liste des utilisateurs</h1>
       {renderDataGrid()}
     </>

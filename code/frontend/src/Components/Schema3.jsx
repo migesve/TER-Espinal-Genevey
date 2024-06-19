@@ -172,7 +172,7 @@ export function Schema3({ display, type }) {
       <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center justify-center">
-          <div className="relative mx-auto w-96 h-96 flex justify-center items-center">
+          <div className="relative mx-auto w-52 h-52 flex justify-center items-center">
             <img
               src="src/images/schema3/bassinSchema3.PNG"
               alt="Bassin"
@@ -197,7 +197,7 @@ export function Schema3({ display, type }) {
       <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center justify-center">
-          <div className="relative mx-auto w-96 h-96 flex justify-center items-center">
+          <div className="relative mx-auto w-52 h-52 flex justify-center items-center">
             <img
               src="src/images/schema3/bassinSchema3.PNG"
               alt="Bassin"

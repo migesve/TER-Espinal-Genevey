@@ -198,7 +198,7 @@ export const RetoursCohorte = ({cohorte}) => {
 
     return (
         <>
-            <section className="flex flex-col w-full items-center gap-1 p-4 m-5 border border-gray-200">
+            <section className="flex flex-col w-full items-center gap-1 p-4 m-5">
                 <h4 className="font-bold text-3xl text-black">Résultats de la cohorte : {cohorte}</h4>
                 <div className='w-full my-12'>
                 {statPosFacile && (<ReactEChartsCore

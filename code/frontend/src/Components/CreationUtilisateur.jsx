@@ -86,7 +86,6 @@ export const CreationUtilisateur = () => {
             <GrLogin />
             Enregister
           </button>
-          <button onClick={() => navigate('/')} className="flex items-center gap-1 p-5 my-5 font-semibold ">Connection</button>
         </div>
       </form>
     </FormProvider>
