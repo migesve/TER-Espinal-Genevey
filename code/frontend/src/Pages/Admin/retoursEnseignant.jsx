@@ -79,9 +79,9 @@ export function RetoursEnseignant() {
 
     return (
         <>
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-start space-x-4 overflow-x-auto whitespace-nowrap py-2">
                 {cohortes.map((cohorte) => (
-                    <Button key={cohorte.cohorte} onClick={() => onClick(cohorte.cohorte)} text={cohorte.cohorte} />
+                    <Button key={cohorte.cohorte} onClick={() => onClick(cohorte.cohorte)} text={cohorte.cohorte} snap="snap-start"/>
                 ))}
             </div>
             <h1>Statistiques</h1>
