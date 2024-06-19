@@ -77,7 +77,7 @@ export function Sets() {
     <>
       <div className="flex justify-center space-x-4">
         <Button onClick={ () => navigate('/saisieSet') } text="Créer un set" />
-        <Button onClick={ () => navigate('/creerExercice') } text="Créer un exercice" />
+        {/* <Button onClick={ () => navigate('/creerExercice') } text="Créer un exercice" /> */}
       </div>
       <h1>Sets existents</h1>
       {renderDataGrid()}

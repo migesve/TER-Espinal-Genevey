@@ -69,7 +69,7 @@ export const Login = () => {
           <Input {...email_validation} />
           <Input {...password_validation} />
         </div>
-        <div className="mt-5">
+        <div className="flex mt-5 justify-between">
           {success && (
             <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
               <BsFillCheckSquareFill />
@@ -77,10 +77,10 @@ export const Login = () => {
             </p>
           )}
           <Button onClick={onSubmit} text="Login" icon={GrLogin} />
-          <Button
+          {/* <Button
             onClick={() => navigate("/creerCompte")}
             text="Créer un compte"
-          />
+          /> */}
         </div>
       </form>
     </FormProvider>
