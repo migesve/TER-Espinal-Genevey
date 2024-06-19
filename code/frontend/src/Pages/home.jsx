@@ -57,19 +57,20 @@ export function Home() {
     );
   } else {
     content = (
-      <Button
-        onClick={() => navigate("/login")}
-        text="Login ou Créer un compte"
-      />
+      <div className="flex space-x-4 text-left">
+        <Button onClick={() => navigate("/login")} text="Login" />
+        <Button
+          onClick={() => navigate("/creerCompte")}
+          text="Créer un compte"
+        />
+      </div>
     );
   }
   return (
     <>
       <h1>Maieutique</h1>
       <h2>App pour apprendre les positions de la tête</h2>
-      <div className="flex mx-auto p-4 justify-center">
-        {content}
-      </div>
+      <div className="flex mx-auto p-4 justify-center">{content}</div>
     </>
   );
 }

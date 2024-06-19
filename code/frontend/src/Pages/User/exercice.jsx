@@ -168,12 +168,12 @@ export function Exercice() {
             nom: reponseNom,
             abreviation: reponseSigle,
             schema1_angle: Math.round(reponseSchema1.angle),
-            schema1_inclinaison: 1, 
+            schema1_inclinaison: 1, // a verifier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             schema2_angle: Math.round(reponseSchema2.angle),
             schema2_inclinaison: 1, // a verifier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             schema3_id: reponseSchema3.schema3_id,
             schema4_id: 1,
-            corr_nom: true,
+            corr_nom: true,   // et tout ca aussi 
             corr_abreviation: true,
             corr_schema1_angle: true,
             corr_schema1_inclinaison: true,
