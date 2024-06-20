@@ -8,7 +8,7 @@
 - Couleurs boutons en rouge les réponses incorrectes et vert correctes
 - Tableau pour relier les positions avec leur nom 
 - ~~Partogramm pour schema Très simplifié~~
-- Schema 4 l'appeler Schema en vue transversale
+- ~~Schema 4 l'appeler Schema en vue transversale~~
 
 - Espace de messages d'annonce pour les remarques
 - À faire serveur 
