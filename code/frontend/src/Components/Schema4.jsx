@@ -22,7 +22,7 @@ export function Schema4({ display, enonce: enonceProp }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (enonce?.representation !== "Schéma très réaliste") {
+        if (enonce?.representation !== "Schéma en vue transversale") {
           const promises = [1, 2].map((i) =>
             fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
               method: "GET",
@@ -122,12 +122,12 @@ export function Schema4({ display, enonce: enonceProp }) {
     return <div>Error: {error}</div>;
   }
 
-  if (enonce.representation === "Schéma très réaliste" && enonceSchema4) {
+  if (enonce.representation === "Schéma en vue transversale" && enonceSchema4) {
     return (
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
       >
-        <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
+        <h4 className="font-semibold text-xl">Schéma en vue transversale</h4>
         <div className="flex items-center">
           <img
             src={enonceSchema4.image_path}
@@ -157,7 +157,7 @@ export function Schema4({ display, enonce: enonceProp }) {
       <section
         className={`${display} flex-col items-center gap-1 p-4 m-5 border border-gray-200`}
       >
-        <h4 className="font-semibold text-xl">Schéma très réaliste</h4>
+        <h4 className="font-semibold text-xl">Schéma en vue transversale</h4>
         <div className="flex items-center">
           <div className="flex flex-col items-center gap-1">
             <Button

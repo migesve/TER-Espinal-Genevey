@@ -109,7 +109,7 @@ export function Exercice() {
       "Partogramme",
       "Schéma simplifié",
       "Schéma en vue antérieure",
-      // "Schéma très réaliste",
+      // "Schéma en vue transversale",
     ];
   } else {
     buttonsArea = "grid md:grid-cols-3 space-x-2";
@@ -331,7 +331,7 @@ export function Exercice() {
                 (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
                 (type === "Schéma en vue antérieure" &&
                   schema3EstModifie >= 5) ||
-                (type === "Schéma très réaliste" && schema4EstModifie >= 5)
+                (type === "Schéma en vue transversale" && schema4EstModifie >= 5)
                   ? FaCheck
                   : null
               }
@@ -384,7 +384,7 @@ export function Exercice() {
                 type="reponse"
               />
               {/* <Schema4
-              display={view === "Schéma très réaliste" ? "flex" : "hidden"}
+              display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
             /> */}
             </div>
           </div>
@@ -424,7 +424,7 @@ export function Exercice() {
                 type="retour"
               />
               {/* <Schema4
-            display={view === "Schéma très réaliste" ? "flex" : "hidden"}
+            display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
             /> */}
             </div>
           </div>
