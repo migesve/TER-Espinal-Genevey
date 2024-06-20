@@ -106,14 +106,14 @@ export function Exercice() {
     typesRepresentation = [
       "Nom",
       "Sigle",
-      "Schéma très simplifié",
+      "Partogramme",
       "Schéma simplifié",
       "Schéma en vue antérieure",
       // "Schéma très réaliste",
     ];
   } else {
     buttonsArea = "grid md:grid-cols-3 space-x-2";
-    typesRepresentation = ["Nom", "Sigle", "Schéma très simplifié"];
+    typesRepresentation = ["Nom", "Sigle", "Partogramme"];
   }
 
   useEffect(() => {
@@ -327,7 +327,7 @@ export function Exercice() {
               icon={
                 (type === "Nom" && nomEstModifie === true) ||
                 (type === "Sigle" && sigleEstModifie === true) ||
-                (type === "Schéma très simplifié" && schema1EstModifie >= 3) ||
+                (type === "Partogramme" && schema1EstModifie >= 3) ||
                 (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
                 (type === "Schéma en vue antérieure" &&
                   schema3EstModifie >= 5) ||
@@ -368,7 +368,7 @@ export function Exercice() {
                 type="reponse"
               />
               <Schema1
-                display={view === "Schéma très simplifié" ? "flex" : "hidden"}
+                display={view === "Partogramme" ? "flex" : "hidden"}
                 schema={1}
                 type="reponse"
               />
@@ -408,7 +408,7 @@ export function Exercice() {
                 type="retour"
               />
               <Schema1
-                display={view === "Schéma très simplifié" ? "flex" : "hidden"}
+                display={view === "Partogramme" ? "flex" : "hidden"}
                 schema={1}
                 type="retour"
               />
