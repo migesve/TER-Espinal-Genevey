@@ -4,18 +4,31 @@
 [Lien BD](https://dbdiagram.io/d/BD-Maieutique-65d33717ac844320ae779687)
 
 ## TO DO
-- Deprecated to miges.fr/index/trello
-  
-- Creer la base de donnees et formulaire en ligne
-- Programmer l'interface en code code
+- Navigations des corrections
+- Couleurs boutons en rouge les réponses incorrectes et vert correctes
+- Tableau pour relier les positions avec leur nom 
+- ~~Partogramm pour schema Très simplifié~~
+- Schema 4 l'appeler Schema en vue transversale
 
-## Deja fait
-- Deprecated to miges.fr/index/trello
-  
-- Ameliorer l'interface figma
-- BD valide pour RDV 18 mars
-- Maquette "backend" RDV 18 mars
-- Lire les documents pour la soutenance RDV 18 mars
+- Espace de messages d'annonce pour les remarques
+- À faire serveur 
+- Améliorer manuel utilisateur para modifier images et d'autres
+- Laisser vide quand pas de réponse, les images des schémas et pq pas le nom et sigles 
+- Verification Au moment de créer compte renvoyer vers home ou pb de userloggedin
+- Jaune dans une autre représentation et pas le bon énoncé
+- ~~Explications home~~ 
+- ~~Écrire énoncé au lieu de réponse pour l'énoncé de chaque réponse~~
+- ~~Changer titres sliders degrés de flexion mettre inclinaison~~
+- ~~Enlever la barre d'inclinaison quand c'est l'énoncé~~
+- ~~Logout en français pas en anglais~~
+- ~~"Sets existants" avec A en tants~~
+- ~~Saisir sets~~
+- ~~Creer la base de donnees et formulaire en ligne~~
+- ~~Programmer l'interface en code code~~
+- ~~Ameliorer l'interface figma~~
+- ~~BD valide pour RDV 18 mars~~
+- ~~Maquette "backend" RDV 18 mars~~
+- ~~Lire les documents pour la soutenance RDV 18 mars~~
   
 ## Questions
 - Toutes les inclinaitions pour toutes les position
@@ -24,6 +37,9 @@
 ## Semaine 13/05/2024
 - Hebergement chez nova - gricad
 - Ajout de react-select et mui react data-grid
+
+## Soutenance et RDV avec Lucile Vadcard et Lionel Di Marco 20/06/2024
+- Tableau pour relier les differents representations et corregir sur l'appli
 
 ## RDV Lucile Vadcard 07/05/2024
 - 5 sets par exercice, 5 exercices par session - MODIFIER SI C'EST TROP PROBABLE DE TOMBER SUR LES MEMES SETS TOUT LE TEMPS
