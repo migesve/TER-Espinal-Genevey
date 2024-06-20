@@ -23,17 +23,12 @@
 - ~~Logout en français pas en anglais~~
 - ~~"Sets existants" avec A en tants~~
 - ~~Saisir sets~~
-  
-- Creer la base de donnees et formulaire en ligne
-- Programmer l'interface en code code
-
-## Deja fait
-- Deprecated to miges.fr/index/trello
-  
-- Ameliorer l'interface figma
-- BD valide pour RDV 18 mars
-- Maquette "backend" RDV 18 mars
-- Lire les documents pour la soutenance RDV 18 mars
+- ~~Creer la base de donnees et formulaire en ligne~~
+- ~~Programmer l'interface en code code~~
+- ~~Ameliorer l'interface figma~~
+- ~~BD valide pour RDV 18 mars~~
+- ~~Maquette "backend" RDV 18 mars~~
+- ~~Lire les documents pour la soutenance RDV 18 mars~~
   
 ## Questions
 - Toutes les inclinaitions pour toutes les position
