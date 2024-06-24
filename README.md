@@ -4,18 +4,17 @@
 [Lien BD](https://dbdiagram.io/d/BD-Maieutique-65d33717ac844320ae779687)
 
 ## TO DO
-- Navigations des corrections
-- Couleurs boutons en rouge les réponses incorrectes et vert correctes
-- Tableau pour relier les positions avec leur nom 
+- ~~Navigations des corrections~~
+- ~~Couleurs boutons en rouge les réponses incorrectes et vert correctes~~
+- ~~Tableau pour relier les positions avec leur nom~~
 - ~~Partogramm pour schema Très simplifié~~
 - ~~Schema 4 l'appeler Schema en vue transversale~~
-
-- Espace de messages d'annonce pour les remarques
-- À faire serveur 
-- Améliorer manuel utilisateur para modifier images et d'autres
-- Laisser vide quand pas de réponse, les images des schémas et pq pas le nom et sigles 
-- Verification Au moment de créer compte renvoyer vers home ou pb de userloggedin
-- Jaune dans une autre représentation et pas le bon énoncé
+- ~~Espace de messages d'annonce pour les remarques~~
+- ~~À faire serveur~~
+- ~~Améliorer manuel utilisateur para modifier images et d'autres~~
+- ~~Laisser vide quand pas de réponse, les images des schémas et pq pas le nom et sigles~~ 
+- ~~Verification Au moment de créer compte renvoyer vers home ou pb de userloggedin~~
+- ~~Jaune dans une autre représentation et pas le bon énoncé~~
 - ~~Explications home~~ 
 - ~~Écrire énoncé au lieu de réponse pour l'énoncé de chaque réponse~~
 - ~~Changer titres sliders degrés de flexion mettre inclinaison~~
