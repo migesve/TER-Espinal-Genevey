@@ -43,9 +43,9 @@ export function Schema4({ display, type }) {
             setError(data1.status || data2.status);
             return;
           }
-          setListeSchema4Pos1(data1.Schemas3);
-          setListeSchema4Pos2(data2.Schemas3);
-          setListeSchema4selectionnee(data1.Schemas3);
+          setListeSchema4Pos1(data1.Schemas4);
+          setListeSchema4Pos2(data2.Schemas4);
+          setListeSchema4selectionnee(data1.Schemas4);
         } else if (enonce?.retour && type === "reponse") {
           if (!enonce.answersValues) {
             enonce.answersValues = {};
@@ -76,7 +76,7 @@ export function Schema4({ display, type }) {
             return;
           }
           setEnonceSchema4(
-            data.Schemas3[Math.floor(Math.random() * data.Schemas3.length)]
+            data.Schemas4[Math.floor(Math.random() * data.Schemas4.length)]
           );
         } else {
           const response = await fetch(
@@ -97,7 +97,7 @@ export function Schema4({ display, type }) {
             return;
           }
           setEnonceSchema4(
-            data.Schemas3[Math.floor(Math.random() * data.Schemas3.length)]
+            data.Schemas4[Math.floor(Math.random() * data.Schemas4.length)]
           );
         }
       } catch (err) {
