@@ -110,7 +110,7 @@ export function Exercice() {
       "Partogramme",
       "Schéma simplifié",
       "Schéma en vue antérieure",
-      // "Schéma en vue transversale",
+      "Schéma en vue transversale",
     ];
   } else {
     buttonsArea = "grid md:grid-cols-3 space-x-2";
@@ -235,7 +235,7 @@ export function Exercice() {
         setReponseSchema1(null);
         setReponseSchema2(null);
         setReponseSchema3(null);
-        // setReponseSchema4(null);
+        setReponseSchema4(null);
         setNomEstModifie(false);
         setSigleEstModifie(false);
         setSchema1EstModifie(0);
@@ -254,7 +254,7 @@ export function Exercice() {
         reponseSchema1: reponseSchema1,
         reponseSchema2: reponseSchema2,
         reponseSchema3: reponseSchema3,
-        // reponseSchema4,
+        reponseSchema4,
       });
 
       // localStorage.setItem(
@@ -268,7 +268,7 @@ export function Exercice() {
     reponseSchema1,
     reponseSchema2,
     reponseSchema3,
-    // reponseSchema4,
+    reponseSchema4,
     indexQuestion,
     difficulte,
   ]);
@@ -296,8 +296,8 @@ export function Exercice() {
           setReponseSchema2,
           reponseSchema3,
           setReponseSchema3,
-          // reponseSchema4,
-          // setReponseSchema4,
+          reponseSchema4,
+          setReponseSchema4,
           sigleEstModifie,
           setSigleEstModifie,
           nomEstModifie,
@@ -384,9 +384,9 @@ export function Exercice() {
                 }
                 type="reponse"
               />
-              {/* <Schema4
+              {<Schema4
               display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
-            /> */}
+            />}
             </div>
           </div>
           <div
@@ -424,9 +424,9 @@ export function Exercice() {
                 }
                 type="retour"
               />
-              {/* <Schema4
+              {<Schema4
             display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
-            /> */}
+            />}
             </div>
           </div>
         </div>
