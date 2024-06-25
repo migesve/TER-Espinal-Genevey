@@ -5,14 +5,14 @@ import { Button } from "../../Components/Button";
 import { Schema1 } from "../../Components/Schema1";
 import { Schema2 } from "../../Components/Schema2";
 import { Schema3 } from "../../Components/Schema3";
-// import { Schema4 } from "../../Components/Schema4";
+import { Schema4 } from "../../Components/Schema4";
 import { NomPosition } from "../../Components/NomPosition";
 import { Sigle } from "../../Components/Sigle";
 import {
   fetchDataPosition,
   fetchDataInclinaison,
-  // fetchDataSchema3,
-  // fetchDataSchema4,
+  fetchDataSchema3,
+  fetchDataSchema4,
 } from "../../utils/fetchData";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
