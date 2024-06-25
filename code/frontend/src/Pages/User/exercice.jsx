@@ -31,8 +31,8 @@ export const ContextReponses = createContext({
   setReponseSchema2: () => {},
   reponseSchema3: null,
   setReponseSchema3: () => {},
-  // reponseSchema4: null,
-  // setReponseSchema4: () => {},
+  reponseSchema4: null,
+  setReponseSchema4: () => {},
   nomEstModifie: false,
   setNomEstModifie: () => {},
   sigleEstModifie: false,
@@ -79,7 +79,7 @@ export function Exercice() {
     inclinaison: null,
   });
   const [reponseSchema3, setReponseSchema3] = useState(null);
-  // const [reponseSchema4, setReponseSchema4] = useState(null);
+  const [reponseSchema4, setReponseSchema4] = useState(null);
   const [nomEstModifie, setNomEstModifie] = useState(false);
   const [sigleEstModifie, setSigleEstModifie] = useState(false);
   const [schema1EstModifie, setSchema1EstModifie] = useState(0);
@@ -94,7 +94,8 @@ export function Exercice() {
     reponseSchema1: { angle: 361, inclinaison: 361 },
     reponseSchema2: { angle: 361, inclinaison: 361 },
     reponseSchema3: { schema3_id: 361 },
-    // reponseSchema4,
+    reponseSchema4: { schema4_id: 361 
+    },
   });
 
   const [message, setMessage] = useState(false);

@@ -67,7 +67,7 @@ export const choixEnonce = (
       objet.representation= "Schéma en vue antérieure";
       break;
     case 5:
-      objet.representation= "Schéma très réaliste"
+      objet.representation= "Schéma en vue transversale"
       break;
     default:
       objet.representation= "Nom";
