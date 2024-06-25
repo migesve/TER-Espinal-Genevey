@@ -147,8 +147,8 @@ export const Rotation = ({ schema }) => {
         <div className="mb-2">Inclinaison</div>
         <Slider
           min={-10}
-          max={10}
-          value={inclinaison}
+          max={30}
+          defaultValue={10}
           onChange={handleSliderChange}
           className="z-50 max-h-[200px]"
           vertical={true}

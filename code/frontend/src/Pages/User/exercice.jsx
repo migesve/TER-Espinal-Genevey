@@ -103,7 +103,7 @@ export function Exercice() {
   var buttonsArea = "flex justify-between";
   var typesRepresentation = [];
   if (difficulte == 1) {
-    buttonsArea = "grid p-4 md:grid-cols-5 space-x-2"; //grid-cols-6 si on est avec 6 representations
+    buttonsArea = "grid p-4 md:grid-cols-6 space-x-2"; //grid-cols-6 si on est avec 6 representations
     typesRepresentation = [
       "Nom",
       "Sigle",
