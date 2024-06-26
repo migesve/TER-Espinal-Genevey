@@ -169,7 +169,7 @@ export function Schema4({ display, type }) {
     enonce?.retour
   ) {
     return (
-      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
+      <section className={`${display} flex flex-col items-center gap-1`}>
         <h4 className="font-semibold text-xl">Schéma en vue transversale</h4>
         <div className="flex items-center justify-center">
           <div className="relative mx-auto w-52 h-52 flex justify-center items-center">
@@ -194,7 +194,7 @@ export function Schema4({ display, type }) {
     enonce?.answersValues?.reponseSchema4
   ) {
     return (
-      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
+      <section className={`${display} flex flex-col items-center gap-1`}>
         <h4 className="font-semibold text-xl">Schéma en vue transversale</h4>
         <div className="flex items-center justify-center">
           <div className="relative mx-auto w-52 h-52 flex justify-center items-center">
@@ -216,7 +216,7 @@ export function Schema4({ display, type }) {
     );
   } else if (listeSchema4selectionnee.length > 0) {
     return (
-      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
+      <section className={`${display} flex flex-col items-center gap-1`}>
         <h4 className="font-semibold text-xl">Schéma en vue transversale</h4>
         <div className="flex items-center justify-center">
           <div className="flex flex-col items-center gap-1">

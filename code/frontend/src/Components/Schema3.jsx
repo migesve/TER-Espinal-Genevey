@@ -164,12 +164,14 @@ export function Schema3({ display, type }) {
   }
 
   if (
-    (enonce?.representation === "Schéma en vue antérieure" &&
-      enonceSchema3) ||
+    // When schema 3 is enonce or retour
+    (enonce?.representation === "Schéma en vue antérieure" && enonceSchema3) ||
     enonce?.retour
   ) {
     return (
-      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
+      <section
+        className={`${display} flex flex-col items-center gap-1`}
+      >
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center justify-center">
           <div className="relative mx-auto w-52 h-52 flex justify-center items-center">
@@ -190,11 +192,14 @@ export function Schema3({ display, type }) {
       </section>
     );
   } else if (
+    // When schema 3 is retour and answers were given
     enonce?.retour === true &&
     enonce?.answersValues?.reponseSchema3
   ) {
     return (
-      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
+      <section
+        className={`${display} flex flex-col items-center gap-1`}
+      >
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center justify-center">
           <div className="relative mx-auto w-52 h-52 flex justify-center items-center">
@@ -215,8 +220,11 @@ export function Schema3({ display, type }) {
       </section>
     );
   } else if (listeSchema3selectionnee.length > 0) {
+    // When schema 3 available for answering
     return (
-      <section className={`${display} flex flex-col items-center gap-1 p-4 m-5`}>
+      <section
+        className={`${display} flex flex-col items-center gap-1`}
+      >
         <h4 className="font-semibold text-xl">Schéma en vue antérieure</h4>
         <div className="flex items-center justify-center">
           <div className="flex flex-col items-center gap-1">
@@ -234,17 +242,17 @@ export function Schema3({ display, type }) {
               onClick={inclinaisonSuivante}
             />
           </div>
-          <div className="relative w-96 h-96 flex justify-center items-center">
+          <div className="relative w-96 h-72 flex justify-center items-center">
             <img
               src="src/images/schema3/bassinSchema3.PNG"
               alt="Bassin"
-              className="absolute h-96"
+              className="absolute h-72"
             />
             {listeSchema3selectionnee[index]?.image_path && (
               <img
                 src={listeSchema3selectionnee[index].image_path}
                 alt={listeSchema3selectionnee[index].image_name}
-                className="absolute h-96"
+                className="absolute h-72"
               />
             )}
           </div>

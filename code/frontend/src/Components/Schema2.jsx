@@ -9,7 +9,8 @@ export const Schema2 = ({ display, schema, type }) => {
 
   return (
     <>
-      <div className={`${display} flex-col items-center p-4`}>
+      <div className={`${display} flex-col items-center`}>
+        <h4 className="font-semibold text-xl">Schéma simplifié</h4>
         {enonce.representation === "Schéma simplifié" ||
         enonce?.retour === true ? (
           <FixedRotation schema={schema} type={type} />

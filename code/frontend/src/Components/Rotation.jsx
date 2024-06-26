@@ -1,14 +1,31 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { ContextReponses } from '../Pages/User/exercice';
+import { ContextReponses } from "../Pages/User/exercice";
 
 export const Rotation = ({ schema }) => {
   const [dragging, setDragging] = useState(false);
   const centerRef = useRef(null);
-  const radius = 20;
-  const { enonce, reponseSchema1, setReponseSchema1, reponseSchema2, setReponseSchema2, setSchema1EstModifie, setSchema2EstModifie } =
-    useContext(ContextReponses);
+  var radius = 20;
+  var min, max;
+  if (schema === 1) {
+    radius = 30;
+    min = -22;
+    max = 50;
+  } else {
+    radius = 20;
+    min = -10;
+    max = 35;
+  }
+  const {
+    enonce,
+    reponseSchema1,
+    setReponseSchema1,
+    reponseSchema2,
+    setReponseSchema2,
+    setSchema1EstModifie,
+    setSchema2EstModifie,
+  } = useContext(ContextReponses);
   const [angle, setAngle] = useState(0);
   const [inclinaison, setTranslateY] = useState(enonce.inclinaison);
 
@@ -71,12 +88,12 @@ export const Rotation = ({ schema }) => {
     const responseValue = { angle, inclinaison };
     if (schema === 1) {
       setReponseSchema1(responseValue);
-      setSchema1EstModifie((prev)=>prev+1);
+      setSchema1EstModifie((prev) => prev + 1);
     } else {
       setReponseSchema2(responseValue);
-      setSchema2EstModifie((prev)=>prev+1);
+      setSchema2EstModifie((prev) => prev + 1);
     }
-  }, [angle, inclinaison, schema, setReponseSchema1, setReponseSchema2]);
+  }, [angle, inclinaison, schema]); // , setReponseSchema1, setReponseSchema2
 
   const circleX = 50 + radius * Math.cos((angle * Math.PI) / 180);
   const circleY = 50 + radius * Math.sin((angle * Math.PI) / 180);
@@ -101,21 +118,22 @@ export const Rotation = ({ schema }) => {
     <div className="flex justify-between">
       <div className="relative w-72 h-72 mx-auto select-none" ref={centerRef}>
         <img
-          src= {bassin}
+          src={bassin}
           alt="Bassin"
           className={
             bassin === "simple"
               ? "hidden absolute w-full h-full origin-center transition-transform ease-out duration-100 z-40 pointer-events-none"
               : "absolute w-full h-full origin-center transition-transform ease-out duration-100 z-40 pointer-events-none"
-          } />
+          }
+        />
         <img
-          src= {teteNegative}
+          src={teteNegative}
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-30 pointer-events-none"
           style={{ transform: `rotate(${angle}deg)` }}
         />
         <img
-          src= {fontanelles}
+          src={fontanelles}
           alt="Fontanelles"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-20 pointer-events-auto"
           style={{
@@ -124,7 +142,7 @@ export const Rotation = ({ schema }) => {
           onMouseDown={handleMouseDown}
         />
         <img
-          src= {tete}
+          src={tete}
           alt="Tete"
           className="absolute w-full h-full origin-center transition-transform ease-out duration-100 z-10 pointer-events-none"
           style={{ transform: `rotate(${angle}deg)` }}
@@ -144,10 +162,10 @@ export const Rotation = ({ schema }) => {
         </svg>
       </div>
       <div className="relative flex flex-col items-center h-72 mx-auto select-none">
-        <div className="mb-2">Inclinaison</div>
+        <div className="my-2">Inclinaison</div>
         <Slider
-          min={-10}
-          max={30}
+          min={min}
+          max={max}
           defaultValue={10}
           onChange={handleSliderChange}
           className="z-50 max-h-[200px]"

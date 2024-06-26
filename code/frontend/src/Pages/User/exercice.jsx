@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Button } from "../../Components/Button";
 import { Schema1 } from "../../Components/Schema1";
 import { Schema2 } from "../../Components/Schema2";
@@ -94,10 +94,10 @@ export function Exercice() {
     reponseSchema1: { angle: 361, inclinaison: 361 },
     reponseSchema2: { angle: 361, inclinaison: 361 },
     reponseSchema3: { schema3_id: 361 },
-    reponseSchema4: { schema4_id: 361 
-    },
+    reponseSchema4: { schema4_id: 361 },
   });
 
+  const [fin, setFin] = useState(false);
   const [message, setMessage] = useState(false);
 
   var buttonsArea = "flex justify-between";
@@ -144,6 +144,7 @@ export function Exercice() {
   const onSubmit = methods.handleSubmit(async (data) => {
     if (!retourReponse) {
       setRetourReponse(true);
+      setMessage(true);
       setEnonce({
         ...initialEnonce,
         retour: true,
@@ -214,13 +215,15 @@ export function Exercice() {
       // }
     } else {
       if (indexQuestion >= 4) {
-        setMessage(true);
+        setMessage(false);
+        setFin(true);
         setRetourReponse(true);
 
         setTimeout(() => {
           navigate("/home");
         }, 3000);
       } else {
+        setMessage(false);
         setIndexQuestion(indexQuestion + 1);
         setRetourReponse(false);
         choixEnonce(
@@ -281,8 +284,10 @@ export function Exercice() {
 
   return (
     <>
-      <h1>{retourReponse ? "Retour Exercice" : "Exercice"}</h1>
-      <h2>Question {indexQuestion + 1}/5</h2>
+      <div className="flex justify-center items-center">
+        <h1>{retourReponse ? "Retour Exercice" : "Exercice"}</h1>
+        <h2>&nbsp;- Question {indexQuestion + 1}/5</h2>
+      </div>
       <ContextReponses.Provider
         value={{
           enonce,
@@ -332,7 +337,8 @@ export function Exercice() {
                 (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
                 (type === "Schéma en vue antérieure" &&
                   schema3EstModifie >= 5) ||
-                (type === "Schéma en vue transversale" && schema4EstModifie >= 5)
+                (type === "Schéma en vue transversale" &&
+                  schema4EstModifie >= 5)
                   ? FaCheck
                   : null
               }
@@ -341,7 +347,7 @@ export function Exercice() {
         </div>
         {message && (
           <div className="flex justify-center">
-            <h2 className="text-green-500">Exercice terminé, merci!</h2>
+            <h2 className="text-green-500">Correction des exercices ici</h2>
           </div>
         )}
         <div
@@ -384,9 +390,13 @@ export function Exercice() {
                 }
                 type="reponse"
               />
-              {<Schema4
-              display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
-            />}
+              {
+                <Schema4
+                  display={
+                    view === "Schéma en vue transversale" ? "flex" : "hidden"
+                  }
+                />
+              }
             </div>
           </div>
           <div
@@ -424,9 +434,13 @@ export function Exercice() {
                 }
                 type="retour"
               />
-              {<Schema4
-            display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
-            />}
+              {
+                <Schema4
+                  display={
+                    view === "Schéma en vue transversale" ? "flex" : "hidden"
+                  }
+                />
+              }
             </div>
           </div>
         </div>
@@ -461,7 +475,7 @@ export function Exercice() {
             hoverColor="hover:bg-green-800"
           />
         </div> */}
-        <div className="flex py-4 justify-end">
+        <div className="flex justify-end">
           <Button
             onClick={onSubmit}
             text={retourReponse ? "Prochaine Question" : "Finir Question"}
