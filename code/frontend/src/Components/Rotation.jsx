@@ -161,7 +161,7 @@ export const Rotation = ({ schema }) => {
           <circle cx="50%" cy="50%" r="5" fill="red" />
         </svg>
       </div>
-      <div className="relative flex flex-col items-center h-72 mx-auto select-none">
+      <div className="relative flex flex-col items-center h-72 mx-auto ml-10 select-none">
         <div className="my-2">Inclinaison</div>
         <Slider
           min={min}

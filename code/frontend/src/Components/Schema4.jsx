@@ -234,17 +234,17 @@ export function Schema4({ display, type }) {
               onClick={inclinaisonSuivante}
             />
           </div>
-          <div className="relative w-96 h-96 flex justify-center items-center">
+          <div className="relative w-96 h-72 flex justify-center items-center">
             <img
               src="src/images/schema4/bassinSchema4.PNG"
               alt="Bassin"
-              className="absolute h-96"
+              className="absolute h-72"
             />
             {listeSchema4selectionnee[index]?.image_path && (
               <img
                 src={listeSchema4selectionnee[index].image_path}
                 alt={listeSchema4selectionnee[index].image_name}
-                className="absolute h-96"
+                className="absolute h-72"
               />
             )}
           </div>

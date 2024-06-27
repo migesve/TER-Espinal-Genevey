@@ -19,8 +19,8 @@ export function NomPosition({ display, type }) {
       setEnonceNom(responseNom);
     } else {
       setEnonceNom(enonce.nom + " " + enonce.label );
-      setReponseNom("enonce");
       setReponse("");
+      setReponseNom(enonce.nom + " " + enonce.label);
     }
   }, [enonce]);
 

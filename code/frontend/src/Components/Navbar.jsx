@@ -36,7 +36,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <Link to="/" className="text-xl font-bold">Maïeutique</Link>
+              <Link to="/" className="text-xl font-bold">FoetAppView</Link>
             </div>
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item) => (

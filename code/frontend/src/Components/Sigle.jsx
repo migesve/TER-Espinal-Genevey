@@ -20,7 +20,7 @@ export function Sigle({ display, type }) {
     } else {
       setEnonceSigle(enonce.sigle + " " + enonce.label);
       setReponse("");
-      setReponseSigle("enonce");
+      setReponseSigle(enonce.sigle + " " + enonce.label);
     }
   }, [enonce]);
 
