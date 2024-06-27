@@ -6,6 +6,7 @@ import { ContextReponses } from "../Pages/User/exercice";
 export const Rotation = ({ schema }) => {
   const [dragging, setDragging] = useState(false);
   const centerRef = useRef(null);
+  var inclinaisonId = 0;
   var radius = 20;
   var min, max;
   if (schema === 1) {
@@ -17,6 +18,7 @@ export const Rotation = ({ schema }) => {
     min = -10;
     max = 35;
   }
+
   const {
     enonce,
     reponseSchema1,
@@ -85,7 +87,27 @@ export const Rotation = ({ schema }) => {
   }, [dragging]);
 
   useEffect(() => {
-    const responseValue = { angle, inclinaison };
+
+    if (schema == 1) {
+      if (inclinaison >= -22 && inclinaison < 15) {
+        inclinaisonId = 3;
+      } else if (inclinaison >= 15 && inclinaison < 45) {
+        inclinaisonId = 2;
+      } else {
+        inclinaisonId = 1;
+      }
+    } else {
+      if (inclinaison >= -10 && inclinaison < 13) {
+        inclinaisonId = 3;
+      } else if (inclinaison >= 13 && inclinaison < 31) {
+        inclinaisonId = 2;
+      } else {
+        inclinaisonId = 1;
+      }
+    }
+    const responseValue = { angle: angle, inclinaison: inclinaisonId };
+
+
     if (schema === 1) {
       setReponseSchema1(responseValue);
       setSchema1EstModifie((prev) => prev + 1);

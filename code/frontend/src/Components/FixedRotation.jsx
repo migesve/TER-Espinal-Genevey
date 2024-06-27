@@ -30,13 +30,45 @@ export const FixedRotation = ({ schema, type }) => {
     responseSchema.inclinaison !== null
   ) {
     angle = responseSchema.angle;
-    inclinaison = responseSchema.inclinaison;
+    if (responseSchema.inclinaison == 1) {
+      if (schema == 1) {
+        inclinaison = 50;
+      } else {
+        inclinaison = 35;
+      }
+    } else if (responseSchema.inclinaison == 2) {
+      if (schema == 1) {
+        inclinaison = 25;
+      } else {
+        inclinaison = 22;
+      }
+    } else {
+      if (schema == 1) {
+        inclinaison = -22;
+      } else {
+        inclinaison = -10;
+      }
+    }
   } else {
     angle = enonce?.angle;
-    if (enonce?.inclinaison === 1) {
-      inclinaison = -10;
+    if (enonce?.inclinaison == 1) {
+      if (schema == 1) {
+        inclinaison = 50;
+      } else {
+        inclinaison = 35;
+      }
+    } else if (enonce?.inclinaison == 2) {
+      if (schema == 1) {
+        inclinaison = 25;
+      } else {
+        inclinaison = 22;
+      }
     } else {
-      inclinaison = 10;
+      if (schema == 1) {
+        inclinaison = -22;
+      } else {
+        inclinaison = -10;
+      }
     }
   }
 
