@@ -6,6 +6,7 @@ import { ContextReponses } from "../Pages/User/exercice";
 export function Schema4({ display, type }) {
   const [listeSchema4Pos1, setListeSchema4Pos1] = useState([]);
   const [listeSchema4Pos2, setListeSchema4Pos2] = useState([]);
+  const [listeSchema4Pos3, setListeSchema4Pos3] = useState([]);
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema4selectionnee, setListeSchema4selectionnee] = useState([]);
@@ -25,7 +26,7 @@ export function Schema4({ display, type }) {
           enonce?.representation !== "Schéma en vue transversale" &&
           !enonce?.retour
         ) {
-          const promises = [1, 2].map((i) =>
+          const promises = [1, 2, 3].map((i) =>
             fetch(`http://localhost:4000/schema4/getByIncl/${i}`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -38,13 +39,14 @@ export function Schema4({ display, type }) {
               return response.json();
             })
           );
-          const [data1, data2] = await Promise.all(promises);
-          if (data1.status || data2.status) {
-            setError(data1.status || data2.status);
+          const [data1, data2, data3] = await Promise.all(promises);
+          if (data1.status || data2.status || data3.status) {
+            setError(data1.status || data2.status || data3.status);
             return;
           }
           setListeSchema4Pos1(data1.Schemas4);
           setListeSchema4Pos2(data2.Schemas4);
+          setListeSchema4Pos3(data3.Schemas4);
           setListeSchema4selectionnee(data1.Schemas4);
         } else if (enonce?.retour && type === "reponse") {
           if (!enonce.answersValues) {
@@ -136,7 +138,7 @@ export function Schema4({ display, type }) {
   const inclinaisonSuivante = () => {
     setListeSchema4selectionnee((prevList) => {
       const newList =
-        prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1;
+        prevList === listeSchema4Pos1 ? listeSchema4Pos2 : (prevList === listeSchema4Pos2 ? listeSchema4Pos3 : listeSchema4Pos1);
       if (index >= newList.length || index < 0) {
         setIndex(0);
       }
@@ -147,7 +149,7 @@ export function Schema4({ display, type }) {
   const inclinaisonPrecedante = () => {
     setListeSchema4selectionnee((prevList) => {
       const newList =
-        prevList === listeSchema4Pos1 ? listeSchema4Pos2 : listeSchema4Pos1;
+        prevList === listeSchema4Pos1 ? listeSchema4Pos3 : (prevList === listeSchema4Pos2 ? listeSchema4Pos1 : listeSchema4Pos2);
       if (index >= newList.length || index < 0) {
         setIndex(0);
       }
@@ -176,13 +178,13 @@ export function Schema4({ display, type }) {
             <img
               src="src/images/schema4/bassinSchema4.PNG"
               alt="Bassin"
-              className="absolute h-52"
+              className="absolute h-52 -rotate-45"
             />
             {enonceSchema4 && (
               <img
                 src={enonceSchema4.image_path}
                 alt={enonceSchema4.image_name}
-                className="absolute h-52"
+                className="absolute h-52 -rotate-45"
               />
             )}
           </div>
@@ -201,13 +203,13 @@ export function Schema4({ display, type }) {
             <img
               src="src/images/schema4/bassinSchema4.PNG"
               alt="Bassin"
-              className="absolute h-52"
+              className="absolute h-52 -rotate-45"
             />
             {enonce.answersValues.reponseSchema4.image_path && (
               <img
                 src={enonce.answersValues.reponseSchema4.image_path}
                 alt={enonce.answersValues.reponseSchema4.image_name}
-                className="absolute h-52"
+                className="absolute h-52 -rotate-45"
               />
             )}
           </div>
@@ -238,13 +240,13 @@ export function Schema4({ display, type }) {
             <img
               src="src/images/schema4/bassinSchema4.PNG"
               alt="Bassin"
-              className="absolute h-72"
+              className="absolute h-72 -rotate-45"
             />
             {listeSchema4selectionnee[index]?.image_path && (
               <img
                 src={listeSchema4selectionnee[index].image_path}
                 alt={listeSchema4selectionnee[index].image_name}
-                className="absolute h-72"
+                className="absolute h-72 -rotate-45"
               />
             )}
           </div>

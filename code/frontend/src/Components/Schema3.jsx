@@ -6,6 +6,7 @@ import { ContextReponses } from "../Pages/User/exercice";
 export function Schema3({ display, type }) {
   const [listeSchema3Pos1, setListeSchema3Pos1] = useState([]);
   const [listeSchema3Pos2, setListeSchema3Pos2] = useState([]);
+  const [listeSchema3Pos3, setListeSchema3Pos3] = useState([]);
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
   const [listeSchema3selectionnee, setListeSchema3selectionnee] = useState([]);
@@ -25,7 +26,7 @@ export function Schema3({ display, type }) {
           enonce?.representation !== "Schéma en vue antérieure" &&
           !enonce?.retour
         ) {
-          const promises = [1, 2].map((i) =>
+          const promises = [1, 2, 3].map((i) =>
             fetch(`http://localhost:4000/schema3/getByIncl/${i}`, {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -38,13 +39,14 @@ export function Schema3({ display, type }) {
               return response.json();
             })
           );
-          const [data1, data2] = await Promise.all(promises);
-          if (data1.status || data2.status) {
-            setError(data1.status || data2.status);
+          const [data1, data2, data3] = await Promise.all(promises);
+          if (data1.status || data2.status || data3.status) {
+            setError(data1.status || data2.status || data3.status);
             return;
           }
           setListeSchema3Pos1(data1.Schemas3);
           setListeSchema3Pos2(data2.Schemas3);
+          setListeSchema3Pos3(data3.Schemas3);
           setListeSchema3selectionnee(data1.Schemas3);
         } else if (enonce?.retour && type === "reponse") {
           if (!enonce.answersValues) {
@@ -136,7 +138,7 @@ export function Schema3({ display, type }) {
   const inclinaisonSuivante = () => {
     setListeSchema3selectionnee((prevList) => {
       const newList =
-        prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1;
+        prevList === listeSchema3Pos1 ? listeSchema3Pos2 : (prevList === listeSchema3Pos2 ? listeSchema3Pos3 : listeSchema3Pos1);
       if (index >= newList.length || index < 0) {
         setIndex(0);
       }
@@ -147,7 +149,7 @@ export function Schema3({ display, type }) {
   const inclinaisonPrecedante = () => {
     setListeSchema3selectionnee((prevList) => {
       const newList =
-        prevList === listeSchema3Pos1 ? listeSchema3Pos2 : listeSchema3Pos1;
+        prevList === listeSchema3Pos1 ? listeSchema3Pos3 : (prevList === listeSchema3Pos2 ? listeSchema3Pos1 : listeSchema3Pos2);
       if (index >= newList.length || index < 0) {
         setIndex(0);
       }
