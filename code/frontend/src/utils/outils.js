@@ -44,12 +44,14 @@ export const choixEnonce = (
     angle:
       selectedSet.angle2 - selectedSet.angle1 >= 11
         ? getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78)
-        : getRandomIntInclusive(
-          selectedSet.angle1,
-          selectedSet.angle1 + 10
-        ) % 360,
-
-  };
+          : getRandomIntInclusive(
+            selectedSet.angle1,
+            selectedSet.angle1 + 10
+          ) % 360,
+    ansgle1: selectedSet.angle1,
+    angle2: selectedSet.angle2,
+    
+  }; 
   switch (enonceAleatoire) {
     case 0:
       objet.representation = "Nom";
