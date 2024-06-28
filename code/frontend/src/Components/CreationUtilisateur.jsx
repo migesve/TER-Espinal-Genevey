@@ -42,12 +42,12 @@ export const CreationUtilisateur = () => {
       }
 
       const responseData = await response.json();
-      localStorage.setItem("user", JSON.stringify({ ...data }));
+      localStorage.setItem("user", JSON.stringify({ ...responseData }));
       setUser({ ...responseData });
       
       if (responseData.LoggedIn) {
         setSuccess(true);
-        //navigate('/');
+        navigate('/home');
       } else {
         setError(responseData.status);
       }

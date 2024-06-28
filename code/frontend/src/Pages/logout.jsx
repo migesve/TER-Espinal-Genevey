@@ -25,6 +25,7 @@ export const Logout = () => {
         if (data.LoggedIn === false) {
           setUser(null);
           localStorage.removeItem("user");
+          localStorage.clear();
           navigate("/home");
         } else {
           console.error("Logout failed:", data.status);
