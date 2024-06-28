@@ -1,12 +1,12 @@
 import { useEffect,useState } from "react";
-import { FormSet } from "../../Components/FormSet";
+import { FormImage } from "../../Components/FormImage";
 
-export function SaisieSet() {
+export function SaisieImage() {
 
   return (
     <>
       <h1>Saisie nouveau Set</h1>
-      <FormSet />
+      <FormImage />
     </>
   );
 }

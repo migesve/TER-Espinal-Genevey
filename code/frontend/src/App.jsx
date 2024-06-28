@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import { Home } from "./Pages/home";
 
-import { SaisieSet } from "./Pages/Admin/saisieSet";
+import { SaisieImage } from "./Pages/Admin/saisieImage";
 import { Sets } from "./Pages/Admin/sets";
 
 import { Exercices } from "./Pages/User/exercices";
@@ -37,7 +37,7 @@ function App() {
               <Route path="/finExercice" element={<FinExercice />} />
 
               <Route element={<ProfesseurRoutes />}>
-                <Route path="/saisieSet" element={<SaisieSet />} />
+                <Route path="/saisieImage" element={<SaisieImage />} />
                 <Route path="/sets" element={<Sets />} />
                 <Route path="/retours" element={<RetoursEnseignant />} />
                 <Route path="/gestionUtilisateurs" element={<Gestion />} />

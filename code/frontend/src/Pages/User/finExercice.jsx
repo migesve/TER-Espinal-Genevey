@@ -1,5 +1,4 @@
 import { useEffect,useState } from "react";
-import { FormSet } from "../../Components/FormSet";
 import { DataGrid } from '@mui/x-data-grid';
 
 export function FinExercice() {

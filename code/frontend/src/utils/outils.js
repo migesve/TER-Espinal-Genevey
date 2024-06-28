@@ -26,7 +26,7 @@ export const choixEnonce = (
     return;
   }
 
-  const enonceAleatoire = difficulte===1? Math.floor(Math.random() * 6) : Math.floor(Math.random() * 3);
+  const enonceAleatoire = difficulte === 1 ? Math.floor(Math.random() * 6) : Math.floor(Math.random() * 3);
   const selectedSet = listeQuestionsSets[tableauPos[indexQuestion]];
   const selectedInclinaison =
     listeQuestionsInclinaisons[tableauIncl[indexQuestion]];
@@ -44,34 +44,70 @@ export const choixEnonce = (
     angle:
       selectedSet.angle2 - selectedSet.angle1 >= 11
         ? getRandomIntInclusive(selectedSet.angle1, selectedSet.angle1 + 78)
-          : getRandomIntInclusive(
-            selectedSet.angle1,
-            selectedSet.angle1 + 10
-          ) % 360,
-    
-  }; 
+        : getRandomIntInclusive(
+          selectedSet.angle1,
+          selectedSet.angle1 + 10
+        ) % 360,
+
+  };
   switch (enonceAleatoire) {
     case 0:
-      objet.representation= "Nom";
+      objet.representation = "Nom";
       break;
     case 1:
-      objet.representation= "Sigle";
+      objet.representation = "Sigle";
       break;
     case 2:
-      objet.representation= "Schéma très simplifié";
+      objet.representation = "Schéma très simplifié";
       break;
     case 3:
-      objet.representation= "Schéma simplifié";
+      objet.representation = "Schéma simplifié";
       break;
     case 4:
-      objet.representation= "Schéma en vue antérieure";
+      objet.representation = "Schéma en vue antérieure";
       break;
     case 5:
-      objet.representation= "Schéma en vue transversale"
+      objet.representation = "Schéma en vue transversale"
       break;
     default:
-      objet.representation= "Nom";
+      objet.representation = "Nom";
       break;
   }
   setEnonce(objet);
 };
+
+export async function saveImage(imageUrl, typeSchema, position, inclinaison, angle) {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const file = new File([blob], 'image.png', { type: 'image/png' });
+
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('typeSchema', typeSchema);
+    formData.append('position', position);
+    formData.append('inclinaison', inclinaison);
+    formData.append('angle', angle);
+
+    console.log('Sending formData:', {
+      typeSchema, 
+      position, 
+      inclinaison, 
+      angle, 
+      file: file.name
+    });
+
+    const uploadResponse = await fetch('http://localhost:4000/upload/', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await uploadResponse.json();
+    if (!result.success) {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.error('Error while saving image:', error);
+    throw error;
+  }
+}

@@ -206,3 +206,47 @@ export const num_validation = {
       },
     },
   };
+
+  export const angle_validation = {
+    name: "angle",
+    label: "Angle",
+    type: "number",
+    id: "angle",
+    placeholder: "Angle ...",
+    validation: {
+      required: {
+        value: true,
+        message: "Obligatoire",
+      },
+      maxLength: {
+        value: 3,
+        message: "3 characters max",
+      },
+    },
+  };
+
+
+  export const image_validation = {  // created by espinal/genevey (voir si on efface ou on garde)
+    name: "image",
+    label: "Choisir une image (.PNG)",
+    type: "file",
+    id: "image",
+    placeholder: "Séléctionnez une image(.PNG) ...",
+    accept: "image/png",
+    validation: {
+      required: {
+        value: true,
+        message: "Obligatoire",
+      },
+      validate: (fileList) => {
+        if (fileList.length === 0) {
+          return "Obligatoire";
+        }
+        const file = fileList[0];
+        if (file.type !== 'image/png') {
+          return "Veuillez télécharger une image au format .PNG.";
+        }
+        return true;
+      }
+    },
+  };

@@ -5,7 +5,7 @@ import { isFormInvalid } from '../utils/isFormValid'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdError } from 'react-icons/md'
 
-export const Input = ({ name, label, type, id, placeholder, validation, multiline, className }) => {
+export const Input = ({ name, label, type, id, placeholder, validation, multiline, className, accept }) => {
   const {
     register,
     formState: { errors },
@@ -49,6 +49,7 @@ export const Input = ({ name, label, type, id, placeholder, validation, multilin
             type={type}
             className={cn(input_tailwind)}
             placeholder={placeholder}
+            accept={accept}
             {...register(name, validation)} // checks if the input 'name' is valid from dependencies useFormContext
           />
         )}
