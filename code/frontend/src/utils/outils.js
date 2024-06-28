@@ -48,6 +48,8 @@ export const choixEnonce = (
             selectedSet.angle1,
             selectedSet.angle1 + 10
           ) % 360,
+    angle1: selectedSet.angle1,
+    angle2: selectedSet.angle2,
     
   }; 
   switch (enonceAleatoire) {
