@@ -117,10 +117,7 @@ export function Exercice() {
   const [message, setMessage] = useState(false);
 
   var buttonsArea = "flex justify-between";
-  var reponse = [
-    "Reponse correcte",
-    "Reponse incorrecte",
-  ];
+  var reponse = ["Reponse correcte", "Reponse incorrecte"];
   var phrasesRemarques = [
     "La concordance est parfaite ! Bravo !",
     "C'est pas juste, mais l'angle n'etait pas loin",
@@ -171,8 +168,7 @@ export function Exercice() {
   // -------------------------- Clicker le bouton -----------------------------------
 
   const onSubmit = methods.handleSubmit(async (data) => {
-
-    //------------------------- Exercice a remplir -----------------------------------
+    //------------------------- On fait les corrections -----------------------------------
     if (!retourReponse) {
       setRetourReponse(true);
       setMessage(true);
@@ -184,6 +180,87 @@ export function Exercice() {
       console.log("answersValues", answersValues);
       console.log("enonce", enonce);
       console.log("user", user);
+
+      // LOGIQUES DE CORRECTION
+      let newCorrections = {};
+      let newRemarques = {};
+
+      if (reponseNom === enonce.nom + " " + enonce.label) {
+        newCorrections.corrNom = true;
+        newRemarques.remarqueNom = phrasesRemarques[0];
+      } else {
+        newCorrections.corrNom = false;
+        newRemarques.remarqueNom = phrasesRemarques[1];
+      }
+      if (reponseSigle === enonce.sigle + " " + enonce.label) {
+        newCorrections.corrSigle = true;
+        newRemarques.remarqueSigle = phrasesRemarques[0];
+      } else {
+        newCorrections.corrSigle = false;
+        newRemarques.remarqueSigle = phrasesRemarques[1];
+      }
+      if (reponseSchema1.inclinaison === enonce.inclinaison) {
+        if (
+          (enonce.angle1 <= enonce.angle2 &&
+            reponseSchema1.angle >= enonce.angle1 &&
+            reponseSchema1.angle <= enonce.angle2) ||
+          (enonce.angle1 > enonce.angle2 &&
+            (reponseSchema1.angle >= enonce.angle1 ||
+              reponseSchema1.angle <= enonce.angle2))
+        ) {
+          newCorrections.corrSchema1 = true;
+          newRemarques.remarqueSchema1 = phrasesRemarques[0];
+        } else {
+          newCorrections.corrSchema1 = false;
+          newRemarques.remarqueSchema1 = phrasesRemarques[1];
+        }
+      } else {
+        newCorrections.corrSchema1 = false;
+        newRemarques.remarqueSchema1 = phrasesRemarques[1];
+      }
+      if (reponseSchema2.inclinaison === enonce.inclinaison) {
+        if (
+          (enonce.angle1 <= enonce.angle2 &&
+            reponseSchema2.angle >= enonce.angle1 &&
+            reponseSchema2.angle <= enonce.angle2) ||
+          (enonce.angle1 > enonce.angle2 &&
+            (reponseSchema2.angle >= enonce.angle1 ||
+              reponseSchema2.angle <= enonce.angle2))
+        ) {
+          newCorrections.corrSchema1 = true;
+          newRemarques.remarqueSchema2 = phrasesRemarques[0];
+        } else {
+          newCorrections.corrSchema1 = false;
+          newRemarques.remarqueSchema2 = phrasesRemarques[1];
+        }
+      } else {
+        newCorrections.corrSchema1 = false;
+        newRemarques.remarqueSchema2 = phrasesRemarques[1];
+      }
+      if (
+        reponseSchema3.position_id === enonce.position &&
+        reponseSchema3.inclinaison_id === enonce.inclinaison
+      ) {
+        newCorrections.corrSchema3 = true;
+        newRemarques.remarqueSchema3 = phrasesRemarques[0];
+      } else {
+        newCorrections.corrSchema3 = false;
+        newRemarques.remarqueSchema3 = phrasesRemarques[1];
+      }
+      ///////////////////////// A VERIFIER SI ON AJOUTE SCHEMA 4
+      if (
+        reponseSchema4.position_id === enonce.position &&
+        reponseSchema4.inclinaison_id === enonce.inclinaison
+      ) {
+        newCorrections.corrSchema4 = true;
+        newRemarques.remarqueSchema4 = phrasesRemarques[0];
+      } else {
+        newCorrections.corrSchema4 = false;
+        newRemarques.remarqueSchema4 = phrasesRemarques[1];
+      }
+
+      setCorrections(newCorrections);
+      setRemarques((prevRemarques) => ({ ...prevRemarques, ...newRemarques }));
 
       // envoyer dans la base de données
       // try {
@@ -205,7 +282,7 @@ export function Exercice() {
           schema2_angle: Math.round(reponseSchema2.angle),
           schema2_inclinaison: reponseSchema2.inclinaison,
           schema3_id: reponseSchema3.schema3_id,
-          schema4_id: 1,  // a corriger lors qu'on ajoute le schema 4
+          schema4_id: 1, // a corriger lors qu'on ajoute le schema 4
           corr_nom: true, // et tout ca aussi
           corr_abreviation: true,
           corr_schema1_angle: true,
@@ -245,41 +322,7 @@ export function Exercice() {
       //   setError("An unexpected error occurred");
       // }
     } else {
-
-      //------------------------------- On fait les corrections --------------------------------
-
-      // LOGIQUES DE CORRECTION
-      if (reponseNom == enonce.nom + " " + enonce.label) {
-        setCorrections({corrNom: true});
-      } else {
-        setCorrections({corrNom: false});
-      }
-      if (reponseSigle == enonce.sigle + " " + enonce.label) {
-        setCorrections({corrSigle: true});
-      } else {
-        setCorrections({corrSigle: false});
-      }
-      if (reponseSchema1.inclinaison == enonce.inclinaison && reponseSchema1.angle == enonce.angle) {  // a verifier logique des angles
-        setCorrections({corrSchema1: true});
-      } else {
-        setCorrections({corrSchema1: false});
-      }
-      if (reponseSchema2.inclinaison == enonce.inclinaison && reponseSchema2.angle == enonce.angle) {  // a verifier logique des angles
-        setCorrections({corrSchema2: true});
-      } else {
-        setCorrections({corrSchema2: false});
-      }
-      if (reponseSchema3.position_id == enonce.position && reponseSchema3.inclinaison_id == enonce.inclinaison) {
-        setCorrections({corrSchema3: true});
-      } else {
-        setCorrections({corrSchema3: false});
-      }
-      ///////////////////////// A VERIFIER SI ON AJOUTE SCHEMA 4
-      if (reponseSchema4.position_id == enonce.position && reponseSchema4.inclinaison_id == enonce.inclinaison) {
-        setCorrections({corrSchema4: true});
-      } else {
-        setCorrections({corrSchema4: false});
-      }
+      //------------------------------- Exercice a remplir --------------------------------
 
       if (indexQuestion >= 4) {
         setMessage(false);
@@ -414,10 +457,28 @@ export function Exercice() {
         </div>
         {message && (
           <div className="flex justify-center">
-            <h2 className="text-green-500">Correction des exercices ici 
-            
-            {}
-            
+            <h2 className="text-green-500">
+              Correction des exercices ici
+              {console.log("remarquesNom", remarques.remarqueNom)}
+              {console.log("remarquesSigle", remarques.remarqueSigle)}
+              {console.log("remarquesSchema1", remarques.remarqueSchema1)}
+              {console.log("remarquesSchema2", remarques.remarqueSchema2)}
+              {console.log("remarquesSchema3", remarques.remarqueSchema3)}
+              {console.log("remarquesSchema4", remarques.remarqueSchema4)}
+              {view === "Nom" ? <p>{remarques.remarqueNom}</p> : null}
+              {view === "Sigle" ? <p>{remarques.remarqueSigle}</p> : null}
+              {view === "Partogramme" ? (
+                <p>{remarques.remarqueSchema1}</p>
+              ) : null}
+              {view === "Schéma simplifié" ? (
+                <p>{remarques.remarqueSchema2}</p>
+              ) : null}
+              {view === "Schéma en vue antérieure" ? (
+                <p>{remarques.remarqueSchema3}</p>
+              ) : null}
+              {view === "Schéma en vue transversale" ? (
+                <p>{remarques.remarqueSchema4}</p>
+              ) : null}
             </h2>
           </div>
         )}
