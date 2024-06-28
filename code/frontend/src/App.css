@@ -22,7 +22,7 @@ html, body, #app, #app>div {
 .rectangle {
   display: inline-block;
   width: 66%;
-  height: 400px;
+  height: auto;
   margin: auto;
   padding: 20px;
 }

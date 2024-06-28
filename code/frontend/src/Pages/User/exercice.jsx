@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Button } from "../../Components/Button";
 import { Schema1 } from "../../Components/Schema1";
 import { Schema2 } from "../../Components/Schema2";
@@ -94,16 +94,43 @@ export function Exercice() {
     reponseSchema1: { angle: 361, inclinaison: 361 },
     reponseSchema2: { angle: 361, inclinaison: 361 },
     reponseSchema3: { schema3_id: 361 },
-    reponseSchema4: { schema4_id: 361 
-    },
+    reponseSchema4: { schema4_id: 361 },
+  });
+  const [corrections, setCorrections] = useState({
+    corrNom: null,
+    corrSigle: null,
+    corrSchema1: null,
+    corrSchema2: null,
+    corrSchema3: null,
+    corrSchema4: null,
+  });
+  const [remarques, setRemarques] = useState({
+    remarqueNom: null,
+    remarqueSigle: null,
+    remarqueSchema1: null,
+    remarqueSchema2: null,
+    remarqueSchema3: null,
+    remarqueSchema4: null,
   });
 
+  const [fin, setFin] = useState(false);
   const [message, setMessage] = useState(false);
 
   var buttonsArea = "flex justify-between";
+  var reponse = [
+    "Reponse correcte",
+    "Reponse incorrecte",
+  ];
+  var phrasesRemarques = [
+    "La concordance est parfaite ! Bravo !",
+    "C'est pas juste, mais l'angle n'etait pas loin",
+    "L'occiput se situe à l'arrière du crâne, de même que la fontanelle Lambda",
+    "La droite et la gauche se rapportent au bassin de la patiente",
+    "Le degré de flexion est un point d'analyse clinique fine à prendre en compte, et fait varier la position des fontanelles dans le plan d'examen",
+  ];
   var typesRepresentation = [];
   if (difficulte == 1) {
-    buttonsArea = "grid p-4 md:grid-cols-5 space-x-2"; //grid-cols-6 si on est avec 6 representations
+    buttonsArea = "grid p-4 md:grid-cols-6 space-x-2"; //grid-cols-6 si on est avec 6 representations
     typesRepresentation = [
       "Nom",
       "Sigle",
@@ -141,9 +168,14 @@ export function Exercice() {
     fetchData();
   }, []);
 
+  // -------------------------- Clicker le bouton -----------------------------------
+
   const onSubmit = methods.handleSubmit(async (data) => {
+
+    //------------------------- Exercice a remplir -----------------------------------
     if (!retourReponse) {
       setRetourReponse(true);
+      setMessage(true);
       setEnonce({
         ...initialEnonce,
         retour: true,
@@ -169,11 +201,11 @@ export function Exercice() {
           nom: reponseNom,
           abreviation: reponseSigle,
           schema1_angle: Math.round(reponseSchema1.angle),
-          schema1_inclinaison: 1, // a verifier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          schema1_inclinaison: reponseSchema1.inclinaison,
           schema2_angle: Math.round(reponseSchema2.angle),
-          schema2_inclinaison: 1, // a verifier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          schema2_inclinaison: reponseSchema2.inclinaison,
           schema3_id: reponseSchema3.schema3_id,
-          schema4_id: 1,
+          schema4_id: 1,  // a corriger lors qu'on ajoute le schema 4
           corr_nom: true, // et tout ca aussi
           corr_abreviation: true,
           corr_schema1_angle: true,
@@ -213,14 +245,52 @@ export function Exercice() {
       //   setError("An unexpected error occurred");
       // }
     } else {
+
+      //------------------------------- On fait les corrections --------------------------------
+
+      // LOGIQUES DE CORRECTION
+      if (reponseNom == enonce.nom + " " + enonce.label) {
+        setCorrections({corrNom: true});
+      } else {
+        setCorrections({corrNom: false});
+      }
+      if (reponseSigle == enonce.sigle + " " + enonce.label) {
+        setCorrections({corrSigle: true});
+      } else {
+        setCorrections({corrSigle: false});
+      }
+      if (reponseSchema1.inclinaison == enonce.inclinaison && reponseSchema1.angle == enonce.angle) {  // a verifier logique des angles
+        setCorrections({corrSchema1: true});
+      } else {
+        setCorrections({corrSchema1: false});
+      }
+      if (reponseSchema2.inclinaison == enonce.inclinaison && reponseSchema2.angle == enonce.angle) {  // a verifier logique des angles
+        setCorrections({corrSchema2: true});
+      } else {
+        setCorrections({corrSchema2: false});
+      }
+      if (reponseSchema3.position_id == enonce.position && reponseSchema3.inclinaison_id == enonce.inclinaison) {
+        setCorrections({corrSchema3: true});
+      } else {
+        setCorrections({corrSchema3: false});
+      }
+      ///////////////////////// A VERIFIER SI ON AJOUTE SCHEMA 4
+      if (reponseSchema4.position_id == enonce.position && reponseSchema4.inclinaison_id == enonce.inclinaison) {
+        setCorrections({corrSchema4: true});
+      } else {
+        setCorrections({corrSchema4: false});
+      }
+
       if (indexQuestion >= 4) {
-        setMessage(true);
+        setMessage(false);
+        setFin(true);
         setRetourReponse(true);
 
         setTimeout(() => {
           navigate("/home");
         }, 3000);
       } else {
+        setMessage(false);
         setIndexQuestion(indexQuestion + 1);
         setRetourReponse(false);
         choixEnonce(
@@ -281,8 +351,10 @@ export function Exercice() {
 
   return (
     <>
-      <h1>{retourReponse ? "Retour Exercice" : "Exercice"}</h1>
-      <h2>Question {indexQuestion + 1}/5</h2>
+      <div className="flex justify-center items-center">
+        <h1>{retourReponse ? "Retour Exercice" : "Exercice"}</h1>
+        <h2>&nbsp;- Question {indexQuestion + 1}/5</h2>
+      </div>
       <ContextReponses.Provider
         value={{
           enonce,
@@ -332,7 +404,8 @@ export function Exercice() {
                 (type === "Schéma simplifié" && schema2EstModifie >= 3) ||
                 (type === "Schéma en vue antérieure" &&
                   schema3EstModifie >= 5) ||
-                (type === "Schéma en vue transversale" && schema4EstModifie >= 5)
+                (type === "Schéma en vue transversale" &&
+                  schema4EstModifie >= 5)
                   ? FaCheck
                   : null
               }
@@ -341,7 +414,11 @@ export function Exercice() {
         </div>
         {message && (
           <div className="flex justify-center">
-            <h2 className="text-green-500">Exercice terminé, merci!</h2>
+            <h2 className="text-green-500">Correction des exercices ici 
+            
+            {}
+            
+            </h2>
           </div>
         )}
         <div
@@ -384,9 +461,13 @@ export function Exercice() {
                 }
                 type="reponse"
               />
-              {<Schema4
-              display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
-            />}
+              {
+                <Schema4
+                  display={
+                    view === "Schéma en vue transversale" ? "flex" : "hidden"
+                  }
+                />
+              }
             </div>
           </div>
           <div
@@ -424,9 +505,13 @@ export function Exercice() {
                 }
                 type="retour"
               />
-              {<Schema4
-            display={view === "Schéma en vue transversale" ? "flex" : "hidden"}
-            />}
+              {
+                <Schema4
+                  display={
+                    view === "Schéma en vue transversale" ? "flex" : "hidden"
+                  }
+                />
+              }
             </div>
           </div>
         </div>
@@ -461,7 +546,7 @@ export function Exercice() {
             hoverColor="hover:bg-green-800"
           />
         </div> */}
-        <div className="flex py-4 justify-end">
+        <div className="flex justify-end">
           <Button
             onClick={onSubmit}
             text={retourReponse ? "Prochaine Question" : "Finir Question"}

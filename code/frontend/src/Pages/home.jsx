@@ -14,44 +14,64 @@ export function Home() {
   } else if (user && user.LoggedIn && user.statut === "étudiant") {
     content = (
       <div className="p-4 text-left">
-        <h1 className="text-2xl font-bold mb-4">Bienvenu(e)</h1>
+        <h1 className="text-2xl font-bold mb-4 text-[#646cff]">Bienvenu(e)</h1>
         <p className="mb-4">
-          Ici, vous pourrez pratiquer les différentes positions et
-          représentations de la tête du bébé avec leurs noms et sigles
+          Ici, vous pourrez manipuler les différentes positions et
+          représentations de la tête du foetus avec leurs noms et sigles
           correspondants.
         </p>
         <p className="mb-4">
-          Vous pouvez choisir entre un exercice facile, avec 5 représentations
-          et 4 à répondre à chaque fois, et un exercice difficile, avec 3
-          représentations et 2 à répondre à chaque fois.
+          Vous aurez le choix entre deux niveaux de difficulté :
+        </p>
+        <p>
+          - <b>Facile</b> : 5 représentations à faire correspondre ; l’une est donnée
+          et vous devrez choisir les 4 autres
         </p>
         <p className="mb-4">
-          Pour chaque question et dans chaque représentation à répondre,
-          l'énoncé sera affiché en premier et le bouton correspondant sera
-          coloré en jaune. Les autres représentations à remplir seront en bleu.
+          - <b>Difficile</b> : 3 représentations à faire correspondre ; l’une est
+          donnée et vous devrez choisir les 2 autres
         </p>
+        <p className="mb-4">Chaque exercice comporte 5 questions à traiter.</p>
+        <p className="mb-4">
+          Pour chaque question la représentation donnée (l'énoncé) sera affichée
+          en premier, et le bouton correspondant sera coloré en jaune. Les
+          autres représentations, que vous devrez sélectionner et compléter,
+          sont colorées en bleu.
+        </p>
+        <p className="mb-4">Les représentations sont : </p>
         <ul className="list-disc pl-5">
           <li className="mb-4">
-            <b>Pour les noms et les sigles</b>, il faut simplement écrire ce que
-            vous pensez correspondre avec l'énoncé donné.
+            <b>« Nom complet » </b> de la présentation : écrivez dans l’espace
+            prévu ce vous pensez correspondre avec l'énoncé donné (exemple :
+            occipito-pubien).
           </li>
           <li className="mb-4">
-            <b>Pour les représentations 2 et 3</b>, il faut tourner la tête avec
-            l'aide du point rouge et la placer dans la position que vous pensez
-            convenir.
+            <b>« Sigle » </b> : écrivez dans l’espace prévu le sigle
+            correspondant (exemple : OP)
           </li>
           <li className="mb-4">
-            <b>Pour le schéma en vue antérieure</b>, vous devez tourner, avec
-            l'aide des flèches, le fœtus à la rotation qui paraît la plus proche
-            de l'énoncé, et aussi incliner la tête de la manière qui vous semble
-            correspondre le mieux à l'énoncé donné.
+            Les représentations <b>« Partogramme »</b> et{" "}
+            <b>« Schéma simplifié » </b>: tournez la tête fœtale à l'aide du
+            point rouge et placez-là dans la position souhaitée ; ajustez la
+            flexion à l’aide du curseur vertical
+          </li>
+          <li className="mb-4">
+            <b>« Schéma vue antérieure » et « Schéma vue transversale »</b> :
+            utilisez les flèches pour choisir la position du fœtus la plus
+            proche de l'énoncé, et pour choisir la flexion de la tête
           </li>
         </ul>
         <p className="mb-4">
           Les réponses sont automatiquement sauvegardées à chaque fois que vous
           les modifiez, il n'est donc pas nécessaire de sauvegarder
-          manuellement, sauf lorsque vous cliquez sur "finir question" à la fin
-          de chaque question.
+          manuellement. Lorsque vous avez terminé vos choix, cliquez sur "Finir
+          question".
+        </p>
+        <p className="mb-4">
+          Vous obtiendrez alors un comparatif de vos choix et des
+          représentations correctes (en vert, les correspondances correctes, en
+          rouge, les correspondances erronées). Une fois le correctif obtenu…
+          Recommencez avec une autre variété de présentation !
         </p>
       </div>
     );
@@ -68,8 +88,8 @@ export function Home() {
   }
   return (
     <>
-      <h1>Maïeutique</h1>
-      <h2>App pour apprendre les positions de la tête</h2>
+      <h1 className="text-[#646cff] font-bold">FoetAppView</h1>
+      <h2>Une application pour manipuler les variétés de présentation</h2>
       <div className="flex mx-auto p-4 justify-center">{content}</div>
     </>
   );

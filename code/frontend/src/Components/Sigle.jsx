@@ -20,7 +20,7 @@ export function Sigle({ display, type }) {
     } else {
       setEnonceSigle(enonce.sigle + " " + enonce.label);
       setReponse("");
-      setReponseSigle("enonce");
+      setReponseSigle(enonce.sigle + " " + enonce.label);
     }
   }, [enonce]);
 
@@ -31,7 +31,7 @@ export function Sigle({ display, type }) {
   if (enonce?.representation === "Sigle" || enonce?.retour) {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5`}
+        className={`${display} flex-col items-center gap-1`}
       >
         <h4 className="font-semibold text-xl">Sigle de la position</h4>
         <div className="flex items-center">
@@ -42,7 +42,7 @@ export function Sigle({ display, type }) {
   } else {
     return (
       <section
-        className={`${display} flex-col items-center gap-1 p-4 m-5`}
+        className={`${display} flex-col items-center gap-1`}
       >
         <h4 className="font-semibold text-xl">Sigle de la position</h4>
         <div className="flex items-center">
